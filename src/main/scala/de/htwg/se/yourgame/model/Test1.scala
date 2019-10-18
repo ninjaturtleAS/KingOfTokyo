@@ -1,5 +1,7 @@
 package de.htwg.se.yourgame.model
 
-case class Test1() {
-  val mes = "Konflikt"
+class Test1 {
+  def main(args: Array[String]): Unit = {
+    println("Hey Alex")
+  }
 }
