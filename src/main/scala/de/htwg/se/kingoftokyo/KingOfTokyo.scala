@@ -1,8 +1,7 @@
-package de.htwg.se.yourgame
+package de.htwg.se.kingoftokyo
 
-import de.htwg.se.yourgame.model.Player
-import de.htwg.se.yourgame.model.GitHubTest
-import de.htwg.se.yourgame.model.Test1
+import de.htwg.se.kingoftokyo.model.Player
+import de.htwg.se.kingoftokyo.model.GitHubTest
 
 object KingOfTokyo{
   def main(args: Array[String]): Unit = {
@@ -11,7 +10,5 @@ object KingOfTokyo{
 
     val message = GitHubTest()
     println(message.message)
-    val t = Test1()
-    println(t.mes)
   }
 }

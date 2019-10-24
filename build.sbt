@@ -1,9 +1,12 @@
-name          := "htwg-scala-seed"
+
+name          := "kingoftokyo"
 organization  := "de.htwg.se"
 version       := "0.0.1"
 scalaVersion  := "2.12.4"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
+
 
 libraryDependencies += "junit" % "junit" % "4.8" % "test"
 
