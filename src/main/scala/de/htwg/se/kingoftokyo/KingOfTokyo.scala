@@ -1,14 +1,14 @@
 package de.htwg.se.kingoftokyo
 
-import de.htwg.se.kingoftokyo.model.Player
-import de.htwg.se.kingoftokyo.model.GitHubTest
+import de.htwg.se.kingoftokyo.model.{Player, Rectangle}
 
 object KingOfTokyo{
   def main(args: Array[String]): Unit = {
     val student = Player("Simon")
     println("Hello, " + student.name)
 
-    val message = GitHubTest()
-    println(message.message)
+    val rect = Rectangle(3,5)
+    println(rect.area)
+
   }
 }
