@@ -9,12 +9,12 @@ import Matchers._
 @RunWith(classOf[JUnitRunner])
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
-    val player = Player("Your Name")
+    val player = Player("Alex")
     "have a name"  in {
-      player.name should be("Your Name")
+      player.name should be("Alex")
     }
     "have a nice String representation" in {
-      player.toString should be("Your Name")
+      player.toString should be("Alex")
     }
   }}
 
