@@ -9,6 +9,8 @@ object KingOfTokyo{
 
     val rect = Rectangle(3,5)
     println(rect.area)
+    val rect2 = Rectangle()
+    println(rect2.area)
 
   }
 }
