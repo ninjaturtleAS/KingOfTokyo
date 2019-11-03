@@ -5,7 +5,8 @@ import de.htwg.se.kingoftokyo.model.{Player, Rectangle}
 object KingOfTokyo{
   def main(args: Array[String]): Unit = {
     val student = Player("Simon")
-    println("Hello, " + student.name)
+
+    println("Hello Student , " + student.name)
 
     val rect = Rectangle(3,5)
     println(rect.area)

@@ -1,12 +1,9 @@
 package de.htwg.se.kingoftokyo.model
 
 import org.scalatest._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import Matchers._
 
 
-@RunWith(classOf[JUnitRunner])
 class RectangleSpec extends WordSpec with Matchers {
   "A Rectangle" when {
     "not built with no Arguments " should {
