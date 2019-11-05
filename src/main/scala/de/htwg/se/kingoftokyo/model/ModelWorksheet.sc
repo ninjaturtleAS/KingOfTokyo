@@ -12,6 +12,26 @@ case class Player(name:String, heart:Int = 10, stars:Int = 0, energy:Int = 0) {
 
   def info = f"$name%s, Heart:  $heart%d, Stars:  $stars%d, Energy: $energy%d"
 
+  def evaluateDies(result: IndexedSeq[Int], tokyo: Player): Player = {
+    var help1 = 0
+    var help2 = 0
+    var help3 = 0
+    for (x <- result) {
+      x match {
+        case 1 => help1 += 1
+        case 2 => help2 += 1
+        case 3 => help3 += 1
+        case 4 => this.gainEnergy(1)
+        case 5 => this.gainHeart(1)
+        case 6 => tokyo.looseHeart(1)
+      }
+      if (help1 >= 3) this.gainStar(help1 - 2)
+      if (help2 >= 3) this.gainStar(help2 - 1)
+      if (help3 >= 3) this.gainStar(help3)
+    }
+    this
+  }
+
 }
 
 val king = Player("King")
@@ -78,4 +98,11 @@ val newfaces = rollIt(choice)
 
 
 
+
+cyberKitty.evaluateDies(kept, king)
+
+val king1 = cyberKitty.evaluateDies(kept, king)
+
+
+king
 
