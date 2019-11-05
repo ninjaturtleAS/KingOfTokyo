@@ -52,13 +52,24 @@ def keep(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
     chosen += faces(x - 1)
   }
   val chosenFaces = chosen.toIndexedSeq
-  return chosenFaces
+  chosenFaces
+}
+
+//Evt einfach mit keep zusammenführen
+def additionalThrow(kept: IndexedSeq[Int]): IndexedSeq[Int] = {
+  var facesBuffer = new ListBuffer[Int]()
+  kept.foreach(facesBuffer += _)
+  for (x <- 0 to 5 - kept.size) { facesBuffer += die.roll }
+  val newFaces = facesBuffer.toIndexedSeq
+  newFaces
 }
 
 val faces = firstthrow()
 val choice = IndexedSeq(1, 2, 5)
 
 val kept = keep(choice, faces)
+
+val newfaces = additionalThrow(kept)
 
 
 
