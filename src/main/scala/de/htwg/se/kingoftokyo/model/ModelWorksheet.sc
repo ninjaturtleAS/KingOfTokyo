@@ -17,8 +17,13 @@ case class Player(name:String, heart:Int = 10, stars:Int = 0, energy:Int = 0) {
 val king = Player("King")
 val cyberKitty = Player("Cyber Kitty")
 val ailionoid = Player("Ailionoid")
+
+
 val gigasaurus = Player("Gigasaurus")
-val info = gigasaurus.info
+gigasaurus.gainEnergy(2)
+gigasaurus.info
+
+
 
 import java.util.Random
 import java.security.SecureRandom
@@ -40,5 +45,4 @@ val roll1 = die1.roll
 case class Turn (player: Player) {
 
 }
-
 
