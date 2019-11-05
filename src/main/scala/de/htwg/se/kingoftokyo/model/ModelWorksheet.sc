@@ -41,7 +41,7 @@ val roll = die.roll
 
 
 
-//Evt unnoetig da rollIt reicht
+
 def firstthrow(): IndexedSeq[Int] = {
   val faces = IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
   faces
@@ -52,11 +52,15 @@ def keep(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
   for (x <- choice) {
     chosen += faces(x - 1)
   }
-  val chosenFaces = chosen.toIndexedSeq
-  chosenFaces
+  val kept = chosen.toIndexedSeq
+  val newFacesBuffer = new ListBuffer[Int]()
+  kept.foreach(newFacesBuffer += _)
+  for (x <- 0 to 5 - kept.size) { newFacesBuffer += die.roll }
+  val newFaces = newFacesBuffer.toIndexedSeq
+  newFaces
 }
 
-//Evt einfach mit keep zusammenführen
+//Unnoetig
 def rollIt(kept: IndexedSeq[Int]): IndexedSeq[Int] = {
   var facesBuffer = new ListBuffer[Int]()
   kept.foreach(facesBuffer += _)
@@ -66,11 +70,11 @@ def rollIt(kept: IndexedSeq[Int]): IndexedSeq[Int] = {
 }
 
 val faces = firstthrow()
-val choice = IndexedSeq()
+val choice = IndexedSeq(2, 4)
 
 val kept = keep(choice, faces)
 
-val newfaces = rollIt(kept)
+val newfaces = rollIt(choice)
 
 
 
