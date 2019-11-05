@@ -23,6 +23,8 @@ val info = gigasaurus.info
 import java.util.Random
 import java.security.SecureRandom
 
+import scala.collection.mutable.ListBuffer
+
 case class Die (sides:Int)(implicit random:Random) {
   def roll:Int = random.nextInt(sides) + 1
 }
@@ -33,12 +35,31 @@ object SecureDie {
 
 import SecureDie.random
 
-val die1 = Die(6)
+val die = Die(6)
 
-val roll1 = die1.roll
+val roll = die.roll
 
-case class Turn (player: Player) {
 
+
+def firstthrow(): IndexedSeq[Int] = {
+  val faces = IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
+  return faces
 }
+
+def keep(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
+  var chosen = new ListBuffer[Int]()
+  for (x <- choice) {
+    chosen += faces(x - 1)
+  }
+  val chosenFaces = chosen.toIndexedSeq
+  return chosenFaces
+}
+
+val faces = firstthrow()
+val choice = IndexedSeq(1, 2, 5)
+
+val kept = keep(choice, faces)
+
+
 
 
