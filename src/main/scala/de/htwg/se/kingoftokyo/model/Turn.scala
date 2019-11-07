@@ -34,6 +34,19 @@ class Turn (var player: Player,var tokyo: Player) {
     newFacesBuffer.toIndexedSeq
   }
 
+  def printThrow(faces: IndexedSeq[Int]): String = {
+    var string = ""
+    for (x <- faces) {
+      x match {
+        case 1 | 2 | 3 => string += f"$x%d "
+        case 4 => string += "Energy "
+        case 5 => string += "Heart "
+        case 6 => string += "Attack "
+      }
+    }
+    string
+  }
+
   def evaluateDies(result: IndexedSeq[Int]): IndexedSeq[Int] = {
     var help1 = 0
     var help2 = 0
