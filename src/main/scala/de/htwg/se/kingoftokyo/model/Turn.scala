@@ -18,10 +18,10 @@ class Turn (var player: Player) {
   implicit val random = new SecureRandom
   val initDie = 6
   val die = Die(initDie)
-
   def throwOne(): IndexedSeq[Int] = {
     IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
   }
+
   def keepThrow(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
     var chosen = new ListBuffer[Int]()
     for (x <- choice) {
@@ -65,8 +65,8 @@ class Turn (var player: Player) {
       }
     }
     if (help1 >=3) res(3) = res(3) + (help1 - 2)
-    if (help2 >= 3) res(3) = res(3) + (help1 - 1)
-    if (help3 >= 3) res(3) = res(3) + (help1)
+    if (help2 >= 3) res(3) = res(3) + (help2 - 1)
+    if (help3 >= 3) res(3) = res(3) + (help3)
     res.toIndexedSeq
   }
 
@@ -77,8 +77,11 @@ class Turn (var player: Player) {
     player = player.gainStar(result(3))
     player
   }
-//  def getAttack(int: Int): Player = {
-//    tokyo = tokyo.looseHeart(int)
-//    tokyo
-//  }
+  /*
+  def getAttack(int: Int): Player = {
+    tokyo = tokyo.looseHeart(int)
+    tokyo
+  }
+  */
+
 }

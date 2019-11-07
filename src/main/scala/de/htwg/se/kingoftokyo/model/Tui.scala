@@ -33,16 +33,21 @@ class Tui {
     printf(firstTurn.printThrow(firstThrow) + "\n")
     printf("make choice: e.g. 1 3 4 or type all\n")
     val line = readLine()
-    val finalTrow = if (line.equals("all")) {
+    var finalTrow = if (line.equals("all")) {
       firstThrow
     } else {
       val choice = line.split(" ")
       val intChoice = choice.map(_.toInt)
-      //println(intChoice.toList)
       val secondThrow = firstTurn.keepThrow(intChoice, firstThrow)
       printf(firstTurn.printThrow(secondThrow) + "\n")
       secondThrow
     }
-    println(finalTrow.toList)
+    printf(finalTrow.toList + "\n")
+
+    val results = firstTurn.evaluateDies(finalTrow)
+    player1 = firstTurn.getGood(results)
+
+    printf(player1.info + "\n")
+
   }
 }
