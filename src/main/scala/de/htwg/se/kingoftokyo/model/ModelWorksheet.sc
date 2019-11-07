@@ -1,6 +1,15 @@
 
 case class Player(name:String,var heart:Int, var stars:Int ,var energy:Int) {
 
+  var handCards = IndexedSeq[Card]()
+
+  def addCard(card: Card): IndexedSeq[Card] = {
+    var buffer = handCards.toBuffer
+    buffer += card
+    val newHand = buffer.toIndexedSeq
+    newHand
+  }
+
   def gainHeart(gain: Int): Player = copy(name, heart + gain, stars, energy)
   def looseHeart(lost: Int): Player = copy(name, heart - lost, stars, energy)
 
@@ -10,14 +19,20 @@ case class Player(name:String,var heart:Int, var stars:Int ,var energy:Int) {
   def gainEnergy(gain: Int): Player =  copy(name, heart, stars, energy + gain)
   def spendEnergy(spend: Int): Player = copy(name, heart, stars, energy - spend)
 
-  def info = f"$name%s, Heart:  $heart%d, Stars:  $stars%d, Energy: $energy%d"
+  def info : String = f"$name%s, Heart:  $heart%d, Stars:  $stars%d, Energy: $energy%d"
 
 }
 
-var king = Player("King", 10, 0, 0)
-var cyberKitty = Player("Cyber Kitty", 10, 0, 0)
-var ailionoid = Player("Ailionoid", 10, 0, 0)
-var gigasaurus = Player("Gigasaurus", 10, 0, 0)
+case class Card(name: String, price: Int) {
+
+}
+
+val lifeInit = 10
+var king = Player("King", lifeInit, 0, 0)
+var cyberKitty = Player("Cyber Kitty", lifeInit, 0, 0)
+var ailionoid = Player("Ailionoid", lifeInit, 0, 0)
+var gigasaurus = Player("Gigasaurus", lifeInit, 0, 0)
+
 var info = gigasaurus.info
 
 king = king.looseHeart(1)
@@ -44,12 +59,12 @@ val roll = die.roll
 
 
 
-def firstthrow(): IndexedSeq[Int] = {
+def throwOne(): IndexedSeq[Int] = {
   val faces = IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
   faces
 }
 
-def keep(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
+def keepThrow(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
   var chosen = new ListBuffer[Int]()
   for (x <- choice) {
     chosen += faces(x - 1)
@@ -71,10 +86,10 @@ def rollIt(kept: IndexedSeq[Int]): IndexedSeq[Int] = {
   newFaces
 }
 
-val faces = firstthrow()
+val faces = throwOne()
 val choice = IndexedSeq(2, 4)
 
-val kept = keep(choice, faces)
+val kept = keepThrow(choice, faces)
 
 //val newfaces = rollIt(choice)
 
@@ -84,16 +99,17 @@ def evaluateDies(result: IndexedSeq[Int]): IndexedSeq[Int] = {
   var help1 = 0
   var help2 = 0
   var help3 = 0
+  val one = 1
   var res =  ArrayBuffer[Int](0,0,0,0)
 
     for (x <- result) {
       x match {
-        case 1 => help1 += 1
-        case 2 => help2 += 1
-        case 3 => help3 += 1
-        case 4 => res(0) = res(0) + 1
-        case 5 => res(1) = res(1) + 1
-        case 6 => res(2) += 1
+        case 1 => help1 += one
+        case 2 => help2 += one
+        case 3 => help3 += one
+        case 4 => res(0) = res(0) + one
+        case 5 => res(1) = res(1) + one
+        case 6 => res(2) += one
       }
     }
     if (help1 >= 3) res(3) = res(3) + (help1 - 2)
