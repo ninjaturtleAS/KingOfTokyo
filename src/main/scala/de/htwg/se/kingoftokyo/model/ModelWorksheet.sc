@@ -1,14 +1,14 @@
 
 case class Player(name:String,var heart:Int, var stars:Int ,var energy:Int) {
 
-  var handCards = IndexedSeq[Card]()
+//  var handCards = IndexedSeq[Card]()
 
-  def addCard(card: Card): IndexedSeq[Card] = {
-    var buffer = handCards.toBuffer
-    buffer += card
-    val newHand = buffer.toIndexedSeq
-    newHand
-  }
+//  def addCard(card: Card): IndexedSeq[Card] = {
+//    var buffer = handCards.toBuffer
+//    buffer += card
+//    val newHand = buffer.toIndexedSeq
+//    newHand
+//  }
 
   def gainHeart(gain: Int): Player = copy(name, heart + gain, stars, energy)
   def looseHeart(lost: Int): Player = copy(name, heart - lost, stars, energy)
@@ -23,9 +23,9 @@ case class Player(name:String,var heart:Int, var stars:Int ,var energy:Int) {
 
 }
 
-case class Card(name: String, price: Int) {
-
-}
+//case class Card(name: String, price: Int) {
+//
+//}
 
 val lifeInit = 10
 var king = Player("King", lifeInit, 0, 0)

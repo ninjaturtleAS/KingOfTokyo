@@ -1,6 +1,6 @@
 package de.htwg.se.kingoftokyo
 
-import de.htwg.se.kingoftokyo.model.{Player, Rectangle}
+import de.htwg.se.kingoftokyo.model.{Player, Rectangle, Tui}
 
 object KingOfTokyo{
   def main(args: Array[String]): Unit = {
@@ -12,6 +12,9 @@ object KingOfTokyo{
     println(rect.area)
     val rect2 = Rectangle()
     println(rect2.area)
+
+    val tui = new Tui
+    tui.startTui
 
   }
 }
