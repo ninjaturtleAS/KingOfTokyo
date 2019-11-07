@@ -3,6 +3,7 @@ import util.control.Breaks._
 
 class Tui {
   def startTui {
+    var player1 = new Player("");
     var rightChoice = true
     while (rightChoice) {
       println("Select your Monster!")
@@ -10,7 +11,6 @@ class Tui {
       val scanner = new java.util.Scanner(System.in)
       if (scanner.hasNextInt) {
         val choice = scanner.nextInt()
-        var player1 = new Player("");
         choice match {
           case 1 => player1 = new Player("King"); rightChoice = false
           case 2 => player1 = new Player("Cyber Kitty"); rightChoice = false
@@ -20,8 +20,9 @@ class Tui {
         }
       } else {
         println("wrong input")
+        scanner.reset()
       }
     }
-    println("Type die to die")
+    println("Welcome " + player1.name + " die to die")
   }
 }
