@@ -14,14 +14,14 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 6 = Attack
  */
 
-class Turn (var player: Player,var tokyo: Player) {
+class Turn (var player: Player) {
   implicit val random = new SecureRandom
   val initDie = 6
   val die = Die(initDie)
+
   def throwOne(): IndexedSeq[Int] = {
     IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
   }
-
   def keepThrow(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
     var chosen = new ListBuffer[Int]()
     for (x <- choice) {
@@ -77,9 +77,8 @@ class Turn (var player: Player,var tokyo: Player) {
     player = player.gainStar(result(3))
     player
   }
-  def getAttack(int: Int): Player = {
-    tokyo = tokyo.looseHeart(int)
-    tokyo
-  }
-
+//  def getAttack(int: Int): Player = {
+//    tokyo = tokyo.looseHeart(int)
+//    tokyo
+//  }
 }

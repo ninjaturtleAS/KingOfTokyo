@@ -1,5 +1,6 @@
 package de.htwg.se.kingoftokyo.model
-import util.control.Breaks._
+
+import java.util.Scanner
 
 class Tui {
   def startTui {
@@ -8,7 +9,7 @@ class Tui {
     while (rightChoice) {
       printf("Select your Monster!\n")
       printf("Type in 1 for King, 2 for Cyber Kitty, 3 for Ailionoid or 4 for Gigasaurus\n")
-      val scanner = new java.util.Scanner(System.in)
+      val scanner = new Scanner(System.in)
       if (scanner.hasNextInt) {
         val choice = scanner.nextInt()
         choice match {
@@ -23,6 +24,11 @@ class Tui {
       }
     }
     printf("You've chosen " + player1.info + "\n")
-    printf("Welcome " + player1.name + " die to die\n")
+    printf("Welcome " + player1.name + " type anything to die\n")
+    val scanner = new Scanner(System.in)
+    scanner.next()
+    val firstTurn = new Turn(player1)
+    val indexedSeq = firstTurn.throwOne()
+    println(indexedSeq)
   }
 }
