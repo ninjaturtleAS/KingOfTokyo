@@ -1,6 +1,7 @@
 package de.htwg.se.kingoftokyo.model
 
 import java.util.Scanner
+import scala.io.StdIn._
 
 class Tui {
   def startTui {
@@ -28,13 +29,20 @@ class Tui {
     val scanner = new Scanner(System.in)
     scanner.next()
     val firstTurn = new Turn(player1)
-    val indexedSeq = firstTurn.throwOne()
-    printf(firstTurn.printThrow(indexedSeq) + "\n")
-    printf("make choice: e.g. 1 3 4")
-    val line = scanner.nextLine()
-    val choice = line.split(" ")
-    val intChoice = choice.map(_.toInt)
-    val secondThrow = firstTurn.keepThrow(intChoice, indexedSeq)
-    printf(firstTurn.printThrow(secondThrow) + "\n")
+    val firstThrow = firstTurn.throwOne()
+    printf(firstTurn.printThrow(firstThrow) + "\n")
+    printf("make choice: e.g. 1 3 4 or type all\n")
+    val line = readLine()
+    val finalTrow = if (line.equals("all")) {
+      firstThrow
+    } else {
+      val choice = line.split(" ")
+      val intChoice = choice.map(_.toInt)
+      //println(intChoice.toList)
+      val secondThrow = firstTurn.keepThrow(intChoice, firstThrow)
+      printf(firstTurn.printThrow(secondThrow) + "\n")
+      secondThrow
+    }
+    println(finalTrow.toList)
   }
 }
