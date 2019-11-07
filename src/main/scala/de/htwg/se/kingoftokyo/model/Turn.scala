@@ -5,6 +5,15 @@ import java.security.SecureRandom
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
+/*
+1 = 1
+2 = 2
+3 = 3
+4 = Energy
+5 = Heart
+6 = Attack
+ */
+
 class Turn {
   implicit val random = new SecureRandom
   val initDie = 6
@@ -48,11 +57,4 @@ class Turn {
     res.toIndexedSeq
   }
 
-  def evaluateAttack(faces: IndexedSeq[Int]): Int = {
-    var attacks = 0
-    for (x <- faces) {
-      if(x == 6) attacks += 1
-    }
-    attacks
-  }
 }

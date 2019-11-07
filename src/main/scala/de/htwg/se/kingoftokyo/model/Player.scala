@@ -60,6 +60,17 @@ case class Player(name:String, var heart: Int = KingOfTokyo.initHeart, var stars
 
    def info : String = f"$name%s, Heart: $heart%d, Stars: $stars%d, Energy: $energy%d"
 
+   def getGood(result: IndexedSeq[Int]): Player = {
+      this = this.gainEnergy(result(0))
+      this = this.gainHeart(result(1))
+      this = this.gainStar(result(3))
+      this
+   }
+   def getAttack(int: Int): Player = {
+      this = this.looseHeart(int)
+      this
+   }
+
 }
 
 

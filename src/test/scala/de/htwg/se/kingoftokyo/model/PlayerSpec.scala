@@ -103,4 +103,19 @@ class PlayerSpec extends WordSpec with Matchers {
       }
     }
   }
+  //Energy, Heart, Attack, Stars
+  val testResult = IndexedSeq(one, one ,one, 2)
+  val attackIndex = 2
+
+  "Test Result evaluation, Player" when {
+    "mid. Game" should{
+      val player = Player("Alex", testInit, testInit, testInit)
+      "Assuming Player's turn, gain: 1 Star, 1 Heart and 2 Stars" in {
+        player.getGood(testResult) should be(Player("Alex", testInit, testInit + 1, testInit + 2))
+      }
+      "Assuming Player gets attacked, loose 1 Heart" in {
+        player.getAttack(testResult(attackIndex)) should be("Alex", testInit - 1, testInit, testInit)
+      }
+    }
+  }
 }
