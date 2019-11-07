@@ -3,7 +3,7 @@ import util.control.Breaks._
 
 class Tui {
   def startTui {
-    var player1 = new Player("");
+    var player1 = Player("")
     var rightChoice = true
     while (rightChoice) {
       println("Select your Monster!")
@@ -12,16 +12,17 @@ class Tui {
       if (scanner.hasNextInt) {
         val choice = scanner.nextInt()
         choice match {
-          case 1 => player1 = new Player("King"); rightChoice = false
-          case 2 => player1 = new Player("Cyber Kitty"); rightChoice = false
-          case 3 => player1 = new Player("Ailionoid"); rightChoice = false
-          case 4 => player1 = new Player("Gigasaurus"); rightChoice = false
-          case _ => println("wrong Number, try again")
+          case 1 => {rightChoice = false; player1 = Player("King")}
+          case 2 => {rightChoice = false; player1 = Player("Cyber Kitty")}
+          case 3 => {rightChoice = false; player1 = Player("Ailionoid")}
+          case 4 => {rightChoice = false; player1 = Player("Gigasaurus")}
+          case _ => {println("wrong Number, try again")}
         }
       } else {
         println("wrong input")
       }
     }
+    println("You've chosen " + player1.info)
     println("Welcome " + player1.name + " die to die")
   }
 }
