@@ -2,6 +2,7 @@ package de.htwg.se.kingoftokyo.model
 
 import java.security.SecureRandom
 
+import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 class Turn {
@@ -41,17 +42,17 @@ class Turn {
         case 6 => res(2) += one
       }
     }
-    if (help1 >= 3) res(3) = res(3) + (help1 - 2)
+    if (help1 >=3) res(3) = res(3) + (help1 - 2)
     if (help2 >= 3) res(3) = res(3) + (help1 - 1)
     if (help3 >= 3) res(3) = res(3) + (help1)
     res.toIndexedSeq
   }
 
   def evaluateAttack(faces: IndexedSeq[Int]): Int = {
-    var help = 0
+    var attacks = 0
     for (x <- faces) {
-      if(x == 6) help += 1
+      if(x == 6) attacks += 1
     }
-    help
+    attacks
   }
 }
