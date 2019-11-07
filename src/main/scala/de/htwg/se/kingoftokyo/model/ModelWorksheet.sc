@@ -33,6 +33,8 @@ var cyberKitty = Player("Cyber Kitty", lifeInit, 0, 0)
 var ailionoid = Player("Ailionoid", lifeInit, 0, 0)
 var gigasaurus = Player("Gigasaurus", lifeInit, 0, 0)
 
+val initDie = 6
+
 var info = gigasaurus.info
 
 king = king.looseHeart(1)
@@ -52,7 +54,7 @@ object SecureDie {
 
 import SecureDie.random
 
-val die = Die(6)
+val die = Die {initDie}
 
 val roll = die.roll
 

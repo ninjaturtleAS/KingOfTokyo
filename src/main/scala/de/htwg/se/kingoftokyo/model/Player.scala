@@ -27,3 +27,4 @@ case class Player(name:String,var heart:Int = 10, var stars:Int = 0 ,var energy:
 
 }
 
+
