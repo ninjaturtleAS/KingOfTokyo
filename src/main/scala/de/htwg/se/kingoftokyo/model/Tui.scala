@@ -12,11 +12,11 @@ class Tui {
       if (scanner.hasNextInt) {
         val choice = scanner.nextInt()
         choice match {
-          case 1 => {rightChoice = false; player1 = Player("King")}
-          case 2 => {rightChoice = false; player1 = Player("Cyber Kitty")}
-          case 3 => {rightChoice = false; player1 = Player("Ailionoid")}
-          case 4 => {rightChoice = false; player1 = Player("Gigasaurus")}
-          case _ => {println("wrong Number, try again")}
+          case 1 => rightChoice = false; player1 = Player("King")
+          case 2 => rightChoice = false; player1 = Player("Cyber Kitty")
+          case 3 => rightChoice = false; player1 = Player("Ailionoid")
+          case 4 => rightChoice = false; player1 = Player("Gigasaurus")
+          case _ => println("wrong Number, try again")
         }
       } else {
         println("wrong input")
