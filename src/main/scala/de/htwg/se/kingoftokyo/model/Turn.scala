@@ -14,7 +14,7 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 6 = Attack
  */
 
-class Turn {
+class Turn (var player: Player,var tokyo: Player) {
   implicit val random = new SecureRandom
   val initDie = 6
   val die = Die(initDie)
@@ -55,6 +55,18 @@ class Turn {
     if (help2 >= 3) res(3) = res(3) + (help1 - 1)
     if (help3 >= 3) res(3) = res(3) + (help1)
     res.toIndexedSeq
+  }
+
+
+  def getGood(result: IndexedSeq[Int]): Player = {
+    player = player.gainEnergy(result(0))
+    player = player.gainHeart(result(1))
+    player = player.gainStar(result(3))
+    player
+  }
+  def getAttack(int: Int): Player = {
+    tokyo = tokyo.looseHeart(int)
+    tokyo
   }
 
 }
