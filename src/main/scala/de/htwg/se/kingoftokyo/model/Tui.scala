@@ -29,6 +29,12 @@ class Tui {
     scanner.next()
     val firstTurn = new Turn(player1)
     val indexedSeq = firstTurn.throwOne()
-    println(indexedSeq)
+    printf(firstTurn.printThrow(indexedSeq) + "\n")
+    printf("make choice: e.g. 1 3 4")
+    val line = scanner.nextLine()
+    val choice = line.split(" ")
+    val intChoice = choice.map(_.toInt)
+    val secondThrow = firstTurn.keepThrow(intChoice, indexedSeq)
+    printf(firstTurn.printThrow(secondThrow) + "\n")
   }
 }
