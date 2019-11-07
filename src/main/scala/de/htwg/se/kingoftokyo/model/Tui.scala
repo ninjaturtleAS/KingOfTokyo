@@ -20,7 +20,6 @@ class Tui {
         }
       } else {
         println("wrong input")
-        scanner.reset()
       }
     }
     println("Welcome " + player1.name + " die to die")
