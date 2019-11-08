@@ -33,7 +33,7 @@ class Tui {
     printf(firstTurn.printThrow(firstThrow) + "\n")
     printf("make choice: e.g. 1 3 4 or type all\n")
     val line = readLine()
-    var finalTrow = if (line.equals("all")) {
+    val finalTrow = if (line.equals("all")) {
       firstThrow
     } else {
       val choice = line.split(" ")

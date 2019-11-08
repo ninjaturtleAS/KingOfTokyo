@@ -7,6 +7,7 @@ case class Player(name:String, var heart: Int = KingOfTokyo.initHeart, var stars
    val maxHeart = 10
    val zero = 0
    val maxStar = 20
+   val startString = "Type in 1 for King, 2 for Cyber Kitty, 3 for Ailionoid or 4 for Gigasaurus\n"
 
    //  var handCards = IndexedSeq[Card]()
 
