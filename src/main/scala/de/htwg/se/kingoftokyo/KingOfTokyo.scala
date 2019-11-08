@@ -1,6 +1,6 @@
 package de.htwg.se.kingoftokyo
 
-import de.htwg.se.kingoftokyo.model.{Player, Tui, Tui1}
+import de.htwg.se.kingoftokyo.model.{Player, Tui}
 
 import scala.io.StdIn._
 

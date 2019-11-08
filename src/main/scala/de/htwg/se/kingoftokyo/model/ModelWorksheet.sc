@@ -149,6 +149,7 @@ case class Turn(var player: Player, var tokyo: Player) {
     player
   }
   def getAttack(int: Int): Player = {
+    copy(tokyo.looseHeart(int))
     tokyo = tokyo.looseHeart(int)
     tokyo
   }
