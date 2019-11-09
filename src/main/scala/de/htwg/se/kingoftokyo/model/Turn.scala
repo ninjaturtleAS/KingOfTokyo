@@ -15,11 +15,12 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
  */
 
 class Turn (var player: Player) {
-  implicit val random = new SecureRandom
+  //implicit val random = new SecureRandom
   val initDie = 6
-  val die = Die(initDie)
+  val die = Die(initDie) (new SecureRandom())
   def throwOne(): IndexedSeq[Int] = {
-    IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
+    //IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
+    Throw(6).throwDies()
   }
 
   def keepThrow(choice: IndexedSeq[Int], faces: IndexedSeq[Int]): IndexedSeq[Int] = {
@@ -51,22 +52,21 @@ class Turn (var player: Player) {
     var help1 = 0
     var help2 = 0
     var help3 = 0
-    val one = 1
     val res =  ArrayBuffer[Int](0,0,0,0)
 
     for (x <- result) {
       x match {
-        case 1 => help1 += one
-        case 2 => help2 += one
-        case 3 => help3 += one
-        case 4 => res(0) = res(0) + one
-        case 5 => res(1) = res(1) + one
-        case 6 => res(2) += one
+        case 1 => help1 += 1
+        case 2 => help2 += 1
+        case 3 => help3 += 1
+        case 4 => res(0) += 1
+        case 5 => res(1) += 1
+        case 6 => res(2) += 1
       }
     }
-    if (help1 >=3) res(3) = res(3) + (help1 - 2)
-    if (help2 >= 3) res(3) = res(3) + (help2 - 1)
-    if (help3 >= 3) res(3) = res(3) + (help3)
+    if (help1 >= 3) res(3) += (help1 - 2)
+    if (help2 >= 3) res(3) += (help2 - 1)
+    if (help3 >= 3) res(3) += help3
     res.toIndexedSeq
   }
 
