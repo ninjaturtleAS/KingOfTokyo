@@ -118,10 +118,6 @@ def strHelper (i: Int): String = {
   }
 }
 
-val p1 = PlayersCreator("Simon,Martin,Julia,Josef,Maria")
-//val p3 = new Players()
-//val p2 = p1.getRandomPlayers(p1.toStringList, new Players())
-
 case class RollResult(result: Vector[Int]) {
 
   def keepThrow(selection: Vector[Int]): RollResult = {
