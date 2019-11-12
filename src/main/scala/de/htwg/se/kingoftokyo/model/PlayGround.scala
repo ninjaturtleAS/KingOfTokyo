@@ -4,7 +4,7 @@ import de.htwg.se.kingoftokyo.model.State._
 
 case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMessage, status: State, rollResult: RollResult, kingOfTokyo: Int) {
 
-  def setStatusMessage(message:String):PlayGround = new PlayGround(this.players, this.lapNr, new StatusMessage(message), this.status, this.rollResult, this.kingOfTokyo)
+  def setStatusMessage(message:String):PlayGround = PlayGround(this.players, this.lapNr, new StatusMessage(message), this.status, this.rollResult, this.kingOfTokyo)
 
   def incLapNr(): PlayGround = {
     copy(this.players, this.lapNr + 1, this.statusMessage, this.status, this.rollResult, this.kingOfTokyo)
@@ -17,7 +17,7 @@ case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMes
   }
 
   def throwDies():PlayGround = {
-    val tmpRollResult = new RollResult(Throw(6).throwDies())
+    val tmpRollResult = RollResult(Throw(6).throwDies())
     copy(this.players,this.lapNr, this.statusMessage, this.status, tmpRollResult, this.kingOfTokyo)
   }
 
@@ -32,7 +32,6 @@ case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMes
   }
 
   override def toString(): String = {
-    val kotInfo = this.players.toPlayerVector(this.kingOfTokyo).info
     val kotName = this.players.toStringVector(this.kingOfTokyo)
     val retString = (f"King of Tokyo: $kotName%s\n\n")
       .concat(players.toPlayerVector.map(x => x.info.concat("\n")).toString())

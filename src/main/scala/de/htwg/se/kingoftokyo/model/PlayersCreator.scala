@@ -8,14 +8,6 @@ case class PlayersCreator(stringOfNames: String) {
   //val aNames: ArrayBuffer[String] = new ArrayBuffer[String]()
   val vNames: List[String] = stringOfNames.split(",").toList
   val numberOfPlayers: Integer = vNames.length
-  //stringOfNames.split(",").copyToBuffer(aNames)
-
-//  def getPlayers: IndexedSeq[Player] = {
-//    for {
-//      i <- 0 until numberOfPlayers
-//    } yield getRandomPlayers
-//
-//  }
 
   def toStringList: List[String] = {
     vNames

@@ -11,15 +11,6 @@ case class Player(name:String, var heart: Int = 10, var stars: Int = 0, var ener
   val zero = 0
   val maxStar = 20
 
-  //  var handCards = IndexedSeq[Card]()
-
-  //  def addCard(card: Card): IndexedSeq[Card] = {
-  //    var buffer = handCards.toBuffer
-  //    buffer += card
-  //    val newHand = buffer.toIndexedSeq
-  //    newHand
-  //  }
-
   def gainHeart(gain: Int): Player = {
     if (maxHeart < (gain + this.heart)) {
       copy(name, maxHeart, stars, energy)

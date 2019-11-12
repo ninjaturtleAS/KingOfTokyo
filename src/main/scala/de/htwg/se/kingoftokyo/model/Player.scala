@@ -1,8 +1,7 @@
 package de.htwg.se.kingoftokyo.model
 
-import de.htwg.se.kingoftokyo.KingOfTokyo
 
-case class Player(name:String, var energy: Int = 0, var heart: Int = 10, var stars: Int = 0) {
+case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var stars: Int = 0) {
 
    val maxHeart = 10
    val zero = 0
@@ -50,7 +49,6 @@ case class Player(name:String, var energy: Int = 0, var heart: Int = 10, var sta
    }
 
    def info : String = f"$name%s (Energy: $energy%d, Heart: $heart%d, Stars: $stars%d)"
-
 }
 
 

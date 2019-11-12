@@ -9,7 +9,6 @@ import scala.io.StdIn._
 
 object KingOfTokyo {
 
-//  val initHeart = 10
 //  var input: String = ""
 //  var output: String = ""
 //  var player1 = Player("")
