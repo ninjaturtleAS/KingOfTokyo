@@ -1,66 +1,54 @@
 package de.htwg.se.kingoftokyo.model
 
-import de.htwg.se.kingoftokyo.KingOfTokyo
 
-case class Player(name:String, var heart: Int = KingOfTokyo.initHeart, var stars: Int = 0, var energy: Int = 0) {
+case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var stars: Int = 0) {
 
    val maxHeart = 10
    val zero = 0
    val maxStar = 20
-   val startString = "Type in 1 for King, 2 for Cyber Kitty, 3 for Ailionoid or 4 for Gigasaurus\n"
-
-   //  var handCards = IndexedSeq[Card]()
-
-   //  def addCard(card: Card): IndexedSeq[Card] = {
-   //    var buffer = handCards.toBuffer
-   //    buffer += card
-   //    val newHand = buffer.toIndexedSeq
-   //    newHand
-   //  }
 
    def gainHeart(gain: Int): Player = {
       if (maxHeart < (gain + this.heart)) {
-         copy(name, maxHeart, stars, energy)
+         copy(name, energy, maxHeart, stars)
       } else {
-         copy(name, heart + gain, stars, energy)
+         copy(name, energy, heart + gain, stars)
       }
    }
    def looseHeart(lost: Int): Player = {
       if (zero > (heart - lost)) {
-         copy(name, zero, stars, energy)
+         copy(name, energy, zero, stars)
       } else {
-         copy(name, heart - lost, stars, energy)
+         copy(name, energy, heart - lost, stars)
       }
    }
 
    def gainStar(gain: Int): Player = {
       if (maxStar < (stars + gain)) {
-         copy(name, heart, maxStar, energy)
+         copy(name, energy, heart, maxStar)
       } else {
-         copy(name, heart, stars + gain, energy)
+         copy(name, energy, heart, stars + gain)
       }
    }
    def looseStar(lost: Int): Player = {
       if (zero > (stars - lost)) {
-         copy(name, heart, zero, energy)
+         copy(name, energy, heart, zero)
       } else {
-         copy(name, heart, stars - lost, energy)
+         copy(name, energy, heart, stars - lost)
       }
    }
 
    //Gain as much as you want
-   def gainEnergy(gain: Int): Player =  copy(name, heart, stars, energy + gain)
+   def gainEnergy(gain: Int): Player =  copy(name,  energy + gain, heart, stars)
    //Buying cards has to check if you cn afford them but if else to make sure
    def spendEnergy(spend: Int): Player = {
       if (zero >= energy -spend) {
-         copy(name, heart, stars, zero)
+         copy(name, 0, heart, stars)
       } else {
-         copy(name, heart, stars, energy - spend)
+         copy(name, energy - spend, heart, stars)
       }
    }
 
-   def info : String = f"$name%s, Heart: $heart%d, Stars: $stars%d, Energy: $energy%d"
-
+   def info : String = f"$name%s (Energy: $energy%d, Heart: $heart%d, Stars: $stars%d)"
 }
 
 
