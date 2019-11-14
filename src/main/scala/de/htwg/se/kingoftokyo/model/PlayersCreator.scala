@@ -10,6 +10,7 @@ case class PlayersCreator(stringOfNames: String) {
   def toStringList: List[String] = {
     vNames
   }
+
   def getRandomPlayers(names: List[String], players: Players): Players = {
     //val rPlayerNames: Vector[String] = names -- players.toStringVector
     val rPlayerNames: List[String] = names.diff(players.toStringVector)
@@ -19,6 +20,7 @@ case class PlayersCreator(stringOfNames: String) {
     }
     else
     {
+      // use Die Class to randomize players order
       val random = Die(rPlayerNames.length)(new SecureRandom()).roll - 1
       val player = Player(rPlayerNames(random))
       getRandomPlayers(vNames, players.addPlayer(player))

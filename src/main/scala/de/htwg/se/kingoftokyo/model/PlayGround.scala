@@ -68,7 +68,7 @@ case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMes
 
   def getMessageFromStatus: String = {
     this.status match {
-      case WaitForPlayerNames => "Bitte Spielernamen eingeben"
+      case WaitForPlayerNames => "Bitte Spielernamen kommagetrennt eingeben"
       case WaitFor1stThrow|WaitFor2ndThrow => "Ihr Auswahl"
       case ThrowComplete => "Wurf wird ausgewertet"
       case WaitForAttack => "Wen wollen Sie angreifen?"

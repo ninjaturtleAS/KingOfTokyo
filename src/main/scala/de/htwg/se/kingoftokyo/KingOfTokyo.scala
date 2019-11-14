@@ -17,7 +17,7 @@ object KingOfTokyo {
 //    val tui = new Tui
 //    tui.startTui
 //  }
-  val controller = new Controller(PlayGround(new Players(),0, new StatusMessageOld("Bitte Spielernamen eingeben"), WaitForPlayerNames, RollResult(Vector.empty)/*RollResult(Throw(6).throwDies())*/, 0))
+  val controller = new Controller(PlayGround(new Players(),0, new StatusMessageOld("kann weg"), WaitForPlayerNames, RollResult(Vector.empty), 0))
   val tui = new Tui(controller)
   controller.notifyObservers
 
