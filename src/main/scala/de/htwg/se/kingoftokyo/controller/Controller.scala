@@ -9,27 +9,47 @@ class Controller (var playGround: PlayGround) extends Observable {
   }
 
   def createPlayers(playerNames: String):PlayGround = {
-    val pg = playGround.createPlayerInRandomOrder(playerNames)
+    playGround = playGround.createPlayerInRandomOrder(playerNames)
+      .throwDies()
     notifyObservers
-    pg
+    playGround
+  }
+
+  def evaluateThrow(): PlayGround = {
+    playGround = playGround.getGood(playGround.rollResult)
+    notifyObservers
+    playGround
+  }
+
+  def completeThrow(): PlayGround = {
+    playGround = playGround.completeThrow()
+    notifyObservers
+    playGround
+  }
+
+  def attack(attackedPlayers: String) = {
+    playGround = playGround.attack(attackedPlayers)
+    notifyObservers
+    playGround
   }
 
   def incLapNr: PlayGround = {
-    val pg = playGround.incLapNr()
+    playGround = playGround.incLapNr()
     notifyObservers
-    pg
-  }
-
-  def startGame:PlayGround = {
-    val pg = playGround.setStatusMessage("Bitte Namen der Spieler kommagetrennt eingeben")
-    notifyObservers
-    pg
+    playGround
   }
 
   def throwDies():PlayGround = {
-    val pg = playGround.throwDies()
+    playGround = playGround.throwDies()
     notifyObservers
-    pg
+    playGround
+  }
+
+  def filterThrowResult(filter: String):PlayGround = {
+    playGround = playGround.filterThrowResult(filter)
+      .throwDies()
+    notifyObservers
+    playGround
   }
 
   def playGroundToString(): String = {
