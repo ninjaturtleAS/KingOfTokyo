@@ -24,9 +24,6 @@ case class Player(name:String,var heart:Int, var stars:Int ,var energy:Int) {
 }
 
 
-val strings = ("1", "2")
-val ints = (for (x <- strings) {x.toInt}).toIndexedSeq
-
 //case class Card(name: String, price: Int) {
 //
 //}

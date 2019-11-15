@@ -16,7 +16,7 @@ class PlayersCreaterSpec extends WordSpec with Matchers  {
         strList should be(List("Alex", "Simon"))
       }
       "have a String of Names" in {
-        pc.stringOfNames should be(List("Alex,Simon"))
+        pc.stringOfNames should be ("Alex,Simon")
       }
       "have a length" in {
         pc.numberOfPlayers should be(2)
@@ -24,7 +24,7 @@ class PlayersCreaterSpec extends WordSpec with Matchers  {
       "give random Players" in {
         pc.getRandomPlayers(strList).toStringVector should contain allElementsOf Vector("Alex", "Simon")
       }
-      "give random Players" in {
+      "give also random Players" in {
         pc.getRandomPlayers(strList, new Players()).toStringVector should contain allElementsOf Vector("Alex", "Simon")
       }
     }
