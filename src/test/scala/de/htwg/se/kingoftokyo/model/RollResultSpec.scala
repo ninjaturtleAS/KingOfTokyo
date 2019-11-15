@@ -9,8 +9,8 @@ import Matchers._
 class RollResultSpec extends WordSpec with Matchers {
 
   val initVector = Vector(1, 2, 3, 4, 5, 6)
-  val testSelect = Vector(1, 2)
-  val testString = "1 2"
+  val testSelect = Vector(0, 1)
+  val testString = "0 1"
 
   "A throw" when {
     "initialized wtih 6" should {
@@ -22,12 +22,12 @@ class RollResultSpec extends WordSpec with Matchers {
 
       //keep throw
       "select 1, 2" in {
-        testThrow.keepThrow(testSelect) should be(Vector(1, 2))
+        testThrow.keepThrow(testSelect) should be(RollResult(Vector(1, 2)))
       }
 
       //filterThrowResult
-      "select 1, 2" in {
-        testThrow.filterThrowResult(testString) should be(Vector(1, 2))
+      "select also 1, 2" in {
+        testThrow.filterThrowResult(testString) should be(RollResult(Vector(1, 2)))
       }
 
       //mapFacesToString
@@ -49,17 +49,20 @@ class RollResultSpec extends WordSpec with Matchers {
       "print out Attack " in {
         testThrow.mapFacesToString(6) should be("Attack ")
       }
+      "print out nothing " in {
+        testThrow.mapFacesToString(7) should be("")
+      }
 
     //evaluateHeart
       "be 1" in {
         testThrow.evaluateHeart() should be(1)
       }
       //eveluateEnergy
-      "be 1" in {
+      "be 1 also" in {
         testThrow.evaluateEnergy() should be(1)
       }
       //evaluateAttack
-      "be 1" in {
+      "be 1 as well" in {
         testThrow.evaluateAttacs() should be(1)
       }
 

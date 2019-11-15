@@ -10,7 +10,7 @@ case class RollResult(result: Vector[Int]) {
   }
 
 
-  //selct what you wanna keeo out of result
+  //selct what you wanna keep out of result
   def keepThrow(selection: Vector[Int]): RollResult = {
     RollResult(for {x <- selection} yield this.result(x))
   }

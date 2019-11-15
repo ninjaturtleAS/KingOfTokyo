@@ -6,7 +6,7 @@ import org.scalatest.junit.JUnitRunner
 import Matchers._
 
 @RunWith(classOf[JUnitRunner])
-class ThrwoSpec extends WordSpec with Matchers {
+class ThrowSpec extends WordSpec with Matchers {
 
   //test throw  dice
 
