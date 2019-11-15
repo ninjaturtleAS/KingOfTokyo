@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.view
+package de.htwg.se.kingoftokyo.aview
 
 import de.htwg.se.kingoftokyo.controller.Controller
 import de.htwg.se.kingoftokyo.util.Observer

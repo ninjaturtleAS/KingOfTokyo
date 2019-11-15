@@ -2,7 +2,7 @@ package de.htwg.se.kingoftokyo
 
 import de.htwg.se.kingoftokyo.controller.Controller
 import de.htwg.se.kingoftokyo.model._
-import de.htwg.se.kingoftokyo.view.Tui
+import de.htwg.se.kingoftokyo.aview.Tui
 import de.htwg.se.kingoftokyo.model.State._
 
 import scala.io.StdIn._
