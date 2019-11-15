@@ -4,8 +4,8 @@ import de.htwg.se.kingoftokyo.model.State._
 
 case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMessageOld, status: State, rollResult: RollResult, kingOfTokyo: Int) {
 
-  def setStatusMessage(message:String):PlayGround = PlayGround(this.players, this.lapNr, new StatusMessageOld(message), this.status,
-        this.rollResult, this.kingOfTokyo)
+//  def setStatusMessage(message:String):PlayGround = PlayGround(this.players, this.lapNr, new StatusMessageOld(message), this.status,
+//        this.rollResult, this.kingOfTokyo)
 
   def incLapNr(): PlayGround = {
     copy(this.players, this.lapNr + 1, this.statusMessage, this.status, this.rollResult, this.kingOfTokyo)

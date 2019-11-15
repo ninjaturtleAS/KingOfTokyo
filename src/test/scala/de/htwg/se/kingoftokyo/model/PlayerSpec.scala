@@ -28,29 +28,29 @@ class PlayerSpec extends WordSpec with Matchers {
         player.stars should be(initRest)
       }
       "have a nice String representation" in {
-        player.toString should be("Player(Alex,10,0,0)")
+        player.toString should be("Player(Alex,0,10,0)")
       }
 
       "loose Heart to 9" in {
-        player.looseHeart(one) should be(Player("Alex", initHeat -1, initRest, initRest))
+        player.looseHeart(one) should be(Player("Alex", initRest, initHeat -1, initRest))
       }
       "gain Heart not to 11" in {
-        player.gainHeart(one) should be(Player("Alex", initHeat, initRest, initRest))
+        player.gainHeart(one) should be(Player("Alex", initRest, initHeat, initRest))
       }
       "gain Star to 1" in {
-        player.gainStar(one) should be(Player("Alex", initHeat, initRest + 1, initRest))
+        player.gainStar(one) should be(Player("Alex", initRest, initHeat, initRest + 1))
       }
       "loose Star not to -1" in {
-        player.looseStar(one) should be(Player("Alex", initHeat, initRest, initRest))
+        player.looseStar(one) should be(Player("Alex",  initRest, initHeat, initRest))
       }
       "gain Energy to 1" in {
-        player.gainEnergy(one) should be(Player("Alex", initHeat, initRest, initRest + 1))
+        player.gainEnergy(one) should be(Player("Alex", initRest + 1, initHeat, initRest))
       }
       "spend Energy not to -1" in {
-        player.spendEnergy(one) should be(Player("Alex", initHeat, initRest, initRest))
+        player.spendEnergy(one) should be(Player("Alex", initRest, initHeat, initRest))
       }
       "have a nice Info String" in {
-        player.info should be("Alex, Heart: 10, Stars: 0, Energy: 0")
+        player.info should be("Alex (Energy: 0, Heart: 10, Stars: 0)")
       }
     }
   }
@@ -78,28 +78,28 @@ class PlayerSpec extends WordSpec with Matchers {
       }
 
       "loose Heart to 4" in {
-        player.looseHeart(one) should be(Player("Alex", testInit -1, testInit, testInit))
+        player.looseHeart(one) should be(Player("Alex", testInit, testInit - 1, testInit))
       }
       "gain Heart to 6" in {
-        player.gainHeart(one) should be(Player("Alex", testInit + 1, testInit, testInit))
+        player.gainHeart(one) should be(Player("Alex", testInit, testInit + 1, testInit))
       }
       "gain Star to 6" in {
-        player.gainStar(one) should be(Player("Alex", testInit, testInit + 1, testInit))
+        player.gainStar(one) should be(Player("Alex", testInit, testInit, testInit + 1))
       }
       "gain Star to max 20" in {
-        player.gainStar(testStar) should be(Player("Alex", testInit, testStar, testInit))
+        player.gainStar(testStar) should be(Player("Alex", testInit, testInit, testStar))
       }
       "loose Star to 4" in {
-        player.looseStar(one) should be(Player("Alex", testInit, testInit -1 , testInit))
+        player.looseStar(one) should be(Player("Alex", testInit, testInit , testInit - 1))
       }
       "gain Energy to 6" in {
-        player.gainEnergy(one) should be(Player("Alex", testInit, testInit, testInit + 1))
+        player.gainEnergy(one) should be(Player("Alex", testInit + 1, testInit, testInit))
       }
       "spend Energy to 4" in {
-        player.spendEnergy(one) should be(Player("Alex", testInit, testInit, testInit - 1))
+        player.spendEnergy(one) should be(Player("Alex", testInit - 1, testInit, testInit))
       }
       "have a nice Info String" in {
-        player.info should be("Alex, Heart: 5, Stars: 5, Energy: 5")
+        player.info should be("Alex (Energy: 5, Heart: 5, Stars: 5)")
       }
     }
   }
