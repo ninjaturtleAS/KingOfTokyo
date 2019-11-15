@@ -9,9 +9,12 @@ case class RollResult(result: Vector[Int]) {
     Throw(6).throwDies()
   }
 
+
+  //selct what you wanna keeo out of result
   def keepThrow(selection: Vector[Int]): RollResult = {
     RollResult(for {x <- selection} yield this.result(x))
   }
+
 
   def filterThrowResult(selectionStr: String): RollResult = {
     val selection = selectionStr.split(" ").toVector
