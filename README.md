@@ -33,3 +33,6 @@ Then
 * push and pull back and forth
 
 
+[![Build Status](https://travis-ci.org/ninjaturtleAS/KingOfTokyo.svg?branch=master)](https://travis-ci.org/ninjaturtleAS/KingOfTokyo)
+
+[![Coverage Status](https://coveralls.io/repos/github/ninjaturtleAS/KingOfTokyo/badge.svg?branch=master)](https://coveralls.io/github/ninjaturtleAS/KingOfTokyo?branch=master)
