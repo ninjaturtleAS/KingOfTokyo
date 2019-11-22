@@ -34,6 +34,9 @@ class PlayerSpec extends WordSpec with Matchers {
       "loose Heart to 9" in {
         player.looseHeart(one) should be(Player("Alex", initRest, initHeat -1, initRest))
       }
+      "not loose Heart below Zero" in {
+        player.looseHeart(11) should be (Player("Alex", initRest, 0, initRest));
+      }
       "gain Heart not to 11" in {
         player.gainHeart(one) should be(Player("Alex", initRest, initHeat, initRest))
       }

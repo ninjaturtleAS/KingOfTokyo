@@ -22,9 +22,9 @@ case class PlayGround(players: Players, lapNr: Integer, statusMessage: StatusMes
   }
 
   def attack(attackedPlayers: String):PlayGround = {
-    val attackes = attackedPlayers.split(",")
-    ???
-
+    //val attackes = attackedPlayers.split(",")
+    //???
+    copy(this.players, this.lapNr, this.statusMessage, this.status, this.rollResult, this.kingOfTokyo);
   }
 
   def throwDies():PlayGround = {
