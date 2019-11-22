@@ -19,7 +19,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val simon = Player("Simon");
   val marco = Player("Marco");
   val testString = "Alex, Simon, Marco";
-  val players = Players(Vector(alex, simon, marco));
+  val players = Players(Vector());
   val statusMessage = new StatusMessageOld("Hallo");
   val rollResult =  RollResult(Vector(1, 2, 3, 4, 5, 6));
 
@@ -44,6 +44,15 @@ class ControllerSpec extends WordSpec with Matchers {
       "with given 3 names" in {
         controller.createPlayers((testString)).players.players.length should be (3);
       }
+
+      "incrementing Lap Number" in {
+        controller.incLapNr.lapNr should be (2);
+      }
+
+      "throw dies" in {
+        controller.throwDies().rollResult.equals(this.rollResult) should be (false);
+      }
+
 
 
     }
