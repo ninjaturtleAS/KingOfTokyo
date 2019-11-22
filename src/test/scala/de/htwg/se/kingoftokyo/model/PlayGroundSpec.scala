@@ -44,15 +44,24 @@ class PlayGroundSpec extends WordSpec with Matchers {
 
       "return status" in {
         playGroundWaitPlayers.getMessageFromStatus should be("Bitte Spielernamen kommagetrennt eingeben");
-        playGroundWaitFirst.getMessageFromStatus should be("Ihr Auswahl");
-        playGroundWaitSecond.getMessageFromStatus should be ("Ihr Auswahl");
+        playGroundWaitFirst.getMessageFromStatus should be("Ihre Auswahl");
+        playGroundWaitSecond.getMessageFromStatus should be ("Ihre Auswahl");
         playGroundComplete.getMessageFromStatus should be("Wurf wird ausgewertet");
         playGroundWaitAttack.getMessageFromStatus should be("Wen wollen Sie angreifen?");
         playGroundKOTDecision.getMessageFromStatus should be("Wollen Sie King of Tokyo bleiben (J/N)");
 
       }
 
-
+      "Have a nice String" in {
+        playGroundComplete.toString should be ("King of Tokyo: Simon\n\n" +
+          "Alex (Energy: 0, Heart: 10, Stars: 0)\n" +
+          "Simon (Energy: 0, Heart: 10, Stars: 0)\n" +
+          "Marco (Energy: 0, Heart: 10, Stars: 0)\n" +
+          "\n" +
+          "Spieler am Zug: Simon\n\n" +
+          "Aktueller Wurf: 1 2 3 Energy Heart Attack \n\n" +
+          "Wurf wird ausgewertet");
+      }
     }
   }
 

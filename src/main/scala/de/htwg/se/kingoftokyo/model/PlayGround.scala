@@ -59,7 +59,6 @@ case class PlayGround(players: Players, lapNr: Integer, status: State, rollResul
       .concat("\n\nAktueller Wurf: ")
       .concat(this.rollResult.toString())
       .concat("\n\n")
-      .concat(this.status.toString()).concat("\n")  // only for debugging
       .concat(this.getMessageFromStatus)
       //.concat(this.statusMessage.toString())
 
@@ -69,7 +68,7 @@ case class PlayGround(players: Players, lapNr: Integer, status: State, rollResul
   def getMessageFromStatus: String = {
     this.status match {
       case WaitForPlayerNames => "Bitte Spielernamen kommagetrennt eingeben"
-      case WaitFor1stThrow|WaitFor2ndThrow => "Ihr Auswahl"
+      case WaitFor1stThrow|WaitFor2ndThrow => "Ihre Auswahl"
       case ThrowComplete => "Wurf wird ausgewertet"
       case WaitForAttack => "Wen wollen Sie angreifen?"
       case WaitForKotDecision => "Wollen Sie King of Tokyo bleiben (J/N)"
