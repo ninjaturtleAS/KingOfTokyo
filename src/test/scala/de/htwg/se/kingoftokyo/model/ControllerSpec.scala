@@ -20,7 +20,6 @@ class ControllerSpec extends WordSpec with Matchers {
   val marco = Player("Marco");
   val testString = "Alex, Simon, Marco";
   val players = Players(Vector());
-  val statusMessage = new StatusMessageOld("Hallo");
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6));
 
   val complete = State.ThrowComplete;
@@ -30,12 +29,12 @@ class ControllerSpec extends WordSpec with Matchers {
   val kotDecision = State.WaitForKotDecision;
   val waitplayers = State.WaitForPlayerNames;
 
-  var playGroundWaitPlayers = PlayGround(players, lapNr, statusMessage, waitplayers, testResult, kot);
-  var playGroundWaitFirst = PlayGround(players, lapNr, statusMessage, waitfirst, testResult, kot);
-  var playGroundWaitSecond = PlayGround(players, lapNr, statusMessage, waitsecond, testResult, kot);
-  var playGroundWaitAttack = PlayGround(players, lapNr, statusMessage, waitAttack, testResult, kot);
-  var playGroundKOTDecision = PlayGround(players, lapNr, statusMessage, kotDecision, testResult, kot);
-  var playGroundComplete = PlayGround(players, lapNr, statusMessage, complete, testResult, kot);
+  var playGroundWaitPlayers = PlayGround(players, lapNr, waitplayers, testResult, kot);
+  var playGroundWaitFirst = PlayGround(players, lapNr, waitfirst, testResult, kot);
+  var playGroundWaitSecond = PlayGround(players, lapNr, waitsecond, testResult, kot);
+  var playGroundWaitAttack = PlayGround(players, lapNr, waitAttack, testResult, kot);
+  var playGroundKOTDecision = PlayGround(players, lapNr, kotDecision, testResult, kot);
+  var playGroundComplete = PlayGround(players, lapNr, complete, testResult, kot);
 
 
   "Controller " when {
