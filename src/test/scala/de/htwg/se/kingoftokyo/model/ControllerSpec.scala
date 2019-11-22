@@ -76,10 +76,20 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ");
       }
 
+      var playGroundGood = PlayGround(Players(Vector(alex, simon, marco)), lapNr, complete, testResult, kot);
+      val controllerGood = new Controller(playGroundGood);
       "get Good" in {
-        var playGroundGood = PlayGround(Players(Vector(alex, simon)), lapNr, complete, testResult, kot);
-        val controllerGood = new Controller(playGroundGood);
         controllerGood.evaluateThrow().rollResult should be(testResult);
+      }
+      "have a nice String" in {
+        controllerGood.playGroundToString() should be ("King of Tokyo: Simon\n\n" +
+          "Alex (Energy: 0, Heart: 10, Stars: 0)\n" +
+          "Simon (Energy: 1, Heart: 10, Stars: 0)\n" +
+          "Marco (Energy: 0, Heart: 10, Stars: 0)\n" +
+          "\n" +
+          "Spieler am Zug: Simon\n\n" +
+          "Aktueller Wurf: 1 2 3 Energy Heart Attack \n\n" +
+          "Wurf wird ausgewertet");
       }
 
 
