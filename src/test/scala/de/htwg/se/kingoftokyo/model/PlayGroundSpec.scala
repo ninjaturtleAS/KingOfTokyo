@@ -42,6 +42,17 @@ class PlayGroundSpec extends WordSpec with Matchers {
         playGroundComplete.getGood(testResult).rollResult should be(testResult);
       }
 
+      "return status" in {
+        playGroundWaitPlayers.getMessageFromStatus should be("Bitte Spielernamen kommagetrennt eingeben");
+        playGroundWaitFirst.getMessageFromStatus should be("Ihr Auswahl");
+        playGroundWaitSecond.getMessageFromStatus should be ("Ihr Auswahl");
+        playGroundComplete.getMessageFromStatus should be("Wurf wird ausgewertet");
+        playGroundWaitAttack.getMessageFromStatus should be("Wen wollen Sie angreifen?");
+        playGroundKOTDecision.getMessageFromStatus should be("Wollen Sie King of Tokyo bleiben (J/N)");
+
+      }
+
+
     }
   }
 
