@@ -21,7 +21,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val testString = "Alex, Simon, Marco";
   val players = Players(Vector());
   val statusMessage = new StatusMessageOld("Hallo");
-  val rollResult =  RollResult(Vector(1, 2, 3, 4, 5, 6));
+  val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6));
 
   val complete = State.ThrowComplete;
   val waitfirst = State.WaitFor1stThrow;
@@ -30,16 +30,27 @@ class ControllerSpec extends WordSpec with Matchers {
   val kotDecision = State.WaitForKotDecision;
   val waitplayers = State.WaitForPlayerNames;
 
-  var playGroundWaitPlayers = PlayGround(players, lapNr, statusMessage, waitplayers, rollResult, kot);
+  var playGroundWaitPlayers = PlayGround(players, lapNr, statusMessage, waitplayers, testResult, kot);
+  var playGroundWaitFirst = PlayGround(players, lapNr, statusMessage, waitfirst, testResult, kot);
+  var playGroundWaitSecond = PlayGround(players, lapNr, statusMessage, waitsecond, testResult, kot);
+  var playGroundWaitAttack = PlayGround(players, lapNr, statusMessage, waitAttack, testResult, kot);
+  var playGroundKOTDecision = PlayGround(players, lapNr, statusMessage, kotDecision, testResult, kot);
+  var playGroundComplete = PlayGround(players, lapNr, statusMessage, complete, testResult, kot);
 
 
   "Controller " when {
     "new" should {
       val controller = new Controller(playGroundWaitPlayers);
+      val controller1 =  new Controller(playGroundWaitFirst);
+      val controller2 = new Controller(playGroundWaitSecond);
+      val controllerComp = new Controller(playGroundComplete);
+      val controllerKOT =  new Controller(playGroundKOTDecision);
+      val controllerAttack = new Controller(playGroundWaitAttack);
 
       "ask for PlayerNames" in {
         controller.askForPlayerNames()  should be ();
       }
+
 
       "with given 3 names" in {
         controller.createPlayers((testString)).players.players.length should be (3);
@@ -50,7 +61,8 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "throw dies" in {
-        controller.throwDies().rollResult.equals(this.rollResult) should be (false);
+        controller1.throwDies().status should be (State.WaitFor2ndThrow);
+        controller2.throwDies().status should be (State.ThrowComplete);
       }
 
 
