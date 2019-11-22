@@ -65,6 +65,14 @@ class ControllerSpec extends WordSpec with Matchers {
         controller2.throwDies().status should be (State.ThrowComplete);
       }
 
+      "complete throw" in {
+        controller2.completeThrow().status should be (State.ThrowComplete);
+      }
+
+      "attack" in {
+        controller.attack("test").status should be (State.WaitFor1stThrow);
+      }
+
 
 
     }
