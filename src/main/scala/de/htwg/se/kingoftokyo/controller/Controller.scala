@@ -1,9 +1,12 @@
 package de.htwg.se.kingoftokyo.controller
 
+import de.htwg.se.kingoftokyo.controller.State._
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.util.Observable
 
 class Controller (var playGround: PlayGround) extends Observable {
+  var state: State = WaitForPlayerNames
+
   def askForPlayerNames():Unit = {
     notifyObservers
   }
@@ -17,12 +20,14 @@ class Controller (var playGround: PlayGround) extends Observable {
 
   def evaluateThrow(): PlayGround = {
     playGround = playGround.getGood(playGround.rollResult)
+    state = ThrowComplete
     notifyObservers
     playGround
   }
 
   def completeThrow(): PlayGround = {
     playGround = playGround.completeThrow()
+    state = ThrowComplete
     notifyObservers
     playGround
   }
@@ -41,6 +46,9 @@ class Controller (var playGround: PlayGround) extends Observable {
 
   def throwDies():PlayGround = {
     playGround = playGround.throwDies()
+    state = if (state<WaitFor1stThrow || state>WaitFor2ndThrow) { WaitFor1stThrow }
+    else if (state==WaitFor1stThrow) {WaitFor2ndThrow}
+    else  {ThrowComplete}
     notifyObservers
     playGround
   }
