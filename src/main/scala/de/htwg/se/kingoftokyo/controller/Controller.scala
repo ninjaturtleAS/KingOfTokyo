@@ -20,6 +20,7 @@ class Controller (var playGround: PlayGround) extends Observable {
     playGround = playGround.attack(playGround.rollResult)
     notifyObservers
     playGround = nextTurn()
+    notifyObservers
     playGround
   }
 
@@ -59,7 +60,6 @@ class Controller (var playGround: PlayGround) extends Observable {
     playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
                                     RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
     state = WaitFor1stThrow
-    notifyObservers
     playGround
   }
 
