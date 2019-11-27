@@ -36,14 +36,6 @@ class Controller (var playGround: PlayGround) extends Observable {
     playGround
   }
 
-/*
-  def attack(attackedPlayers: String) = {
-    playGround = playGround.attack(attackedPlayers)
-    notifyObservers
-    playGround
-  }
-*/
-
   def incLapNr: PlayGround = {
     playGround = playGround.incLapNr()
     notifyObservers

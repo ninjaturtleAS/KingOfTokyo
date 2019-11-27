@@ -34,13 +34,6 @@ class Tui (controller: Controller) extends Observer {
           case "q" =>
           case _ => controller.evaluateThrow()
         }
-/*
-      case WaitForAttack =>
-        input match {
-          case "q" =>
-          case _ => controller.attack(input)
-        }
- */
     }
   }
 
