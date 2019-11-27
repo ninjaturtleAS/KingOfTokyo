@@ -20,20 +20,19 @@ case class Players(players: Vector[Player]) {
   def getAttacks(rollResult: RollResult, inside: Boolean, kot : Int): Players = {
     inside match {
       case true => {
-        val tmp = for {p <- 0 to (players.length - 1) if p != kot}
-          yield getSimpleAttack(rollResult, p)
-        tmp(players.length - 2)
+        for (p <- 0 to (players.length - 1) if p != kot) {
+          val tmpPlayer = this.players(p)
+            .looseHeart(rollResult.evaluateAttacks())
+          this.players.updated(p, tmpPlayer)
+        }
+        Players(this.players)
       }
       case false => {
-        getSimpleAttack(rollResult, kot)
+        val tmpPlayer = this.players(kot)
+          .looseHeart(rollResult.evaluateAttacks())
+        copy(this.players.updated(kot, tmpPlayer))
       }
     }
-  }
-
-  def getSimpleAttack(rollResult: RollResult, playerIndex : Int): Players = {
-    val tmpPlayer = this.players(playerIndex)
-      .looseHeart(rollResult.evaluateAttacks())
-    copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
 
