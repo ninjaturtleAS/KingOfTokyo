@@ -12,6 +12,7 @@ class Tui (controller: Controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
     controller.state match {
+      //case Starting => controller.startGame
       case WaitForPlayerNames =>
         input match {
           case "q" =>
@@ -39,6 +40,7 @@ class Tui (controller: Controller) extends Observer {
           case "q" =>
           case _ => controller.attack(input)
         }
+ */
     }
   }
 
