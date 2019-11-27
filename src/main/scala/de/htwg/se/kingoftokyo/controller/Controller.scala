@@ -42,8 +42,6 @@ class Controller (var playGround: PlayGround) extends Observable {
 
   def throwDies():PlayGround = {
     playGround = playGround.throwDies()
-    state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
-    else  {ThrowComplete}
     notifyObservers
     playGround
   }
@@ -51,6 +49,8 @@ class Controller (var playGround: PlayGround) extends Observable {
   def filterThrowResult(filter: String):PlayGround = {
     playGround = playGround.filterThrowResult(filter)
       .throwDies()
+    state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
+    else  {ThrowComplete}
     notifyObservers
     playGround
   }

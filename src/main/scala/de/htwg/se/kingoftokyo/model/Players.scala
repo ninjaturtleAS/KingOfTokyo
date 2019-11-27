@@ -20,9 +20,9 @@ case class Players(players: Vector[Player]) {
   def getAttacks(rollResult: RollResult, inside: Boolean, kot : Int): Players = {
     inside match {
       case true => {
-        val tmp = for {p <- 0 to players.length if p != kot}
+        val tmp = for {p <- 0 to (players.length - 1) if p != kot}
           yield getSimpleAttack(rollResult, p)
-        tmp(players.length - 1)
+        tmp(players.length - 2)
       }
       case false => {
         getSimpleAttack(rollResult, kot)

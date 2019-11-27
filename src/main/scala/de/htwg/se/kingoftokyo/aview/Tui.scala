@@ -40,6 +40,7 @@ class Tui (controller: Controller) extends Observer {
   override def update: Boolean = {
     println(controller.playGroundToString())
     println(State.message(controller.state) + "\n")
+    println(controller.state)
     true
   }
 }
