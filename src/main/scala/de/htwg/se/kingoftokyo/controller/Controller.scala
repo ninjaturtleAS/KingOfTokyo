@@ -20,6 +20,7 @@ class Controller (var playGround: PlayGround) extends Observable {
 
   def evaluateThrow(): PlayGround = {
     playGround = playGround.getGood(playGround.rollResult)
+    playGround = playGround.attack(playGround.rollResult)
     state = ThrowComplete
     notifyObservers
     playGround
@@ -32,11 +33,13 @@ class Controller (var playGround: PlayGround) extends Observable {
     playGround
   }
 
+/*
   def attack(attackedPlayers: String) = {
     playGround = playGround.attack(attackedPlayers)
     notifyObservers
     playGround
   }
+*/
 
   def incLapNr: PlayGround = {
     playGround = playGround.incLapNr()

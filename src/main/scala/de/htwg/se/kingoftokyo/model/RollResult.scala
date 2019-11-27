@@ -43,7 +43,7 @@ case class RollResult(result: Vector[Int]) {
     result.count(x => x == 4)
   }
 
-  def evaluateAttacs(): Int = {
+  def evaluateAttacks(): Int = {
     result.count(x => x == 6)
   }
 

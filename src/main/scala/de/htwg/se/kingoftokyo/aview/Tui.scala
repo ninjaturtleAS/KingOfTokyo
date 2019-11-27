@@ -33,7 +33,7 @@ class Tui (controller: Controller) extends Observer {
           case "q" =>
           case _ => controller.evaluateThrow()
         }
-
+/*
       case WaitForAttack =>
         input match {
           case "q" =>
@@ -41,6 +41,6 @@ class Tui (controller: Controller) extends Observer {
         }
     }
   }
-
+*/
   override def update: Boolean = {println(controller.playGroundToString()); true}
 }

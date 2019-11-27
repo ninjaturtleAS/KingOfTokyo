@@ -63,7 +63,7 @@ class RollResultSpec extends WordSpec with Matchers {
       }
       //evaluateAttack
       "be 1 as well" in {
-        testThrow.evaluateAttacs() should be(1)
+        testThrow.evaluateAttacks() should be(1)
       }
 
       //length

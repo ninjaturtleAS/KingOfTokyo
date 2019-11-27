@@ -32,7 +32,7 @@ case class Players(players: Vector[Player]) {
 
   def getSimpleAttack(rollResult: RollResult, playerIndex : Int): Players = {
     val tmpPlayer = this.players(playerIndex)
-      .looseHeart(rollResult.evaluateAttacs())
+      .looseHeart(rollResult.evaluateAttacks())
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
