@@ -1,6 +1,5 @@
 package de.htwg.se.kingoftokyo.model
 
-import de.htwg.se.kingoftokyo.aview._
 
 import de.htwg.se.kingoftokyo.controller._
 
@@ -61,7 +60,7 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
       .concat("\n\nAktueller Wurf: ")
       .concat(this.rollResult.toString())
       .concat("\n\n")
-      .concat(State.getMessageFromStatus)
+      //.concat(  .getMessageFromStatus)
       //.concat(this.statusMessage.toString())
 
     retString

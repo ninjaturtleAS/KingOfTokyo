@@ -4,6 +4,7 @@ import de.htwg.se.kingoftokyo.controller.Controller
 import de.htwg.se.kingoftokyo.util.Observer
 //import de.htwg.se.kingoftokyo.model.State._
 import de.htwg.se.kingoftokyo.controller.State._
+import de.htwg.se.kingoftokyo.controller._
 
 class Tui (controller: Controller) extends Observer {
 
@@ -11,7 +12,6 @@ class Tui (controller: Controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
     controller.state match {
-      //case Starting => controller.startGame
       case WaitForPlayerNames =>
         input match {
           case "q" =>
@@ -42,5 +42,9 @@ class Tui (controller: Controller) extends Observer {
     }
   }
 
-  override def update: Boolean = {println(controller.playGroundToString()); true}
+  override def update: Boolean = {
+    println(controller.playGroundToString())
+    println(State.message(controller.state) + "\n")
+    true
+  }
 }
