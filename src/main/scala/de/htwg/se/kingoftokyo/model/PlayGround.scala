@@ -22,10 +22,13 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
     copy(this.players, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
-  def attack(attackedPlayers: String):PlayGround = {
-    //val attackes = attackedPlayers.split(",")
-    //???
-    copy(this.players, this.lapNr, this.rollResult, this.kingOfTokyo);
+  def attack(rollResult: RollResult):PlayGround = {
+    if (this.lapNr % this.players.getLength() == this.kingOfTokyo) {
+      val tmpPlayers = this.players.getAttacks(rollResult, true, this.kingOfTokyo)
+    } else {
+      val tmpPlayers = this.players.getAttacks(rollResult, false, this.kingOfTokyo)
+    }
+    copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo);
   }
 
   def throwDies():PlayGround = {
