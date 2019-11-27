@@ -5,7 +5,7 @@ import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.util.Observable
 
 class Controller (var playGround: PlayGround) extends Observable {
-  var state: State = WaitForPlayerNames
+  var state: GameState = WaitForPlayerNames
 
   def askForPlayerNames():Unit = {
     notifyObservers
@@ -14,6 +14,9 @@ class Controller (var playGround: PlayGround) extends Observable {
   def createPlayers(playerNames: String):PlayGround = {
     playGround = playGround.createPlayerInRandomOrder(playerNames)
       .throwDies()
+    state = if (state<WaitFor1stThrow || state>WaitFor2ndThrow) { WaitFor1stThrow }
+    else if (state==WaitFor1stThrow) {WaitFor2ndThrow}
+    else  {ThrowComplete}
     notifyObservers
     playGround
   }
