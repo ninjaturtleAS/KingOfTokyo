@@ -7,10 +7,6 @@ import de.htwg.se.kingoftokyo.util.Observable
 class Controller (var playGround: PlayGround) extends Observable {
   var state: GameState = WaitForPlayerNames
 
-  def askForPlayerNames():Unit = {
-    notifyObservers
-  }
-
   def createPlayers(playerNames: String):PlayGround = {
     playGround = playGround.createPlayerInRandomOrder(playerNames)
       .throwDies()

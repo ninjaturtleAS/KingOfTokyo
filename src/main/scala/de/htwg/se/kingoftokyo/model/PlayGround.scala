@@ -5,9 +5,6 @@ import de.htwg.se.kingoftokyo.controller._
 
 case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) {
 
-//  def setStatusMessage(message:String):PlayGround = PlayGround(this.players, this.lapNr, new StatusMessageOld(message), this.status,
-//        this.rollResult, this.kingOfTokyo)
-
   def incLapNr(): PlayGround = {
     copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
   }
@@ -34,10 +31,6 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
 
   def throwDies():PlayGround = {
     val tmpRollResult = RollResult(List.concat(this.rollResult.toIntVector,Throw(6-this.rollResult.length).throwDies()).toVector)
-//    val tmpStatus = if (status<WaitFor1stThrow || status>WaitFor2ndThrow) { WaitFor1stThrow }
-//    else if (status==WaitFor1stThrow) {WaitFor2ndThrow}
-//    else  {ThrowComplete}
-
     copy(this.players,this.lapNr, tmpRollResult, this.kingOfTokyo)
   }
 
@@ -52,8 +45,13 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
   }
 
   def filterThrowResult(filter: String): PlayGround = {
-    val filteredThrowResult = this.rollResult.filterThrowResult(filter)
-    copy(this.players,this.lapNr, filteredThrowResult, this.kingOfTokyo)
+    if (filter == "") {
+      val empty = Vector[Int]()
+      copy(this.players,this.lapNr, RollResult(empty), this.kingOfTokyo)
+    } else {
+      val filteredThrowResult = this.rollResult.filterThrowResult(filter)
+      copy(this.players,this.lapNr, filteredThrowResult, this.kingOfTokyo)
+    }
   }
 
   override def toString: String = {
@@ -64,21 +62,7 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
       .concat("\n\nAktueller Wurf: ")
       .concat(this.rollResult.toString())
       .concat("\n\n")
-      //.concat(  .getMessageFromStatus)
-      //.concat(this.statusMessage.toString())
 
     retString
   }
-
-//  def getMessageFromStatus: String = {
-//    this.status match {
-//      case WaitForPlayerNames => "Bitte Spielernamen kommagetrennt eingeben"
-//      case WaitFor1stThrow|WaitFor2ndThrow => "Ihre Auswahl"
-//      case ThrowComplete => "Wurf wird ausgewertet"
-//      case WaitForAttack => "Wen wollen Sie angreifen?"
-//      case WaitForKotDecision => "Wollen Sie King of Tokyo bleiben (J/N)"
-//      case _ => "not implemeted yet"
-//    }
-//  }
-
 }
