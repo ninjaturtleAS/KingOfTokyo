@@ -12,7 +12,6 @@ case class PlayersCreator(stringOfNames: String) {
   }
 
   def getRandomPlayers(names: List[String], players: Players): Players = {
-    //val rPlayerNames: Vector[String] = names -- players.toStringVector
     val rPlayerNames: List[String] = names.diff(players.toStringVector)
     if (rPlayerNames.isEmpty)
     {
