@@ -33,6 +33,7 @@ class Tui (controller: Controller) extends Observer {
           case "q" =>
           case _ => controller.evaluateThrow()
         }
+
     }
   }
 
