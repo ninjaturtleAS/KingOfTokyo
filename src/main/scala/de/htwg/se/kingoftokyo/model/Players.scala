@@ -20,12 +20,13 @@ case class Players(players: Vector[Player]) {
   def getAttacks(rollResult: RollResult, inside: Boolean, kot : Int): Players = {
     inside match {
       case true => {
+        var tmp = this.players
         for (p <- 0 to (players.length - 1) if p != kot) {
           val tmpPlayer = this.players(p)
             .looseHeart(rollResult.evaluateAttacks())
-          this.players.updated(p, tmpPlayer)
+          tmp = tmp.updated(p, tmpPlayer)
         }
-        Players(this.players)
+        Players(tmp)
       }
       case false => {
         val tmpPlayer = this.players(kot)
