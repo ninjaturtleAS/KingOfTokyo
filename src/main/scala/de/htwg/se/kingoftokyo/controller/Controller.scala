@@ -14,9 +14,7 @@ class Controller (var playGround: PlayGround) extends Observable {
   def createPlayers(playerNames: String):PlayGround = {
     playGround = playGround.createPlayerInRandomOrder(playerNames)
       .throwDies()
-    state = if (state<WaitFor1stThrow || state>WaitFor2ndThrow) { WaitFor1stThrow }
-    else if (state==WaitFor1stThrow) {WaitFor2ndThrow}
-    else  {ThrowComplete}
+    state = WaitFor1stThrow
     notifyObservers
     playGround
   }
@@ -44,8 +42,7 @@ class Controller (var playGround: PlayGround) extends Observable {
 
   def throwDies():PlayGround = {
     playGround = playGround.throwDies()
-    state = if (state<WaitFor1stThrow || state>WaitFor2ndThrow) { WaitFor1stThrow }
-    else if (state==WaitFor1stThrow) {WaitFor2ndThrow}
+    state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
     else  {ThrowComplete}
     notifyObservers
     playGround
