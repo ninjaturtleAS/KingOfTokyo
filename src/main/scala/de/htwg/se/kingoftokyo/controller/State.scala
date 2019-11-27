@@ -12,7 +12,7 @@ object State extends Enumeration {
     WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben (J/N)"
   )
 
-  def message(state: GameState): Unit = {
+  def message(state: GameState): String = {
     map(state)
   }
 }
