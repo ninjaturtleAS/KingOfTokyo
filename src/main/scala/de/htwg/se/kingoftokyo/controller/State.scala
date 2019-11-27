@@ -1,7 +1,5 @@
 package de.htwg.se.kingoftokyo.controller
 
-import java.io.ObjectInputFilter.Status
-
 object State extends Enumeration {
   type GameState = Value
   val WaitForPlayerNames, WaitFor1stThrow, WaitFor2ndThrow, ThrowComplete, WaitForAttack, WaitForKotDecision = Value
@@ -15,8 +13,7 @@ object State extends Enumeration {
     WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben (J/N)"
   )
 
-  def message(state: GameState) = {
+  def message(state: GameState): Unit = {
     map(state)
   }
-
 }
