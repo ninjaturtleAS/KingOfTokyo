@@ -12,7 +12,7 @@ class SateSpec extends WordSpec with Matchers {
     "initialized wtih ThrowComplete" should {
       val complete = State.ThrowComplete
       "map to wird ausgewertet" in {
-        State.map(complete) should be("Wurf wird ausgewertet")
+        State.message(complete) should be("Wurf wird ausgewertet")
       }
     }
   }
