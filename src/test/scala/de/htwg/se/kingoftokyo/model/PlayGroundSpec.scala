@@ -35,6 +35,10 @@ class PlayGroundSpec extends WordSpec with Matchers {
         playGroundComplete.getGood(testResult).rollResult should be(testResult)
       }
 
+      "filter empy choice" in {
+         playGroundComplete.filterThrowResult("").players should be(players)
+      }
+
       "Have a nice String" in {
         playGroundComplete.toString should be (
           "\n" +
@@ -56,6 +60,10 @@ class PlayGroundSpec extends WordSpec with Matchers {
           "\nAktueller Wurf: 1 2 3 Energy Heart Attack " +
           "\n" +
           "\n");
+      }
+
+      "increase LapNr" in {
+        playGroundComplete.incLapNr().lapNr should be(lapNr + 1)
       }
     }
   }
