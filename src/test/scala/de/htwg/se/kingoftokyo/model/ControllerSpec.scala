@@ -30,8 +30,10 @@ class ControllerSpec extends WordSpec with Matchers {
   "Controller " when {
     "new" should {
       val controller = new Controller(playGroundWaitPlayers)
+      val controllerStr = new Controller(playGroundWaitPlayers)
       val controller1 =  new Controller(playGroundWaitFirst)
       val controller2 = new Controller(playGroundWaitSecond)
+      val controller3 = new Controller(playGroundWaitSecond)
       val controllerComp = new Controller(playGroundComplete)
       val controllerKOT =  new Controller(playGroundKOTDecision)
 
@@ -49,8 +51,13 @@ class ControllerSpec extends WordSpec with Matchers {
         controller2.completeThrow().players should be (players)
       }
 
+      "increase lap number" in {
+        controller3.incLapNr.lapNr should be (1)
+      }
 
       "filter throw results" in {
+        controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
+        controller1.state = State.WaitFor1stThrow
         controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
       }
 
@@ -59,6 +66,10 @@ class ControllerSpec extends WordSpec with Matchers {
         val controllerGood = new Controller(playGroundGood)
         controllerGood.evaluateThrow().players.players(lapNr).energy should be(1)
         controllerGood.evaluateThrow().players.players(kot).heart should be(9)
+      }
+
+      "Have an nice String representaion" in {
+        controllerStr.playGroundToString() should be (playGroundWaitPlayers.toString)
       }
 
       "increase LapNr for next turn" in {
