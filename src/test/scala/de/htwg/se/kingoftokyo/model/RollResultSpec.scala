@@ -7,7 +7,7 @@ import Matchers._
 
 @RunWith(classOf[JUnitRunner])
 class RollResultSpec extends WordSpec with Matchers {
-/*
+
   val initVector = Vector(1, 2, 3, 4, 5, 6)
   val testSelect = Vector(0, 1)
   val testString = "0 1"
@@ -20,10 +20,6 @@ class RollResultSpec extends WordSpec with Matchers {
         testThrow.throwOne().length should be(6)
       }
 
-      //keep throw
-      "select 1, 2" in {
-        testThrow.keepThrow(testSelect) should be(RollResult(Vector(1, 2)))
-      }
 
       //filterThrowResult
       "select also 1, 2" in {
@@ -86,5 +82,5 @@ class RollResultSpec extends WordSpec with Matchers {
       }
     }
   }
-*/
+
 }
