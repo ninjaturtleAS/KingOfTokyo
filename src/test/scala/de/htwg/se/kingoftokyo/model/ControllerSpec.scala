@@ -11,7 +11,7 @@ import de.htwg.se.kingoftokyo.controller._
 class ControllerSpec extends WordSpec with Matchers {
 
   //initialize a test playground
-  val lapNr = 1
+  val lapNr = 0
   val kot = 1
   val alex = Player("Alex")
   val simon = Player("Simon")
@@ -40,10 +40,6 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.createPlayers((testString)).players.players.length should be (3)
       }
 
-      "incrementing Lap Number" in {
-        controller.incLapNr.lapNr should be (2)
-      }
-
       "throw dies" in {
         controller1.throwDies().players should be (players)
         controller2.throwDies().players should be (players)
@@ -62,9 +58,10 @@ class ControllerSpec extends WordSpec with Matchers {
         var playGroundGood = PlayGround(Players(Vector(alex, simon)), lapNr, testResult, kot)
         val controllerGood = new Controller(playGroundGood)
         controllerGood.evaluateThrow().players.players(lapNr).energy should be(1)
+        controllerGood.evaluateThrow().players.players(kot).heart should be(9)
       }
 
-      "restet increase LapNr for next turn" in {
+      "increase LapNr for next turn" in {
         controllerComp.nextTurn().lapNr should be(lapNr + 1)
       }
     }
