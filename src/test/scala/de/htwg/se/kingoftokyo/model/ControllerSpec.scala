@@ -13,12 +13,14 @@ class ControllerSpec extends WordSpec with Matchers {
   //initialize a test playground
   val lapNr = 0
   val kot = 1
+  val initHeart =  10
   val alex = Player("Alex")
   val simon = Player("Simon")
   val marco = Player("Marco")
   val testString = "Alex, Simon, Marco"
   val players = Players(Vector())
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
+  val badResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
 
   var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
   var playGroundWaitFirst = PlayGround(players, lapNr, testResult, kot)
@@ -63,9 +65,11 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "evaluate Results" in {
         var playGroundGood = PlayGround(Players(Vector(alex, simon)), lapNr, testResult, kot)
+        var playGroundBad = playGroundGood.copy(Players(Vector(alex, simon)),  0, badResult , 1)
         val controllerGood = new Controller(playGroundGood)
+        val controllerBad = new Controller(playGroundBad)
         controllerGood.evaluateThrow().players.players(lapNr).energy should be(1)
-        controllerGood.evaluateThrow().players.players(kot).heart should be(9)
+        controllerBad.evaluateThrow().players.players(kot).heart should be(initHeart - 6)
       }
 
       "Have an nice String representaion" in {
