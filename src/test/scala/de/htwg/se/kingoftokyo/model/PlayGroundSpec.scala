@@ -31,6 +31,11 @@ class PlayGroundSpec extends WordSpec with Matchers {
         playGroundComplete.switchKingOfTokyo(2).kingOfTokyo should be (2)
       }
 
+      "attack player out of tokyo" in {
+        playGroundComplete.attack(testResult).players.players(0).heart should be (9)
+        playGroundComplete.attack(testResult).players.players(2).heart should be (9)
+      }
+
       "get Good" in {
         playGroundComplete.getGood(testResult).rollResult should be(testResult)
       }
