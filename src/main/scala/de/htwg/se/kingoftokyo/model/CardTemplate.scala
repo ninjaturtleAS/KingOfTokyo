@@ -4,10 +4,10 @@ trait CardTemplate {
   def switch(playGround: PlayGround): PlayGround
 }
 
-case class CardGainExtraHeart() extends CardTemplate {
+case class CardGainExtraEnergy() extends CardTemplate {
   override def switch(playGround: PlayGround): PlayGround = ???
 
-  def gainHeart(rollResult: RollResult, players: Players, index:Int): Players = {
+  def gainEnergy(rollResult: RollResult, players: Players, index:Int): Players = {
     players.getGood(rollResult, index)
   }
 }
