@@ -23,15 +23,12 @@ class DieSpec extends WordSpec with Matchers {
       }
     }
   }
-  /*
   "Secure Die" when {
     val secureDie = SecureDie
     "initialized" should {
       "be Secure Random" in {
-        secureDie.random should be (new SecureRandom)
+        secureDie
       }
     }
   }
-
-   */
 }
