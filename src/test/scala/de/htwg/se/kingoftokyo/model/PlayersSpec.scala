@@ -10,6 +10,12 @@ class PlayersSpec extends WordSpec with Matchers {
     "new" should {
       val pl = Players(Vector(Player("Simon"), Player("Alex")))
       val vecPlayers = pl.toStringVector
+      val testResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
+
+      "get Attacks" in {
+        pl.getAttacks(testResult, true, 0).players(1).heart should be(4)
+        pl.getAttacks(testResult, true, 0).players(0).heart should be(10)
+      }
 
       "have a String Vector representation" in {
         vecPlayers should be(Vector("Simon", "Alex"))
