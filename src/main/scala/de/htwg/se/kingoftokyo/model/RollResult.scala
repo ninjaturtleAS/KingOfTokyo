@@ -1,6 +1,5 @@
 package de.htwg.se.kingoftokyo.model
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 case class RollResult(result: Vector[Int]) {
 
