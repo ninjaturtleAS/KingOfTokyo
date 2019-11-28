@@ -10,6 +10,7 @@ class RollResultSpec extends WordSpec with Matchers {
 
   val initVector = Vector(1, 2, 3, 4, 5, 6)
   val testSelect = Vector(0, 1)
+  val testStar = Vector(2, 2, 2, 1, 1, 1)
   val testAttack = Vector(6, 6, 6, 6, 6, 6)
   val testString = "0 1"
 
@@ -17,9 +18,14 @@ class RollResultSpec extends WordSpec with Matchers {
     "initialized wtih 6" should {
       val testThrow = RollResult(initVector)
       val testAttacks = RollResult(testAttack)
+      val testStars = RollResult(testStar)
       //firstThrow
       "throw six dices" in {
         testThrow.throwOne().length should be(6)
+      }
+
+      "give 3 stars when" in {
+        testStars.evaluateStars() should be(3)
       }
 
 
