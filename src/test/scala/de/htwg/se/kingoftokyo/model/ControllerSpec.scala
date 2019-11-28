@@ -74,6 +74,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "increase LapNr for next turn" in {
         controllerComp.nextTurn().lapNr should be(lapNr + 1)
+
       }
     }
   }
