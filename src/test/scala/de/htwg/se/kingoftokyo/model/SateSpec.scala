@@ -16,5 +16,4 @@ class SateSpec extends WordSpec with Matchers {
       }
     }
   }
-
 }
