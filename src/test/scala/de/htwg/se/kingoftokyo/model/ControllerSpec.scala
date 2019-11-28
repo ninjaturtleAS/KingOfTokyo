@@ -61,7 +61,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
       }
 
-      "get Good" in {
+      "evaluate Results" in {
         var playGroundGood = PlayGround(Players(Vector(alex, simon)), lapNr, testResult, kot)
         val controllerGood = new Controller(playGroundGood)
         controllerGood.evaluateThrow().players.players(lapNr).energy should be(1)
