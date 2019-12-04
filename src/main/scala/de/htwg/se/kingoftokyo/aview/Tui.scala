@@ -15,17 +15,24 @@ class Tui (controller: Controller) extends Observer {
       case WaitForPlayerNames =>
         input match {
           case "q" =>
+          case "y" => controller.redo
           case _ => {
             controller.createPlayers(input)
           }
 
         }
 
-      case WaitFor1stThrow | WaitFor2ndThrow =>
+      case WaitFor1stThrow =>
         input match {
           case "q" =>
           case "z" => controller.undo
-          case "y" => controller.redo
+          case "all" => controller.completeThrow()
+          case _ => controller.filterThrowResult(input)
+        }
+
+      case WaitFor2ndThrow =>
+        input match {
+          case "q" =>
           case "all" => controller.completeThrow()
           case _ => controller.filterThrowResult(input)
         }
