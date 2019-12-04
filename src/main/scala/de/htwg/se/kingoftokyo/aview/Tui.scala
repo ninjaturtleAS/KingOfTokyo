@@ -24,6 +24,8 @@ class Tui (controller: Controller) extends Observer {
       case WaitFor1stThrow | WaitFor2ndThrow =>
         input match {
           case "q" =>
+          case "z" => controller.undo
+          case "y" => controller.redo
           case "all" => controller.completeThrow()
           case _ => controller.filterThrowResult(input)
         }
