@@ -29,4 +29,11 @@ class UndoManager {
       }
     }
   }
+  // Nur zum Testen der Stacks
+  def getUndoStack: List[Command] = {
+    this.undoStack
+  }
+  def getRedoStack: List[Command] = {
+    this.redoStack
+  }
 }
