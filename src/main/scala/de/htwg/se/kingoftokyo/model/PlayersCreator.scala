@@ -3,7 +3,7 @@ package de.htwg.se.kingoftokyo.model
 import java.security.SecureRandom
 
 case class PlayersCreator(stringOfNames: String) {
-  //val aNames: ArrayBuffer[String] = new ArrayBuffer[String]()
+
   val vNames: List[String] = stringOfNames.split(",").toList
   val numberOfPlayers: Integer = vNames.length
 

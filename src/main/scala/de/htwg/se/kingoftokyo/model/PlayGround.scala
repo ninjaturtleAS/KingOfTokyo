@@ -1,8 +1,6 @@
 package de.htwg.se.kingoftokyo.model
 
 
-import de.htwg.se.kingoftokyo.controller._
-
 case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) {
 
   def incLapNr(): PlayGround = {

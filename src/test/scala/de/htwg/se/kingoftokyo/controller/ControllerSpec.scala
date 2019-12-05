@@ -1,11 +1,10 @@
 
-package de.htwg.se.kingoftokyo.model
-import org.scalatest._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import Matchers._
+package de.htwg.se.kingoftokyo.controller
 
-import de.htwg.se.kingoftokyo.controller._
+import de.htwg.se.kingoftokyo.model.{PlayGround, Player, Players, RollResult}
+import org.junit.runner.RunWith
+import org.scalatest._
+import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class ControllerSpec extends WordSpec with Matchers {

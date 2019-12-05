@@ -6,7 +6,7 @@ import org.scalatest.junit.JUnitRunner
 import Matchers._
 
 @RunWith(classOf[JUnitRunner])
-class SateSpec extends WordSpec with Matchers {
+class StateSpec extends WordSpec with Matchers {
 
   "A State" when {
     "initialized wtih ThrowComplete" should {
