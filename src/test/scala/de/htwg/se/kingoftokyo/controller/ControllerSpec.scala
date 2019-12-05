@@ -37,6 +37,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val controller3 = new Controller(playGroundWaitSecond)
       val controllerComp = new Controller(playGroundComplete)
       val controllerKOT =  new Controller(playGroundKOTDecision)
+      val controllerUndoRedu =  new Controller(playGroundWaitFirst)
 
 
       "with given 3 names" in {
@@ -78,6 +79,9 @@ class ControllerSpec extends WordSpec with Matchers {
       "increase LapNr for next turn" in {
         controllerComp.nextTurn().lapNr should be(lapNr + 1)
 
+      }
+      "undo redo" in {
+        controllerUndoRedu.undo should be(controllerUndoRedu.redo)
       }
     }
   }

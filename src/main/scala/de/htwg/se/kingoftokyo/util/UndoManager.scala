@@ -15,7 +15,7 @@ class UndoManager {
       case head::stack => {
         head.undoStep
         undoStack=stack
-        redoStack= head::redoStack
+        redoStack=head::redoStack
       }
     }
   }
