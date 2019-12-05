@@ -16,5 +16,6 @@ class CreatePlayersCommand(names: String, controller: Controller) extends Comman
   override def redoStep: Unit = {
     controller.playGround = controller.playGround.createPlayerInRandomOrder(names)
     controller.state = State.WaitFor1stThrow
+
   }
 }
