@@ -44,6 +44,10 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.createPlayers((Some(testString))).players.players.length should be (3)
       }
 
+      "with no names" in {
+        controller.createPlayers(None) should be (controller.playGround)
+      }
+
       "throw dies" in {
         controller1.throwDies().players should be (players)
         controller2.throwDies().players should be (players)
