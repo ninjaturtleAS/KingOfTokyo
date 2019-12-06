@@ -4,11 +4,15 @@ import de.htwg.se.kingoftokyo.controller.State._
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.util._
 
+import scala.util.Try
+
 class Controller (var playGround: PlayGround) extends Observable {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
   def createPlayers(playerNames: String):PlayGround = {
+
+
     undoManager.doStep(new CreatePlayersCommand(playerNames, this))
     playGround = playGround.createPlayerInRandomOrder(playerNames)
       .throwDies()
@@ -46,12 +50,21 @@ class Controller (var playGround: PlayGround) extends Observable {
   }
 
   def filterThrowResult(filter: String):PlayGround = {
-    playGround = playGround.filterThrowResult(filter)
-      .throwDies()
-    state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
-    else  {ThrowComplete}
-    notifyObservers
-    playGround
+    val selection = filter.split(" ").toVector
+    val list = Try(selection.map(x => x.toInt))
+    if (list.isSuccess) {
+      playGround = playGround.filterThrowResult(filter)
+        .throwDies()
+      state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
+      else  {ThrowComplete}
+      notifyObservers
+      playGround
+    }
+    else {
+      notifyObservers
+      this.playGround
+    }
+
   }
 
   def playGroundToString(): String = {
