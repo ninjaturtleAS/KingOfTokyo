@@ -17,7 +17,7 @@ class Tui (controller: Controller) extends Observer {
           case "q" =>
           case "y" => controller.redo
           case _ => {
-            controller.createPlayers(input)
+            controller.createPlayers(if(input.isEmpty){None} else {Some(input)})
           }
 
         }

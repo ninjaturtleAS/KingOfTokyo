@@ -10,15 +10,19 @@ class Controller (var playGround: PlayGround) extends Observable {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
-  def createPlayers(playerNames: String):PlayGround = {
-
-
-    undoManager.doStep(new CreatePlayersCommand(playerNames, this))
-    playGround = playGround.createPlayerInRandomOrder(playerNames)
-      .throwDies()
-    state = WaitFor1stThrow
-    notifyObservers
-    playGround
+  def createPlayers(playerNames: Option[String]):PlayGround = {
+    playerNames match {
+      case None =>
+        notifyObservers
+        playGround
+      case Some(playerNames) =>
+        undoManager.doStep (new CreatePlayersCommand (playerNames, this) )
+        playGround = playGround.createPlayerInRandomOrder (playerNames)
+        .throwDies ()
+        state = WaitFor1stThrow
+        notifyObservers
+        playGround
+    }
   }
 
   def evaluateThrow(): PlayGround = {
