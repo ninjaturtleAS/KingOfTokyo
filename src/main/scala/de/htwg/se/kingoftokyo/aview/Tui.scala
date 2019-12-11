@@ -1,9 +1,10 @@
 package de.htwg.se.kingoftokyo.aview
 
 import de.htwg.se.kingoftokyo.controller.Controller
-import de.htwg.se.kingoftokyo.util.Observer
+import de.htwg.se.kingoftokyo.util.{Observable, Observer}
 import de.htwg.se.kingoftokyo.controller.State._
 import de.htwg.se.kingoftokyo.controller._
+
 
 class Tui (controller: Controller) extends Observer {
 

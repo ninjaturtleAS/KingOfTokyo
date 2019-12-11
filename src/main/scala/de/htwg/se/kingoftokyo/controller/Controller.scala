@@ -7,21 +7,21 @@ import de.htwg.se.kingoftokyo.util._
 import scala.swing.Publisher
 import scala.util.Try
 
-class Controller (var playGround: PlayGround) extends Publisher {
+class Controller (var playGround: PlayGround) extends Observable {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
   def createPlayers(playerNames: Option[String]):PlayGround = {
     playerNames match {
       case None =>
-        publish(new PlaygroundChanged)
+        notifyObservers
         playGround
       case Some(playerNames) =>
         undoManager.doStep (new CreatePlayersCommand (playerNames, this) )
         playGround = playGround.createPlayerInRandomOrder (playerNames)
         .throwDies ()
         state = WaitFor1stThrow
-        publish(new PlaygroundChanged)
+        notifyObservers
         playGround
     }
   }
@@ -29,28 +29,28 @@ class Controller (var playGround: PlayGround) extends Publisher {
   def evaluateThrow(): PlayGround = {
     playGround = playGround.getGood(playGround.rollResult)
     playGround = playGround.attack(playGround.rollResult)
-    publish(new PlaygroundChanged)
+    notifyObservers
     playGround = nextTurn()
-    publish(new PlaygroundChanged)
+    notifyObservers
     playGround
   }
 
   def completeThrow(): PlayGround = {
     playGround = playGround.completeThrow()
     state = ThrowComplete
-    publish(new PlaygroundChanged)
+    notifyObservers
     playGround
   }
 
   def incLapNr: PlayGround = {
     playGround = playGround.incLapNr()
-    publish(new PlaygroundChanged)
+    notifyObservers
     playGround
   }
 
   def throwDies():PlayGround = {
     playGround = playGround.throwDies()
-    publish(new PlaygroundChanged)
+    notifyObservers
     playGround
   }
 
@@ -62,11 +62,11 @@ class Controller (var playGround: PlayGround) extends Publisher {
         .throwDies()
       state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
       else  {ThrowComplete}
-      publish(new PlaygroundChanged)
+      notifyObservers
       playGround
     }
     else {
-      publish(new PlaygroundChanged)
+      notifyObservers
       this.playGround
     }
 
@@ -85,12 +85,12 @@ class Controller (var playGround: PlayGround) extends Publisher {
 
   def undo: Unit = {
     undoManager.undoStep
-    publish(new PlaygroundChanged)
+    notifyObservers
   }
 
   def redo: Unit = {
     undoManager.redoStep
-    publish(new PlaygroundChanged)
+    notifyObservers
   }
 
 
