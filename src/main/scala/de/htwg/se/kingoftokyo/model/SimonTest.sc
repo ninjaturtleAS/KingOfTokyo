@@ -2,6 +2,8 @@ import java.security.SecureRandom
 
 import de.htwg.se.kingoftokyo.KingOfTokyo
 import de.htwg.se.kingoftokyo.model._
+import javax.swing.text.DocumentFilter.FilterBypass
+import javax.swing.text.{AbstractDocument, AttributeSet, DocumentFilter}
 
 import scala.collection.mutable.ListBuffer
 
@@ -44,28 +46,48 @@ case class PlayersCreator(stringOfNames: String) {
     vNames
   }
 
-  def getRandomPlayers(names: List[String], players: Players): Players = {
-    //val rPlayerNames: Vector[String] = names -- players.toStringVector
-    val rPlayerNames: List[String] = names.diff(players.toStringVector)
-    if (rPlayerNames.isEmpty)
-    {
-      players
+}
+import swing._
+import swing.Dialog._
+import event._
+
+//object TempConverter extends SimpleSwingApplication {
+//  def top = new MainFrame {
+//    title = "Celsius/Fahrenheit Converter"
+//    object celsius extends TextField { columns = 5 }
+//    object fahrenheit extends TextField { columns = 5 }
+//    contents = new FlowPanel {
+//      contents += celsius
+//      contents += new Label(" Celsius  =  ")
+//      contents += fahrenheit
+//      contents += new Label(" Fahrenheit")
+//      border = Swing.EmptyBorder(15, 10, 10, 10)
+//    }
+//    listenTo(celsius, fahrenheit)
+//    reactions += {
+//      case EditDone(`fahrenheit`) =>
+//        val f = fahrenheit.text.toInt
+//        val c = (f - 32) * 5 / 9
+//        celsius.text = c.toString
+//      case EditDone(`celsius`) =>
+//        val c = celsius.text.toInt
+//        val f = c * 9 / 5 + 32
+//        fahrenheit.text = f.toString
+//    }
+//  }
+//}
+//TempConverter.top.visible = true
+object ProcessInputString extends Frame {
+  def getPlayerNames = new MainFrame {
+    title = "Spielernamen kommagetrennt eingeben"
+    object namen extends TextField {columns = 30}
+    //object getNames extends Button
+    val button = new Button("Process")
+    contents = new FlowPanel {
+      contents += new Label("Namen: ")
+      contents += namen
+      border = Swing.EmptyBorder(15, 10, 10, 10)
     }
-    else
-    {
-      // use Die Class to randomize players order
-      val random = Die(rPlayerNames.length)(new SecureRandom()).roll - 1
-      val player = Player(rPlayerNames(random))
-      getRandomPlayers(vNames, players.addPlayer(player))
-    }
-  }
-  def getRandomPlayers(names: List[String]): Players = {
-    getRandomPlayers(names,new Players())
   }
 }
-
-val plc = PlayersCreator("Simon,Alex,Paul")
-plc.getRandomPlayers(plc.vNames).toStringVector
-
-
-
+ProcessInputString.getPlayerNames
