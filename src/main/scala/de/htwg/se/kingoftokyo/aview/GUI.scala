@@ -29,11 +29,11 @@ class GUI(controller: Controller) extends Frame {
   def playgroundPanel = new FlowPanel(){
     contents += new Label("Tokyo: ")
 
+    listenTo(initialPanel)
     for (p <- controller.playGround.players.players) {
       val player = new TextField(p.info)
       player.preferredSize = (new Dimension(20,20))
       contents += player
-      listenTo(initialPanel)
     }
   }
 
@@ -72,5 +72,8 @@ class GUI(controller: Controller) extends Frame {
   visible = true
   //redraw
 
+  reactions += {
+    case event: PlaygroundChanged => repaint
+  }
 
 }

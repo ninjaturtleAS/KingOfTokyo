@@ -39,11 +39,13 @@ class ControllerSpec extends WordSpec with Matchers {
       val controllerKOT =  new Controller(playGroundKOTDecision)
       val controllerUndoRedu =  new Controller(playGroundWaitFirst)
 
-
+/*
       "with given 3 names" in {
         controller.createPlayers((Some(testString))).players.players.length should be (3)
       }
 
+
+ */
       "with no names" in {
         controller.createPlayers(None) should be (controller.playGround)
       }

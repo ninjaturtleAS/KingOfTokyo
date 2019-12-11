@@ -11,18 +11,18 @@ class Controller (var playGround: PlayGround) extends Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
-  def createPlayers(playerNames: Option[String]):Unit = {
+  def createPlayers(playerNames: Option[String]): PlayGround = {
     playerNames match {
       case None =>
         publish(new PlaygroundChanged)
-
+        playGround
       case Some(playerNames) =>
         undoManager.doStep (new CreatePlayersCommand (playerNames, this) )
         playGround = playGround.createPlayerInRandomOrder (playerNames)
         .throwDies ()
         state = WaitFor1stThrow
         publish(new PlaygroundChanged)
-
+        playGround
     }
   }
 
