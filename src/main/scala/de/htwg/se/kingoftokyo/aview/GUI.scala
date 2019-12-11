@@ -4,6 +4,7 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import de.htwg.se.kingoftokyo.controller._
+import de.htwg.se.kingoftokyo.controller.State._
 import  de.htwg.se.kingoftokyo.model._
 
 import scala.io.Source._
@@ -21,20 +22,47 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def inputPlayers(): Unit = {
-    val help = ""
-    val names = Dialog.showInput(contents.head, "Players?", initial = help)
+    val init = ""
+    val names = Dialog.showInput(contents.head, "Players?", initial = init)
     controller.createPlayers(names)
   }
 
-  def playgroundPanel = new FlowPanel(){
-    contents += new Label("Tokyo: ")
-
+  def playersPanel = new BoxPanel(Orientation.Vertical){
     listenTo(initialPanel)
+
     for (p <- controller.playGround.players.players) {
-      val player = new TextField(p.info)
-      player.preferredSize = (new Dimension(20,20))
+      val player = new FlowPanel() {
+        contents += new Label(p.info)
+      }
       contents += player
     }
+    listenTo(playgroundPanel)
+  }
+
+  def playgroundPanel =  new BoxPanel(Orientation.Vertical) {
+    contents += new TextField(controller.playGround.rollResult.toString())
+    val button = Button("Choice?") { choice() }
+    contents += button
+    listenTo(button)
+  }
+
+  def choice(): Unit = {
+    val init = ""
+    val choice = Dialog.showInput(contents.head, "Choice, All or None?", initial = init)
+    choice match {
+      case None => controller.filterThrowResult("")
+      case Some(choice) => controller.filterThrowResult(choice)
+    }
+  }
+
+  def nextPanel = new FlowPanel() {
+    val button  = Button("Next Turn?") { nextTurn() }
+    contents += button
+    listenTo(button)
+  }
+
+  def nextTurn(): Unit = {
+    controller.evaluateThrow()
   }
 
 
@@ -44,7 +72,8 @@ class GUI(controller: Controller) extends Frame {
   contents = new BorderPanel {
     minimumSize_=(preferredSize)
     add(initialPanel, BorderPanel.Position.North)
-    add(playgroundPanel, BorderPanel.Position.Center)
+//    add(playersPanel, BorderPanel.Position.Center)
+//    add(playgroundPanel, BorderPanel.Position.South)
   }
 
   menuBar = new MenuBar {
@@ -70,10 +99,33 @@ class GUI(controller: Controller) extends Frame {
 
 
   visible = true
-  //redraw
+  redraw
 
   reactions += {
-    case event: PlaygroundChanged => repaint
+    case event: PlaygroundChanged => redraw
   }
 
+  def redraw = {
+    contents = controller.state match {
+      case WaitForPlayerNames => {
+        new BorderPanel() {
+          minimumSize_=(preferredSize)
+          add(initialPanel, BorderPanel.Position.North)
+        }
+      }
+      case WaitFor1stThrow | WaitFor2ndThrow => {
+        new BorderPanel() {
+          minimumSize_=(preferredSize)
+          add(playersPanel, BorderPanel.Position.Center)
+          add(playgroundPanel, BorderPanel.Position.South)
+        }
+      }
+      case ThrowComplete => {
+        new BorderPanel() {
+          minimumSize = (preferredSize)
+          add(nextPanel,BorderPanel.Position.Center)
+        }
+      }
+    }
+  }
 }
