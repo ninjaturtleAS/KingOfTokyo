@@ -11,6 +11,13 @@ class Controller (var playGround: PlayGround) extends Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
+  def newGame: PlayGround = {
+    playGround = new PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
+    state = WaitForPlayerNames
+    publish(new PlaygroundChanged)
+    playGround
+  }
+
   def createPlayers(playerNames: Option[String]): PlayGround = {
     playerNames match {
       case None =>

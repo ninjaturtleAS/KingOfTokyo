@@ -39,8 +39,8 @@ class GUI(controller: Controller) extends Frame {
     listenTo(playgroundPanel)
   }
 
-  def playgroundPanel =  new BoxPanel(Orientation.Vertical) {
-    contents += new TextField(controller.playGround.rollResult.toString())
+  def playgroundPanel =  new FlowPanel() {
+    contents += new TextArea(controller.playGround.rollResult.toString())
     val button = Button("Choice?") { choice() }
     contents += button
     listenTo(button)
@@ -50,7 +50,9 @@ class GUI(controller: Controller) extends Frame {
     val init = ""
     val choice = Dialog.showInput(contents.head, "Choice, All or None?", initial = init)
     choice match {
-      case None => controller.filterThrowResult("")
+      case None =>
+      case Some("") => controller.filterThrowResult("")
+      case Some("all") => controller.completeThrow()
       case Some(choice) => controller.filterThrowResult(choice)
     }
   }
@@ -67,20 +69,18 @@ class GUI(controller: Controller) extends Frame {
 
 
 
-  preferredSize = new Dimension(600, 500)
+  preferredSize = new Dimension(450, 300)
 
   contents = new BorderPanel {
     minimumSize_=(preferredSize)
     add(initialPanel, BorderPanel.Position.North)
-//    add(playersPanel, BorderPanel.Position.Center)
-//    add(playgroundPanel, BorderPanel.Position.South)
   }
 
   menuBar = new MenuBar {
-    contents += new Menu("File") {
+    contents += new Menu("Game") {
       mnemonic = Key.F
       contents += new MenuItem(Action("New") {
-        //controller.createPlayers()
+        controller.newGame
       })
       contents += new MenuItem(Action("Quit") {
         System.exit(0)
@@ -89,10 +89,14 @@ class GUI(controller: Controller) extends Frame {
     contents += new Menu("Edit") {
       mnemonic = Key.E
       contents += new MenuItem(Action("Undo") {
-        controller.undo
+        if (controller.state == WaitFor1stThrow) {
+          controller.undo
+        }
       })
       contents += new MenuItem(Action("Redo") {
-        controller.redo
+        if (controller.state == WaitForPlayerNames) {
+          controller.redo
+        }
       })
     }
   }
