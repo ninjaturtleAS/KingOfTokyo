@@ -4,6 +4,7 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import de.htwg.se.kingoftokyo.controller._
+import  de.htwg.se.kingoftokyo.model._
 
 import scala.io.Source._
 
@@ -13,30 +14,38 @@ class GUI(controller: Controller) extends Frame {
 
   title = "King of Tokyo"
 
+  def initialPanel = new FlowPanel() {
+    val button = Button("Players?") { inputPlayers() }
+    contents += button
+    listenTo(button)
+  }
+
+  def inputPlayers(): Unit = {
+    val help = ""
+    val names = Dialog.showInput(contents.head, "Players?", initial = help)
+    controller.createPlayers(names)
+  }
+
   def playgroundPanel = new FlowPanel(){
-    border = LineBorder(java.awt.Color.BLACK, 2)
-    background = java.awt.Color.BLACK
-    for {
-      outerRow <- 0 until controller.blockSize
-      outerColumn <- 0 until controller.blockSize
-    } {
-      contents += new GridPanel(controller.blockSize, controller.blockSize) {
-        border = LineBorder(java.awt.Color.BLACK, 2)
-        for {
-          innerRow <- 0 until controller.blockSize
-          innerColumn <- 0 until controller.blockSize
-        } {
-          val x = outerRow * controller.blockSize + innerRow
-          val y = outerColumn * controller.blockSize + innerColumn
-          val cellPanel = new CellPanel(x, y, controller)
-          cells(x)(y) = cellPanel
-          contents += cellPanel
-          listenTo(cellPanel)
-        }
-      }
+    contents += new Label("Tokyo: ")
+
+    for (p <- controller.playGround.players.players) {
+      val player = new TextField(p.info)
+      player.preferredSize = (new Dimension(20,20))
+      contents += player
+      listenTo(initialPanel)
     }
   }
 
+
+
+  preferredSize = new Dimension(600, 500)
+
+  contents = new BorderPanel {
+    minimumSize_=(preferredSize)
+    add(initialPanel, BorderPanel.Position.North)
+    add(playgroundPanel, BorderPanel.Position.Center)
+  }
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
@@ -58,4 +67,10 @@ class GUI(controller: Controller) extends Frame {
       })
     }
   }
+
+
+  visible = true
+  //redraw
+
+
 }
