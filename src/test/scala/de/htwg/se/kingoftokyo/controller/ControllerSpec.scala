@@ -68,9 +68,9 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "filter throw results" in {
         controller1.filterThrowResult("String") should be (controller1.playGround)
-        controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
+        controller1.filterThrowResult("1,2,3,4,5,a") should be (controller1.playGround)
         controller1.state = State.WaitFor1stThrow
-        controller1.filterThrowResult("0 1 2 3 4 5").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
+        controller1.filterThrowResult("1,2,3,4,5,6").rollResult.toString() should be ("1 2 3 Energy Heart Attack ")
       }
 
       "evaluate Results" in {

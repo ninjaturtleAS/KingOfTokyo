@@ -43,6 +43,9 @@ class PlayGroundSpec extends WordSpec with Matchers {
       "filter empy choice" in {
          playGroundComplete.filterThrowResult("").players should be(players)
       }
+      "filter non empty choice" in {
+        playGroundComplete.filterThrowResult("1").players should be(players)
+      }
 
       "Have a nice String" in {
         playGroundComplete.toString should be (
