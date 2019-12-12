@@ -18,7 +18,7 @@ class GUI(controller: Controller) extends Frame {
   def initialPanel = new FlowPanel() {
     val button = Button("Players?") { inputPlayers() }
     contents += button
-    listenTo(button)
+    //listenTo(button)
   }
 
   def inputPlayers(): Unit = {
@@ -30,20 +30,22 @@ class GUI(controller: Controller) extends Frame {
   def playersPanel = new BoxPanel(Orientation.Vertical){
     listenTo(initialPanel)
 
-    for (p <- controller.playGround.players.players) {
+    for (i <- 0 until controller.playGround.players.players.length) {
       val player = new FlowPanel() {
-        contents += new Label(p.info)
+        val kot = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
+        val turn = if (i == controller.playGround.lapNr) {"turn, "} else {""}
+        contents += new Label(turn + kot + controller.playGround.players.players(i).info)
       }
       contents += player
     }
-    listenTo(playgroundPanel)
+    //listenTo(playgroundPanel)
   }
 
   def playgroundPanel =  new FlowPanel() {
     contents += new TextArea(controller.playGround.rollResult.toString())
     val button = Button("Choice?") { choice() }
     contents += button
-    listenTo(button)
+    //listenTo(button)
   }
 
   def choice(): Unit = {
@@ -60,7 +62,7 @@ class GUI(controller: Controller) extends Frame {
   def nextPanel = new FlowPanel() {
     val button  = Button("Next Turn?") { nextTurn() }
     contents += button
-    listenTo(button)
+    //listenTo(button)
   }
 
   def nextTurn(): Unit = {

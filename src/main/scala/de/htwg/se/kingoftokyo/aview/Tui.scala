@@ -10,7 +10,7 @@ import scala.swing.Publisher
 class Tui (controller: Controller) extends Publisher {
 
   //controller.add(this)
-
+  listenTo(controller)
   def processInputLine(input: String): Unit = {
     controller.state match {
 
@@ -49,6 +49,15 @@ class Tui (controller: Controller) extends Publisher {
     }
   }
 
+  reactions+= {
+    case event: PlaygroundChanged => printTui()
+  }
+
+  def printTui() = {
+    println(controller.playGroundToString())
+    println(State.message(controller.state) + "\n")
+    println(controller.state)
+  }
   /*
   override def update: Boolean = {
     println(controller.playGroundToString())
