@@ -66,6 +66,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller3.incLapNr.lapNr should be (1)
       }
 
+
       "filter throw results" in {
         controller1.filterThrowResult("String") should be (controller1.playGround)
         controller1.filterThrowResult("1,2,3,4,5,a") should be (controller1.playGround)
