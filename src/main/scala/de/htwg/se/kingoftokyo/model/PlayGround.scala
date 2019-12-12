@@ -7,11 +7,7 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
   val no = false
 
   def incLapNr(): PlayGround = {
-    if (this.lapNr == players.players.length - 1) {
-      copy(this.players, 0, this.rollResult, this.kingOfTokyo)
-    } else {
       copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
-    }
   }
 
   def getGood(rollResult: RollResult): PlayGround = {

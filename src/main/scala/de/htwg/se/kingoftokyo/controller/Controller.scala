@@ -84,13 +84,8 @@ class Controller (var playGround: PlayGround) extends Publisher {
   }
 
   def nextTurn():PlayGround = {
-    if (playGround.lapNr == playGround.players.players.length - 1) {
-      playGround = playGround.copy(playGround.players, 0,
-        RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
-    } else {
       playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
         RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
-    }
     state = WaitFor1stThrow
     playGround
   }

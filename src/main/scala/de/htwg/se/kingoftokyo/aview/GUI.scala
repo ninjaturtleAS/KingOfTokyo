@@ -41,7 +41,7 @@ class GUI(controller: Controller) extends Frame {
       val player: FlowPanel = new FlowPanel() {
         background = backColor
         val kot: String = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
-        val turn: String = if (i == controller.playGround.lapNr) {"turn, "} else {""}
+        val turn: String = if (i == controller.playGround.lapNr % controller.playGround.players.getLength()) {"turn, "} else {""}
         contents += {
           val label: Label = new Label(turn + kot + controller.playGround.players.players(i).info)
           label.foreground = playerTextColor
