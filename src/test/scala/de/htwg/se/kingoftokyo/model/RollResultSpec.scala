@@ -9,10 +9,9 @@ import Matchers._
 class RollResultSpec extends WordSpec with Matchers {
 
   val initVector = Vector(1, 2, 3, 4, 5, 6)
-  val testSelect = Vector(0, 1)
   val testStar = Vector(2, 2, 2, 1, 1, 1)
   val testAttack = Vector(6, 6, 6, 6, 6, 6)
-  val testString = "0 1"
+  val testString = "1,2"
 
   "A throw" when {
     "initialized wtih 6" should {
