@@ -1,13 +1,12 @@
 package de.htwg.se.kingoftokyo.aview
 
+import java.awt.Color
+
 import scala.swing._
-import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import de.htwg.se.kingoftokyo.controller._
 import de.htwg.se.kingoftokyo.controller.State._
-import  de.htwg.se.kingoftokyo.model._
 
-import scala.io.Source._
 
 class GUI(controller: Controller) extends Frame {
 
@@ -15,10 +14,20 @@ class GUI(controller: Controller) extends Frame {
 
   title = "King of Tokyo"
 
-  def initialPanel = new FlowPanel() {
-    val button = Button("Players?") { inputPlayers() }
+  val backColor: Color = Color.DARK_GRAY
+  val playerTextColor: Color = Color.MAGENTA.brighter()
+  val resultTextColor: Color = Color.YELLOW.brighter()
+
+  val width = 450
+  val height = 300
+  preferredSize = new Dimension(width, height)
+
+  def initialPanel: FlowPanel = new FlowPanel() {
+    background = backColor
+    val button: Button = Button("Players?") { inputPlayers() }
+    button.foreground = Color.BLACK
+    button.background = playerTextColor
     contents += button
-    //listenTo(button)
   }
 
   def inputPlayers(): Unit = {
@@ -27,25 +36,33 @@ class GUI(controller: Controller) extends Frame {
     controller.createPlayers(names)
   }
 
-  def playersPanel = new BoxPanel(Orientation.Vertical){
-    listenTo(initialPanel)
-
-    for (i <- 0 until controller.playGround.players.players.length) {
-      val player = new FlowPanel() {
-        val kot = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
-        val turn = if (i == controller.playGround.lapNr) {"turn, "} else {""}
-        contents += new Label(turn + kot + controller.playGround.players.players(i).info)
+  def playersPanel: BoxPanel = new BoxPanel(Orientation.Vertical){
+    for (i <- controller.playGround.players.players.indices) {
+      val player: FlowPanel = new FlowPanel() {
+        background = backColor
+        val kot: String = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
+        val turn: String = if (i == controller.playGround.lapNr) {"turn, "} else {""}
+        contents += {
+          val label: Label = new Label(turn + kot + controller.playGround.players.players(i).info)
+          label.foreground = playerTextColor
+          label
+        }
       }
       contents += player
     }
-    //listenTo(playgroundPanel)
   }
 
-  def playgroundPanel =  new FlowPanel() {
-    contents += new TextArea(controller.playGround.rollResult.toString())
-    val button = Button("Choice?") { choice() }
+  def playgroundPanel: FlowPanel =  new FlowPanel() {
+    background = backColor
+    contents += {
+      val text = new Label(controller.playGround.rollResult.toString())
+      text.foreground = resultTextColor
+      text
+    }
+    val button: Button = Button("Choice?") { choice() }
+    button.foreground = Color.BLACK
+    button.background = resultTextColor
     contents += button
-    //listenTo(button)
   }
 
   def choice(): Unit = {
@@ -59,24 +76,16 @@ class GUI(controller: Controller) extends Frame {
     }
   }
 
-  def nextPanel = new FlowPanel() {
-    val button  = Button("Next Turn?") { nextTurn() }
+  def nextPanel: FlowPanel = new FlowPanel() {
+    background = Color.MAGENTA
+    val button: Button = Button("Next Turn?") { nextTurn() }
     contents += button
-    //listenTo(button)
   }
 
   def nextTurn(): Unit = {
     controller.evaluateThrow()
   }
 
-
-
-  preferredSize = new Dimension(450, 300)
-
-  contents = new BorderPanel {
-    minimumSize_=(preferredSize)
-    add(initialPanel, BorderPanel.Position.North)
-  }
 
   menuBar = new MenuBar {
     contents += new Menu("Game") {
@@ -105,33 +114,33 @@ class GUI(controller: Controller) extends Frame {
 
 
   visible = true
-  redraw
+  redraw()
 
   reactions += {
-    case event: PlaygroundChanged => redraw
+    case _: PlaygroundChanged => redraw()
   }
 
-  def redraw = {
+  def redraw(): Unit = {
     contents = controller.state match {
-      case WaitForPlayerNames => {
+      case WaitForPlayerNames =>
         new BorderPanel() {
+          background = backColor
           minimumSize_=(preferredSize)
           add(initialPanel, BorderPanel.Position.North)
         }
-      }
-      case WaitFor1stThrow | WaitFor2ndThrow => {
+      case WaitFor1stThrow | WaitFor2ndThrow =>
         new BorderPanel() {
+          background = backColor
           minimumSize_=(preferredSize)
           add(playersPanel, BorderPanel.Position.Center)
           add(playgroundPanel, BorderPanel.Position.South)
         }
-      }
-      case ThrowComplete => {
+      case ThrowComplete =>
         new BorderPanel() {
-          minimumSize = (preferredSize)
+          background = backColor
+          minimumSize = preferredSize
           add(nextPanel,BorderPanel.Position.Center)
         }
-      }
     }
   }
 }

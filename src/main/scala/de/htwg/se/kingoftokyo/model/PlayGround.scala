@@ -3,6 +3,9 @@ package de.htwg.se.kingoftokyo.model
 
 case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) {
 
+  val yes = true
+  val no = false
+
   def incLapNr(): PlayGround = {
     copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
   }
@@ -19,10 +22,10 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
 
   def attack(rollResult: RollResult):PlayGround = {
     if (this.lapNr % this.players.getLength() == this.kingOfTokyo) {
-      val tmpPlayers = this.players.getAttacks(rollResult, true, this.kingOfTokyo)
+      val tmpPlayers = this.players.getAttacks(rollResult, yes, this.kingOfTokyo)
       copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
     } else {
-      val tmpPlayers = this.players.getAttacks(rollResult, false, this.kingOfTokyo)
+      val tmpPlayers = this.players.getAttacks(rollResult,no, this.kingOfTokyo)
       copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
     }
   }
