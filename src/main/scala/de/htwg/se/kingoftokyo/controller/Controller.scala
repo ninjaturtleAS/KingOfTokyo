@@ -62,7 +62,7 @@ class Controller (var playGround: PlayGround) extends Publisher {
   }
 
   def filterThrowResult(filter: String):PlayGround = {
-    val selection = filter.split(" ").toVector
+    val selection = filter.split(",").toVector
     val list = Try(selection.map(x => x.toInt))
     if (list.isSuccess) {
       playGround = playGround.filterThrowResult(filter)

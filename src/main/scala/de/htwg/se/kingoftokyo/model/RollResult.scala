@@ -9,8 +9,8 @@ case class RollResult(result: Vector[Int]) {
   }
 
   def filterThrowResult(selectionStr: String): RollResult = {
-    val selection = selectionStr.split(" ").toVector
-    RollResult(for {x <- selection} yield this.result(x.toInt))
+    val selection = selectionStr.split(",").toVector
+    RollResult(for {x <- selection} yield this.result(x.toInt - 1))
   }
 
   def mapFacesToString(i: Int): String = {
