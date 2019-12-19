@@ -1,10 +1,10 @@
-package de.htwg.se.kingoftokyo.model
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
 import java.security.SecureRandom
 
 import org.junit.runner.RunWith
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.{Matchers, WordSpec}
 
 
 @RunWith(classOf[JUnitRunner])

@@ -2,6 +2,7 @@ package de.htwg.se.kingoftokyo.controller
 
 import de.htwg.se.kingoftokyo.controller.State._
 import de.htwg.se.kingoftokyo.model._
+import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher

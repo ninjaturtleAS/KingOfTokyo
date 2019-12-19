@@ -1,7 +1,6 @@
-package de.htwg.se.kingoftokyo.model
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
 import org.scalatest._
-import org.junit.runner.RunWith
 
 
 class PlayersSpec extends WordSpec with Matchers {

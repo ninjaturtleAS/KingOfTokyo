@@ -1,9 +1,9 @@
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
-import org.scalatest._
+import de.htwg.se.kingoftokyo.controller.State
 import org.junit.runner.RunWith
+import org.scalatest._
 import org.scalatest.junit.JUnitRunner
-import Matchers._
 
 @RunWith(classOf[JUnitRunner])
 class StateSpec extends WordSpec with Matchers {

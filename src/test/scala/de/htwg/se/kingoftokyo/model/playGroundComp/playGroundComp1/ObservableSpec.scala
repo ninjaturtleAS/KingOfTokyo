@@ -1,6 +1,6 @@
-package de.htwg.se.kingoftokyo.util
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
-
+import de.htwg.se.kingoftokyo.util.{Observable, Observer}
 import org.scalatest.{Matchers, WordSpec}
 
 class ObservableSpec extends WordSpec with Matchers {
