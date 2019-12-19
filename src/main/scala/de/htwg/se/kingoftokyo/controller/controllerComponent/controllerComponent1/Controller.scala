@@ -6,6 +6,7 @@ import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
 import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Players
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
+import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
@@ -15,14 +16,14 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 
-  def newGame: PlayGround = {
+  override def newGame: PlayGroundInterface = {
     playGround = new PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
     state = WaitForPlayerNames
     publish(new PlaygroundChanged)
     playGround
   }
 
-  def createPlayers(playerNames: Option[String]): PlayGround = {
+  override def createPlayers(playerNames: Option[String]): PlayGroundInterface = {
     playerNames match {
       case None =>
         publish(new PlaygroundChanged)
@@ -37,7 +38,7 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
     }
   }
 
-  def evaluateThrow(): PlayGround = {
+  override def evaluateThrow(): PlayGroundInterface = {
     playGround = playGround.getGood(playGround.rollResult)
     playGround = playGround.attack(playGround.rollResult)
     publish(new PlaygroundChanged)
@@ -46,26 +47,26 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
     playGround
   }
 
-  def completeThrow(): PlayGround = {
+  override def completeThrow(): PlayGroundInterface = {
     playGround = playGround.completeThrow()
     state = ThrowComplete
     publish(new PlaygroundChanged)
     playGround
   }
 
-  def incLapNr: PlayGround = {
+  override def incLapNr: PlayGroundInterface = {
     playGround = playGround.incLapNr()
     publish(new PlaygroundChanged)
     playGround
   }
 
-  def throwDies():PlayGround = {
+  override def throwDies():PlayGroundInterface = {
     playGround = playGround.throwDies()
     publish(new PlaygroundChanged)
     playGround
   }
 
-  def filterThrowResult(filter: String):PlayGround = {
+  override def filterThrowResult(filter: String):PlayGroundInterface = {
     val selection = filter.split(",").toVector
     val list = Try(selection.map(x => x.toInt))
     if (list.isSuccess) {
@@ -83,23 +84,23 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
 
   }
 
-  def playGroundToString(): String = {
+  override def playGroundToString(): String = {
     playGround.toString()
   }
 
-  def nextTurn():PlayGround = {
+  override def nextTurn():PlayGroundInterface = {
       playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
         RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
     state = WaitFor1stThrow
     playGround
   }
 
-  def undo: Unit = {
+  override def undo: Unit = {
     undoManager.undoStep
     publish(new PlaygroundChanged)
   }
 
-  def redo: Unit = {
+  override def redo: Unit = {
     undoManager.redoStep
     publish(new PlaygroundChanged)
   }
