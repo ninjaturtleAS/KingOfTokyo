@@ -1,7 +1,5 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
-import de.htwg.se.kingoftokyo.model.PlayGround
-
 import scala.swing.Publisher
 import scala.swing.event.Event
 

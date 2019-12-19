@@ -1,7 +1,7 @@
 
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
-import de.htwg.se.kingoftokyo.model.{PlayGround, Player, Players, RollResult}
+import de.htwg.se.kingoftokyo.model.{Player, Players, RollResult}
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner

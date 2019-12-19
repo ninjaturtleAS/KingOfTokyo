@@ -1,14 +1,16 @@
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
-package de.htwg.se.kingoftokyo.model
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.Throw
+import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 
 
-case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) {
+case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) extends PlayGroundInterface {
 
   val yes = true
   val no = false
 
   def incLapNr(): PlayGround = {
-      copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
+    copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
   }
 
   def getGood(rollResult: RollResult): PlayGround = {
