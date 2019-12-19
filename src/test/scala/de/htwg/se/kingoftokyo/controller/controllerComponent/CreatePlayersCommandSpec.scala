@@ -5,7 +5,7 @@ import de.htwg.se.kingoftokyo.model._
 import org.scalatest._
 
 class CreatePlayersCommandSpec extends WordSpec with Matchers {
-
+/*
   val lapNr = 0
   val kot = 1
   val initHeart =  10
@@ -38,4 +38,5 @@ class CreatePlayersCommandSpec extends WordSpec with Matchers {
       }
     }
   }
+ */
 }

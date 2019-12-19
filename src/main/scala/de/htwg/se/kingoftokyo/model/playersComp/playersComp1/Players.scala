@@ -1,16 +1,16 @@
 package de.htwg.se.kingoftokyo.model.playersComp.playersComp1
 
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
+import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 
 case class Players(players: Vector[Player]) extends PlayersInterface{
   //def this () = this(Vector.tabulate(1) { (x) => new Player("")})
   def this() = this(Vector.empty)
   def addPlayer(player: Player): Players = Players(players :+ player)
 
-  def toStringVector: Vector[String] = for (p <- players) yield p.name
+  override def toStringVector: Vector[String] = for (p <- players) yield p.name
 
-  def getGood(rollResult: RollResult, playerIndex: Int): Players = {
+  override def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface = {
     val tmpPlayer = this.players(playerIndex)
       .gainEnergy(rollResult.evaluateEnergy())
       .gainHeart(rollResult.evaluateHeart())
@@ -18,7 +18,7 @@ case class Players(players: Vector[Player]) extends PlayersInterface{
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
-  def getAttacks(rollResult: RollResult, inside: Boolean, kot : Int): Players = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): PlayersInterface = {
     inside match {
       case true => {
         var tmp = this.players
@@ -38,8 +38,10 @@ case class Players(players: Vector[Player]) extends PlayersInterface{
   }
 
 
-  def getLength(): Int = {players.length}
+  override def getLength(): Int = {players.length}
 
-  def toPlayerVector: Vector[Player] = {players}
+  override def getPlayers(): Vector[Player] = this.players
+
+  override def toPlayerVector: Vector[Player] = {players}
 
 }

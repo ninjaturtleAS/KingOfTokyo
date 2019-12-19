@@ -39,8 +39,8 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   }
 
   override def evaluateThrow(): PlayGroundInterface = {
-    playGround = playGround.getGood(playGround.rollResult)
-    playGround = playGround.attack(playGround.rollResult)
+    playGround = playGround.getGood(playGround.getRollResult())
+    playGround = playGround.attack(playGround.getRollResult())
     publish(new PlaygroundChanged)
     playGround = nextTurn()
     publish(new PlaygroundChanged)
@@ -89,8 +89,8 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   }
 
   override def nextTurn():PlayGroundInterface = {
-      playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
-        RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
+      playGround = new PlayGround(playGround.getPlayers(), playGround.getLapNr() + 1,
+        RollResult(playGround.getRollResult().throwOne()), playGround.getKOT())
     state = WaitFor1stThrow
     playGround
   }

@@ -39,13 +39,13 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def playersPanel: BoxPanel = new BoxPanel(Orientation.Vertical){
-    for (i <- controller.playGround.players.players.indices) {
+    for (i <- controller.playGround.getPlayers().getPlayers().indices) {
       val player: FlowPanel = new FlowPanel() {
         background = backColor
-        val kot: String = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
-        val turn: String = if (i == controller.playGround.lapNr % controller.playGround.players.getLength()) {"turn, "} else {""}
+        val kot: String = if (i == controller.playGround.getKOT()) {"KoT, "} else {""}
+        val turn: String = if (i == controller.playGround.getLapNr() % controller.playGround.getPlayers().getLength()) {"turn, "} else {""}
         contents += {
-          val label: Label = new Label(turn + kot + controller.playGround.players.players(i).info)
+          val label: Label = new Label(turn + kot + controller.playGround.getPlayers().getPlayers()(i).info)
           label.foreground = playerTextColor
           label
         }
@@ -57,7 +57,7 @@ class GUI(controller: Controller) extends Frame {
   def playgroundPanel: FlowPanel =  new FlowPanel() {
     background = backColor
     contents += {
-      val text = new Label(controller.playGround.rollResult.toString())
+      val text = new Label(controller.playGround.getRollResult().toString())
       text.foreground = resultTextColor
       text
     }

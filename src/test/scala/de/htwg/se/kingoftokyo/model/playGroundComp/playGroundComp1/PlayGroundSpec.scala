@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class PlayGroundSpec extends WordSpec with Matchers {
-
+/*
   //initialize a test playground
   val lapNr = 1
   val kot = 1
@@ -76,4 +76,6 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
     }
   }
+
+ */
 }

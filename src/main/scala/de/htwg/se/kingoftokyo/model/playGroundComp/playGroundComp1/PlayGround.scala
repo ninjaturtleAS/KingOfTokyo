@@ -1,12 +1,14 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
+import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Players, PlayersCreator}
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.{RollResult, Throw}
 
 
-case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) extends PlayGroundInterface {
+case class PlayGround(players: PlayersInterface, lapNr: Integer,
+                      rollResult: RollResultInterface, kingOfTokyo: Int) extends PlayGroundInterface {
 
   val yes = true
   val no = false
@@ -59,6 +61,14 @@ case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, 
       copy(this.players,this.lapNr, filteredThrowResult, this.kingOfTokyo)
     }
   }
+
+  override def getKOT(): Int = this.kingOfTokyo
+
+  override def getPlayers(): PlayersInterface = this.players
+
+  override def getRollResult(): RollResultInterface = this.rollResult
+
+  override def getLapNr(): Int = this.lapNr
 
   override def toString: String = {
     val kotName = if (this.players.toPlayerVector.isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}

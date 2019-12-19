@@ -4,17 +4,17 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 
 case class RollResult(result: Vector[Int]) extends RollResultInterface{
 
-  def throwOne(): Vector[Int] = {
+  override def throwOne(): Vector[Int] = {
     //IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
     Throw(6).throwDies()
   }
 
-  def filterThrowResult(selectionStr: String): RollResult = {
+  override def filterThrowResult(selectionStr: String): RollResultInterface = {
     val selection = selectionStr.split(",").toVector
     RollResult(for {x <- selection} yield this.result(x.toInt - 1))
   }
 
-  def mapFacesToString(i: Int): String = {
+  override def mapFacesToString(i: Int): String = {
     i match {
       case 1 | 2 | 3 => i.toString() + " "
       case 4 => "Energy "
@@ -28,19 +28,19 @@ case class RollResult(result: Vector[Int]) extends RollResultInterface{
     result.map(x => mapFacesToString(x)).mkString
   }
 
-  def evaluateHeart(): Int = {
+  override def evaluateHeart(): Int = {
     result.count(x => x == 5)
   }
 
-  def evaluateEnergy(): Int = {
+  override def evaluateEnergy(): Int = {
     result.count(x => x == 4)
   }
 
-  def evaluateAttacks(): Int = {
+  override def evaluateAttacks(): Int = {
     result.count(x => x == 6)
   }
 
-  def evaluateStars(): Int = {
+  override def evaluateStars(): Int = {
     val c1 = result.count(x => x == 1)
     val c2 = result.count(x => x == 2)
     val c3 = result.count(x => x == 3)
@@ -50,11 +50,11 @@ case class RollResult(result: Vector[Int]) extends RollResultInterface{
     s1 + s2 + s3
   }
 
-  def length: Int = {
+  override def length: Int = {
     result.length
   }
 
-  def toIntVector: Vector[Int] = {
+  override def toIntVector: Vector[Int] = {
     this.result
   }
 
