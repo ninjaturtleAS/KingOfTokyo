@@ -3,7 +3,7 @@ package de.htwg.se.kingoftokyo
 
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.aview._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.ControllerInterface
+import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.Controller
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
 import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Players
