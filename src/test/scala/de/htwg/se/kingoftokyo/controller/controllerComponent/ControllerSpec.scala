@@ -1,5 +1,5 @@
 
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import de.htwg.se.kingoftokyo.model.{PlayGround, Player, Players, RollResult}
 import org.junit.runner.RunWith

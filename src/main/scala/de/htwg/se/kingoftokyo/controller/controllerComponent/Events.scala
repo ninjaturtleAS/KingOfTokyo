@@ -1,9 +1,8 @@
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import scala.swing.event.Event
 
 class PlayersCreated extends Event
-case class GridSizeChanged(newSize: Int) extends Event
 
 /*
 class ThrowEvaluated extends Event

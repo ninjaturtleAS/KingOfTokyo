@@ -4,6 +4,7 @@ import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import Matchers._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State
 
 @RunWith(classOf[JUnitRunner])
 class StateSpec extends WordSpec with Matchers {

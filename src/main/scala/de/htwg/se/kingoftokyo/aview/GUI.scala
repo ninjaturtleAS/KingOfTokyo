@@ -5,7 +5,8 @@ import java.awt.Color
 import scala.swing._
 import scala.swing.event._
 import de.htwg.se.kingoftokyo.controller._
-import de.htwg.se.kingoftokyo.controller.State._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 
 
 class GUI(controller: Controller) extends Frame {

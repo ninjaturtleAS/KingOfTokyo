@@ -1,8 +1,9 @@
 package de.htwg.se.kingoftokyo
 
-import de.htwg.se.kingoftokyo.controller.{Controller, PlaygroundChanged}
+import de.htwg.se.kingoftokyo.controller.PlaygroundChanged
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.aview._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged}
 
 import scala.io.StdIn._
 

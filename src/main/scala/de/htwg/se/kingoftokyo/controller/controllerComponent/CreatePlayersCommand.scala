@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import de.htwg.se.kingoftokyio.util.Command
 
