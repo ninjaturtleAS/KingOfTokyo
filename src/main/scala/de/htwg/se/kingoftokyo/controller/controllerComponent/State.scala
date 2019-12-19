@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 object State extends Enumeration {
   type GameState = Value

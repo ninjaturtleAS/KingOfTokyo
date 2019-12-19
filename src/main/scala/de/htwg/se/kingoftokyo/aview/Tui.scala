@@ -1,9 +1,9 @@
 package de.htwg.se.kingoftokyo.aview
 
-import de.htwg.se.kingoftokyo.controller.Controller
 import de.htwg.se.kingoftokyo.util.Observer
-import de.htwg.se.kingoftokyo.controller.State._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.controller._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged, State}
 
 import scala.swing.Publisher
 

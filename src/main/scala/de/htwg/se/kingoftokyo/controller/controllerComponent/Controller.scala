@@ -1,6 +1,6 @@
-package de.htwg.se.kingoftokyo.controller
+package de.htwg.se.kingoftokyo.controller.controllerComponent
 
-import de.htwg.se.kingoftokyo.controller.State._
+import State._
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.util._
@@ -85,8 +85,8 @@ class Controller (var playGround: PlayGround) extends Publisher {
   }
 
   def nextTurn():PlayGround = {
-    playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
-                                    RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
+      playGround = playGround.copy(playGround.players, playGround.lapNr + 1,
+        RollResult(playGround.rollResult.throwOne()), playGround.kingOfTokyo)
     state = WaitFor1stThrow
     playGround
   }
