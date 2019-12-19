@@ -18,6 +18,5 @@ trait ControllerInterface extends Publisher{
   def undo: Unit
   def redo: Unit
 
-
-  class PlaygroundChanged extends Event
 }
+class PlaygroundChanged extends Event
