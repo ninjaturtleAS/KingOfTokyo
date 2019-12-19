@@ -1,7 +1,7 @@
 package de.htwg.se.kingoftokyo.util
 
 import de.htwg.se.kingoftokyo.controller.Controller
-import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, CreatePlayersCommand}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.{Controller, CreatePlayersCommand}
 import de.htwg.se.kingoftokyo.model._
 import org.scalatest._
 

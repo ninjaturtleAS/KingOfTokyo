@@ -1,9 +1,8 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1
 
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.Throw
+import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 
-
-case class RollResult(result: Vector[Int]) {
+case class RollResult(result: Vector[Int]) extends RollResultInterface{
 
   def throwOne(): Vector[Int] = {
     //IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)

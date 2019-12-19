@@ -1,5 +1,7 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
+import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 import org.scalatest._
 
 

@@ -1,8 +1,9 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playersComp.playersComp1
 
-import scala.collection.JavaConverters._
+import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 
-case class Players(players: Vector[Player]) {
+case class Players(players: Vector[Player]) extends PlayersInterface{
   //def this () = this(Vector.tabulate(1) { (x) => new Player("")})
   def this() = this(Vector.empty)
   def addPlayer(player: Player): Players = Players(players :+ player)

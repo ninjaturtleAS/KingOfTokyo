@@ -1,7 +1,8 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.Throw
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
+import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Players, PlayersCreator}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.{RollResult, Throw}
 
 
 case class PlayGround(players: Players, lapNr: Integer, rollResult: RollResult, kingOfTokyo: Int) extends PlayGroundInterface {

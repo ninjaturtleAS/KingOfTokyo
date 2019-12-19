@@ -1,8 +1,6 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1
 
 import java.security.SecureRandom
-
-import de.htwg.se.kingoftokyo.model.Die
 
 case class Throw(number: Int) {
   val six = 6

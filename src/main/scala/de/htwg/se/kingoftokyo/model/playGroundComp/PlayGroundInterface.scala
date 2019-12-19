@@ -1,6 +1,7 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp
 
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.{PlayGround, RollResult}
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 
 trait PlayGroundInterface {
   def incLapNr(): PlayGround

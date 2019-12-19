@@ -1,5 +1,5 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
-import java.security.SecureRandom
+package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1
+
 import java.util.Random
 
 case class Die (sides:Int)(implicit random:Random) {

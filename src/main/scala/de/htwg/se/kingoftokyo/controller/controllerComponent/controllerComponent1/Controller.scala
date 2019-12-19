@@ -1,14 +1,17 @@
-package de.htwg.se.kingoftokyo.controller.controllerComponent
+package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1
 
-import State._
-import de.htwg.se.kingoftokyo.model._
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
+import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Players
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
 import scala.util.Try
 
-class Controller (var playGround: PlayGround) extends Publisher {
+class Controller (var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
 

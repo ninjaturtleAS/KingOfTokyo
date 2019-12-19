@@ -1,9 +1,13 @@
 package de.htwg.se.kingoftokyo
 
-import de.htwg.se.kingoftokyo.controller.PlaygroundChanged
+
 import de.htwg.se.kingoftokyo.model._
 import de.htwg.se.kingoftokyo.aview._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.ControllerInterface
+import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.Controller
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Players
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 
 import scala.io.StdIn._
 

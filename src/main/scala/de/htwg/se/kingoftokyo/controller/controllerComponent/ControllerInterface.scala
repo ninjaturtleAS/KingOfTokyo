@@ -2,18 +2,19 @@ package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import scala.swing.Publisher
 import scala.swing.event.Event
+import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 
 trait ControllerInterface extends Publisher{
 
-  def newGame: PlayGround
-  def createPlayers(playerNames: Option[String]): PlayGround
-  def evaluateThrow(): PlayGround
-  def completeThrow(): PlayGround
-  def incLapNr: PlayGround
-  def throwDies():PlayGround
-  def filterThrowResult(filter: String):PlayGround
+  def newGame: PlayGroundInterface
+  def createPlayers(playerNames: Option[String]): PlayGroundInterface
+  def evaluateThrow(): PlayGroundInterface
+  def completeThrow(): PlayGroundInterface
+  def incLapNr: PlayGroundInterface
+  def throwDies():PlayGroundInterface
+  def filterThrowResult(filter: String):PlayGroundInterface
   def playGroundToString(): String
-  def nextTurn():PlayGround
+  def nextTurn():PlayGroundInterface
   def undo: Unit
   def redo: Unit
 
