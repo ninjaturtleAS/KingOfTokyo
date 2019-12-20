@@ -105,5 +105,7 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
     publish(new PlaygroundChanged)
   }
 
+  override def getState(): GameState = state
 
+  override def getPlayground(): PlayGroundInterface = playGround
 }

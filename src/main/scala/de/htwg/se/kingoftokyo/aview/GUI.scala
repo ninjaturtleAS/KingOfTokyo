@@ -4,13 +4,12 @@ import java.awt.Color
 
 import scala.swing._
 import scala.swing.event._
-import de.htwg.se.kingoftokyo.controller._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.PlaygroundChanged
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{ControllerInterface, PlaygroundChanged}
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.Controller
 
 
-class GUI(controller: Controller) extends Frame {
+
+class GUI(controller: ControllerInterface) extends Frame {
 
   listenTo(controller)
 
@@ -39,13 +38,13 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def playersPanel: BoxPanel = new BoxPanel(Orientation.Vertical){
-    for (i <- controller.playGround.getPlayers().getPlayers().indices) {
+    for (i <- controller.getPlayground().getPlayers().getPlayers().indices) {
       val player: FlowPanel = new FlowPanel() {
         background = backColor
-        val kot: String = if (i == controller.playGround.getKOT()) {"KoT, "} else {""}
-        val turn: String = if (i == controller.playGround.getLapNr() % controller.playGround.getPlayers().getLength()) {"turn, "} else {""}
+        val kot: String = if (i == controller.getPlayground().getKOT()) {"KoT, "} else {""}
+        val turn: String = if (i == controller.getPlayground().getLapNr() % controller.getPlayground().getPlayers().getLength()) {"turn, "} else {""}
         contents += {
-          val label: Label = new Label(turn + kot + controller.playGround.getPlayers().getPlayers()(i).info)
+          val label: Label = new Label(turn + kot + controller.getPlayground().getPlayers().getPlayers()(i).info)
           label.foreground = playerTextColor
           label
         }
@@ -57,7 +56,7 @@ class GUI(controller: Controller) extends Frame {
   def playgroundPanel: FlowPanel =  new FlowPanel() {
     background = backColor
     contents += {
-      val text = new Label(controller.playGround.getRollResult().toString())
+      val text = new Label(controller.getPlayground().getRollResult().toString())
       text.foreground = resultTextColor
       text
     }
@@ -102,12 +101,12 @@ class GUI(controller: Controller) extends Frame {
     contents += new Menu("Edit") {
       mnemonic = Key.E
       contents += new MenuItem(Action("Undo") {
-        if (controller.state == WaitFor1stThrow) {
+        if (controller.getState() == WaitFor1stThrow) {
           controller.undo
         }
       })
       contents += new MenuItem(Action("Redo") {
-        if (controller.state == WaitForPlayerNames) {
+        if (controller.getState() == WaitForPlayerNames) {
           controller.redo
         }
       })
@@ -123,7 +122,7 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def redraw(): Unit = {
-    contents = controller.state match {
+    contents = controller.getState() match {
       case WaitForPlayerNames =>
         new BorderPanel() {
           background = backColor

@@ -2,16 +2,15 @@ package de.htwg.se.kingoftokyo.aview
 
 import de.htwg.se.kingoftokyo.util.Observer
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.Controller
-import de.htwg.se.kingoftokyo.controller.controllerComponent.{PlaygroundChanged, State}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{ControllerInterface, PlaygroundChanged, State}
 
 import scala.swing.Publisher
 
-class Tui (controller: Controller) extends Publisher {
+class Tui (controller: ControllerInterface) extends Publisher {
 
   listenTo(controller)
   def processInputLine(input: String): Unit = {
-    controller.state match {
+    controller.getState() match {
 
       //case Starting => controller.startGame
       case WaitForPlayerNames =>
@@ -54,8 +53,8 @@ class Tui (controller: Controller) extends Publisher {
 
   def printTui(): Unit = {
     println(controller.playGroundToString())
-    println(State.message(controller.state) + "\n")
-    println(controller.state)
+    println(State.message(controller.getState()) + "\n")
+    println(controller.getState())
   }
   /*
   override def update: Boolean = {
