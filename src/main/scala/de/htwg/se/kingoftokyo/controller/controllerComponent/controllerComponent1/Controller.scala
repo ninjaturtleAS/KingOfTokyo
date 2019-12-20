@@ -89,7 +89,7 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   }
 
   override def nextTurn():PlayGroundInterface = {
-      playGround = new PlayGround(playGround.getPlayers(), playGround.getLapNr() + 1,
+      playGround = PlayGround(playGround.getPlayers(), playGround.getLapNr() + 1,
         RollResult(playGround.getRollResult().throwOne()), playGround.getKOT())
     state = WaitFor1stThrow
     playGround

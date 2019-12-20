@@ -6,7 +6,7 @@ import org.scalatest._
 
 
 class PlayersSpec extends WordSpec with Matchers {
-/*
+
   "Players at start" when {
     "new" should {
       val pl = Players(Vector(Player("Simon"), Player("Alex")))
@@ -14,8 +14,8 @@ class PlayersSpec extends WordSpec with Matchers {
       val testResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
 
       "get Attacks" in {
-        pl.getAttacks(testResult, true, 0).players(1).heart should be(4)
-        pl.getAttacks(testResult, true, 0).players(0).heart should be(10)
+        pl.getAttacks(testResult, true, 0).getPlayers()(1).heart should be(4)
+        pl.getAttacks(testResult, true, 0).getPlayers()(0).heart should be(10)
       }
 
       "have a String Vector representation" in {
@@ -36,6 +36,4 @@ class PlayersSpec extends WordSpec with Matchers {
       }
     }
   }
-
- */
 }

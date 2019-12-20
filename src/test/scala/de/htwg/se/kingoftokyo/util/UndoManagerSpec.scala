@@ -1,12 +1,13 @@
 package de.htwg.se.kingoftokyo.util
 
-//import de.htwg.se.kingoftokyo.controller.Controller
 import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.{Controller, CreatePlayersCommand}
-import de.htwg.se.kingoftokyo.model._
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
 import org.scalatest._
 
 class UndoManagerSpec extends WordSpec with Matchers {
-/*
+
   "UndoManager" when {
     "new" should {
       val lapNr = 0
@@ -43,6 +44,4 @@ class UndoManagerSpec extends WordSpec with Matchers {
       }
     }
   }
-
- */
 }

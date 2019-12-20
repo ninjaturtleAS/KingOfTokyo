@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class PlayGroundSpec extends WordSpec with Matchers {
-/*
+
   //initialize a test playground
   val lapNr = 1
   val kot = 1
@@ -29,23 +29,23 @@ class PlayGroundSpec extends WordSpec with Matchers {
   "Playground" when {
     "tested" should {
       "have a KoT Index of 2" in {
-        playGroundComplete.switchKingOfTokyo(2).kingOfTokyo should be (2)
+        playGroundComplete.switchKingOfTokyo(2).getKOT() should be (2)
       }
 
       "attack player out of tokyo" in {
-        playGroundComplete.attack(testResult).players.players(0).heart should be (9)
-        playGroundComplete.attack(testResult).players.players(2).heart should be (9)
+        playGroundComplete.attack(testResult).getPlayers().getPlayers()(0).heart should be (9)
+        playGroundComplete.attack(testResult).getPlayers().getPlayers()(2).heart should be (9)
       }
 
       "get Good" in {
-        playGroundComplete.getGood(testResult).rollResult should be(testResult)
+        playGroundComplete.getGood(testResult).getRollResult() should be(testResult)
       }
 
       "filter empy choice" in {
-         playGroundComplete.filterThrowResult("").players should be(players)
+         playGroundComplete.filterThrowResult("").getPlayers() should be(players)
       }
       "filter non empty choice" in {
-        playGroundComplete.filterThrowResult("1").players should be(players)
+        playGroundComplete.filterThrowResult("1").getPlayers() should be(players)
       }
 
       "Have a nice String" in {
@@ -72,10 +72,8 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
 
       "increase LapNr" in {
-        playGroundComplete.incLapNr().lapNr should be(lapNr + 1)
+        playGroundComplete.incLapNr().getLapNr() should be(lapNr + 1)
       }
     }
   }
-
- */
 }
