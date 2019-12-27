@@ -1,7 +1,7 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
-import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Player, Players}
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -29,23 +29,23 @@ class PlayGroundSpec extends WordSpec with Matchers {
   "Playground" when {
     "tested" should {
       "have a KoT Index of 2" in {
-        playGroundComplete.switchKingOfTokyo(2).getKOT() should be (2)
+        playGroundComplete.switchKingOfTokyo(2).getKOT should be (2)
       }
 
       "attack player out of tokyo" in {
-        playGroundComplete.attack(testResult).getPlayers().getPlayers()(0).heart should be (9)
-        playGroundComplete.attack(testResult).getPlayers().getPlayers()(2).heart should be (9)
+        playGroundComplete.attack(testResult).getPlayers.getPlayers()(0).heart should be (9)
+        playGroundComplete.attack(testResult).getPlayers.getPlayers()(2).heart should be (9)
       }
 
       "get Good" in {
-        playGroundComplete.getGood(testResult).getRollResult() should be(testResult)
+        playGroundComplete.getGood(testResult).getRollResult should be(testResult)
       }
 
       "filter empy choice" in {
-         playGroundComplete.filterThrowResult("").getPlayers() should be(players)
+         playGroundComplete.filterThrowResult("").getPlayers should be(players)
       }
       "filter non empty choice" in {
-        playGroundComplete.filterThrowResult("1").getPlayers() should be(players)
+        playGroundComplete.filterThrowResult("1").getPlayers should be(players)
       }
 
       "Have a nice String" in {
@@ -72,7 +72,7 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
 
       "increase LapNr" in {
-        playGroundComplete.incLapNr().getLapNr() should be(lapNr + 1)
+        playGroundComplete.incLapNr().getLapNr should be(lapNr + 1)
       }
     }
   }

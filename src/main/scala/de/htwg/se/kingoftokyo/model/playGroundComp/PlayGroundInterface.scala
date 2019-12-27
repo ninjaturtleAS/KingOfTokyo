@@ -13,9 +13,9 @@ trait PlayGroundInterface {
   def switchKingOfTokyo(newKotIndex: Int): PlayGroundInterface
   def filterThrowResult(filter: String): PlayGroundInterface
   def toString: String
-  def getRollResult(): RollResultInterface
-  def getPlayers(): PlayersInterface
-  def getKOT(): Int
-  def getLapNr(): Int
+  def getRollResult: RollResultInterface
+  def getPlayers: PlayersInterface
+  def getKOT: Int
+  def getLapNr: Int
 }
 

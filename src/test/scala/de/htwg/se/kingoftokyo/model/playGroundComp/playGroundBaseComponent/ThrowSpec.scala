@@ -1,6 +1,6 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.Throw
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.Throw
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner

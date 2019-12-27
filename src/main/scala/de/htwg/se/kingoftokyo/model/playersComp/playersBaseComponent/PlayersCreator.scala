@@ -1,8 +1,8 @@
-package de.htwg.se.kingoftokyo.model.playersComp.playersComp1
+package de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent
 
 import java.security.SecureRandom
 
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.Die
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.Die
 
 case class PlayersCreator(stringOfNames: String) {
 

@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1
+package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent
 
 import java.util.Random
 

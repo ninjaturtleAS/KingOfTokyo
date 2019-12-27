@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.model.playersComp.playersComp1
+package de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent
 
 case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var stars: Int = 0) {
 

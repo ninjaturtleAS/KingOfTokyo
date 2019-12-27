@@ -1,10 +1,10 @@
 
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
-import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1.Controller
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
-import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Player, Players}
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
+import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent.Controller
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -45,11 +45,11 @@ class ControllerSpec extends WordSpec with Matchers {
 
 
       "new Game" in {
-        controllerComp.newGame.getPlayers().getPlayers().length should be (0)
+        controllerComp.newGame.getPlayers.getPlayers().length should be (0)
       }
 
       "with given 3 names" in {
-        controller.createPlayers((Some(testString))).getPlayers().getPlayers().length should be (3)
+        controller.createPlayers((Some(testString))).getPlayers.getPlayers().length should be (3)
       }
 
 
@@ -58,16 +58,16 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "throw dies" in {
-        controller1.throwDies().getPlayers() should be (players)
-        controller2.throwDies().getPlayers() should be (players)
+        controller1.throwDies().getPlayers should be (players)
+        controller2.throwDies().getPlayers should be (players)
       }
 
       "complete throw" in {
-        controller2.completeThrow().getPlayers() should be (players)
+        controller2.completeThrow().getPlayers should be (players)
       }
 
       "increase lap number" in {
-        controller3.incLapNr.getLapNr() should be (1)
+        controller3.incLapNr.getLapNr should be (1)
       }
 
 
@@ -75,7 +75,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.filterThrowResult("String") should be (controller1.playGround)
         controller1.filterThrowResult("1,2,3,4,5,a") should be (controller1.playGround)
         controller1.state = State.WaitFor1stThrow
-        controller1.filterThrowResult("1,2,3,4,5,6").getRollResult().toString() should be ("1 2 3 Energy Heart Attack ")
+        controller1.filterThrowResult("1,2,3,4,5,6").getRollResult.toString() should be ("1 2 3 Energy Heart Attack ")
       }
 
       "evaluate Results" in {
@@ -83,8 +83,8 @@ class ControllerSpec extends WordSpec with Matchers {
         var playGroundBad = playGroundGood.copy(Players(Vector(alex, simon)),  0, badResult , 1)
         val controllerGood = new Controller(playGroundGood)
         val controllerBad = new Controller(playGroundBad)
-        controllerGood.evaluateThrow().getPlayers().getPlayers()(lapNr).energy should be(1)
-        controllerBad.evaluateThrow().getPlayers().getPlayers()(kot).heart should be(initHeart - 6)
+        controllerGood.evaluateThrow().getPlayers.getPlayers()(lapNr).energy should be(1)
+        controllerBad.evaluateThrow().getPlayers.getPlayers()(kot).heart should be(initHeart - 6)
       }
 
       "Have an nice String representaion" in {
@@ -92,8 +92,8 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "increase LapNr for next turn" in {
-        val lapNr = controllerComp.playGround.getLapNr()
-        controllerComp.nextTurn().getLapNr() should be(lapNr + 1)
+        val lapNr = controllerComp.playGround.getLapNr
+        controllerComp.nextTurn().getLapNr should be(lapNr + 1)
 
       }
       "undo redo" in {

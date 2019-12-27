@@ -1,6 +1,6 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
-import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Player
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner

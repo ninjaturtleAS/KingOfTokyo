@@ -1,23 +1,28 @@
-package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1
+package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent
 
+import com.google.inject.name.{Named, Names}
+import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions._
+import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1.PlayGround
-import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.Players
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
-import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Players
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
 import scala.util.Try
 
-class Controller (var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
+class Controller @Inject()(@Named("initCont") var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
+  //val injector = Guice.createInjector(new KingOfTokyoModule)
 
   override def newGame: PlayGroundInterface = {
-    playGround = new PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
+    //playGround = injector.instance[PlayGroundInterface]
+    playGround = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
     state = WaitForPlayerNames
     publish(new PlaygroundChanged)
     playGround
@@ -39,8 +44,8 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   }
 
   override def evaluateThrow(): PlayGroundInterface = {
-    playGround = playGround.getGood(playGround.getRollResult())
-    playGround = playGround.attack(playGround.getRollResult())
+    playGround = playGround.getGood(playGround.getRollResult)
+    playGround = playGround.attack(playGround.getRollResult)
     publish(new PlaygroundChanged)
     playGround = nextTurn()
     publish(new PlaygroundChanged)
@@ -89,8 +94,8 @@ class Controller (var playGround: PlayGroundInterface) extends ControllerInterfa
   }
 
   override def nextTurn():PlayGroundInterface = {
-      playGround = PlayGround(playGround.getPlayers(), playGround.getLapNr() + 1,
-        RollResult(playGround.getRollResult().throwOne()), playGround.getKOT())
+      playGround = PlayGround(playGround.getPlayers, playGround.getLapNr + 1,
+        RollResult(playGround.getRollResult.throwOne()), playGround.getKOT)
     state = WaitFor1stThrow
     playGround
   }

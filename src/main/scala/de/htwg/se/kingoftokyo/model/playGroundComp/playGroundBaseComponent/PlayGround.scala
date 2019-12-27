@@ -1,13 +1,15 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
+import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
-import de.htwg.se.kingoftokyo.model.playersComp.playersComp1.{Players, PlayersCreator}
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Players, PlayersCreator}
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.{RollResult, Throw}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.{RollResult, Throw}
 
 
-case class PlayGround(players: PlayersInterface, lapNr: Integer,
+case class PlayGround @Inject() (@Named("initPG") players: PlayersInterface, lapNr: Integer,
                       rollResult: RollResultInterface, kingOfTokyo: Int) extends PlayGroundInterface {
 
   val yes = true
@@ -62,13 +64,13 @@ case class PlayGround(players: PlayersInterface, lapNr: Integer,
     }
   }
 
-  override def getKOT(): Int = this.kingOfTokyo
+  override def getKOT: Int = this.kingOfTokyo
 
-  override def getPlayers(): PlayersInterface = this.players
+  override def getPlayers: PlayersInterface = this.players
 
-  override def getRollResult(): RollResultInterface = this.rollResult
+  override def getRollResult: RollResultInterface = this.rollResult
 
-  override def getLapNr(): Int = this.lapNr
+  override def getLapNr: Int = this.lapNr
 
   override def toString: String = {
     val kotName = if (this.players.toPlayerVector.isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}
@@ -76,7 +78,7 @@ case class PlayGround(players: PlayersInterface, lapNr: Integer,
       .concat(players.toPlayerVector.map(x => x.info.concat("\n")).mkString)
       .concat(if (this.players.getLength()>0) { "\nSpieler am Zug: ".concat(this.players.toPlayerVector(this.lapNr % this.players.getLength()).name)} else {""})
       .concat("\n\nAktueller Wurf: ")
-      .concat(this.rollResult.toString())
+      .concat(this.rollResult.toString)
       .concat("\n\n")
 
     retString

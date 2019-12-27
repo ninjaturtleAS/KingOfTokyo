@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import de.htwg.se.kingoftokyo.util.{Observable, Observer}
 import org.scalatest.{Matchers, WordSpec}

@@ -1,8 +1,10 @@
-package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1
-
+package de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent
+import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
+import de.htwg.se.kingoftokyo.KingOfTokyoModule
 
-case class RollResult(result: Vector[Int]) extends RollResultInterface{
+case class RollResult (result: Vector[Int]) extends RollResultInterface{
 
   override def throwOne(): Vector[Int] = {
     //IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)

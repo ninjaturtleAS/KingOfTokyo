@@ -1,4 +1,4 @@
-package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent1
+package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent
 
 import de.htwg.se.kingoftokyio.util.Command
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State

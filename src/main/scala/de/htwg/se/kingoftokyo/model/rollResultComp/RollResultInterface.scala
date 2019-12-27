@@ -1,6 +1,6 @@
 package de.htwg.se.kingoftokyo.model.rollResultComp
 
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultComp1.RollResult
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 
 trait RollResultInterface {
 
