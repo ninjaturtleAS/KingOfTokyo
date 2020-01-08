@@ -6,8 +6,6 @@ import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
@@ -92,8 +90,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   }
 
   override def nextTurn():PlayGroundInterface = {
-      playGround = PlayGround(playGround.getPlayers, playGround.getLapNr + 1,
-        RollResult(playGround.getRollResult.throwOne()), playGround.getKOT)
+    playGround = incLapNr
     state = WaitFor1stThrow
     playGround
   }
