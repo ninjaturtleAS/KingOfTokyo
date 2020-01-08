@@ -47,47 +47,9 @@ case class PlayersCreator(stringOfNames: String) {
   }
 
 }
-import swing._
-import swing.Dialog._
-import event._
 
-//object TempConverter extends SimpleSwingApplication {
-//  def top = new MainFrame {
-//    title = "Celsius/Fahrenheit Converter"
-//    object celsius extends TextField { columns = 5 }
-//    object fahrenheit extends TextField { columns = 5 }
-//    contents = new FlowPanel {
-//      contents += celsius
-//      contents += new Label(" Celsius  =  ")
-//      contents += fahrenheit
-//      contents += new Label(" Fahrenheit")
-//      border = Swing.EmptyBorder(15, 10, 10, 10)
-//    }
-//    listenTo(celsius, fahrenheit)
-//    reactions += {
-//      case EditDone(`fahrenheit`) =>
-//        val f = fahrenheit.text.toInt
-//        val c = (f - 32) * 5 / 9
-//        celsius.text = c.toString
-//      case EditDone(`celsius`) =>
-//        val c = celsius.text.toInt
-//        val f = c * 9 / 5 + 32
-//        fahrenheit.text = f.toString
-//    }
-//  }
-//}
-//TempConverter.top.visible = true
-object ProcessInputString extends Frame {
-  def getPlayerNames = new MainFrame {
-    title = "Spielernamen kommagetrennt eingeben"
-    object namen extends TextField {columns = 30}
-    //object getNames extends Button
-    val button = new Button("Process")
-    contents = new FlowPanel {
-      contents += new Label("Namen: ")
-      contents += namen
-      border = Swing.EmptyBorder(15, 10, 10, 10)
-    }
-  }
-}
-ProcessInputString.getPlayerNames
+for {
+  a <- List(1,2,3)
+  b <- List(2,3,4)
+  c <- List(5,6,7)
+} println("a=" + a + ", b=" + b + ", c=" + c)
