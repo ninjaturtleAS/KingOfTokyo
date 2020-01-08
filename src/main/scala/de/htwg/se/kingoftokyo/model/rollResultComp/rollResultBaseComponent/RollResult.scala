@@ -6,8 +6,9 @@ import de.htwg.se.kingoftokyo.KingOfTokyoModule
 
 case class RollResult (result: Vector[Int]) extends RollResultInterface{
 
+  def this() = this(Vector.empty)
+
   override def throwOne(): Vector[Int] = {
-    //IndexedSeq(die.roll, die.roll, die.roll, die.roll, die.roll, die.roll)
     Throw(6).throwDies()
   }
 

@@ -1,6 +1,5 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent
 
-import com.google.inject.name.{Named, Names}
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.kingoftokyo.KingOfTokyoModule
@@ -8,22 +7,20 @@ import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
-import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Players
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
 import scala.util.Try
 
-class Controller @Inject()(/*@Named("initCont")*/ var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
+class Controller @Inject()(var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
-  //val injector = Guice.createInjector(new KingOfTokyoModule)
+  val injector = Guice.createInjector(new KingOfTokyoModule)
 
 
   override def newGame: PlayGroundInterface = {
-    //playGround = injector.instance[PlayGroundInterface](Names.named("initPG"))
-    playGround = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
+    playGround = injector.instance[PlayGroundInterface]//(Names.named("initPG"))
     state = WaitForPlayerNames
     publish(new PlaygroundChanged)
     playGround
