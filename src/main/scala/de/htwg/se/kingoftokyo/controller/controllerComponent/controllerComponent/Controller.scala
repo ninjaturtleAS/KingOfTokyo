@@ -18,10 +18,10 @@ import scala.util.Try
 class Controller @Inject()(/*@Named("initCont")*/ var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
-  val injector = Guice.createInjector(new KingOfTokyoModule)
+  //val injector = Guice.createInjector(new KingOfTokyoModule)
 
   override def newGame: PlayGroundInterface = {
-    playGround = injector.instance[PlayGroundInterface]
+    //playGround = injector.instance[PlayGroundInterface](Names.named("initPG"))
     playGround = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
     state = WaitForPlayerNames
     publish(new PlaygroundChanged)

@@ -9,7 +9,7 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.{RollResult, Throw}
 
 
-case class PlayGround @Inject() (@Named("initPG") players: PlayersInterface, lapNr: Integer,
+case class PlayGround @Inject() (/*@Named("initPG")*/ players: PlayersInterface, lapNr: Integer,
                       rollResult: RollResultInterface, kingOfTokyo: Int) extends PlayGroundInterface {
 
   val yes = true

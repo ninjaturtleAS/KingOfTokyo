@@ -17,17 +17,13 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 class KingOfTokyoModule extends AbstractModule with ScalaModule {
 
     val initPG = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
+    val initCont = new controllerComponent.Controller(initPG)
 
     override def configure(): Unit = {
-        bind[PlayGroundInterface].to[PlayGround]
-        bind[ControllerInterface].to[controllerComponent.Controller]
+        //bind[PlayGroundInterface].to[PlayGround]
+        //bind[ControllerInterface].to[controllerComponent.Controller]
         bind[PlayGroundInterface].annotatedWith(Names.named("initPG")).toInstance(initPG)
-        bind[ControllerInterface].annotatedWith(Names.named("initCont"))toInstance(new controllerComponent.Controller(initPG))
-//        bind[PlayGroundInterface].to[PlayGround]
-//        bind[PlayGroundInterface]/*.annotatedWithName("initial")toInstance*/
-//                  ((PlayGround(new Players(),0 , RollResult(Vector.empty), 0)))
-//        bind[ControllerInterface]/*.annotatedWithName("initial")toInstance*/
-//         (new controllerComponent.Controller(initPG))
+        bind[ControllerInterface].annotatedWith(Names.named("initCont")).toInstance(initCont)
     }
 }
 
