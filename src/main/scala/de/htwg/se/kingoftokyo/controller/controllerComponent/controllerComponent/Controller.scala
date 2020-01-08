@@ -20,6 +20,7 @@ class Controller @Inject()(/*@Named("initCont")*/ var playGround: PlayGroundInte
   private val undoManager = new UndoManager
   //val injector = Guice.createInjector(new KingOfTokyoModule)
 
+
   override def newGame: PlayGroundInterface = {
     //playGround = injector.instance[PlayGroundInterface](Names.named("initPG"))
     playGround = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
