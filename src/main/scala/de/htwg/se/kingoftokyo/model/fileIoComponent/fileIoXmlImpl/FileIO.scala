@@ -13,7 +13,7 @@ import scala.xml.{NodeSeq, PrettyPrinter}
 
 class FileIO  extends FileIoInterface {
   override def load: PlayGroundInterface = {
-    var grid: PlayGroundInterface = null
+    var playGround: PlayGroundInterface = null
     val file = scala.xml.XML.loadFile("playground.xml")
     val sizeAttr = (file \\ "playground" \ "@size")
     val size = sizeAttr.text.toInt
@@ -21,6 +21,7 @@ class FileIO  extends FileIoInterface {
     /*size match {
       case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
     }*/
+    playGround = injector.instance[PlayGroundInterface]
     val cellNodes = (file \\ "cell")
     for (cell <- cellNodes) {
       val row: Int = (cell \ "@row").text.toInt
@@ -49,7 +50,7 @@ class FileIO  extends FileIoInterface {
     pw.write(xml)
     pw.close
   }
-  def gridToXml(grid: GridInterface) = {
+  def playGroundToXml(grid: GridInterface) = {
     <grid size={ grid.size.toString }>
       {
       for {
