@@ -10,6 +10,5 @@ trait PlayersInterface {
   def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface
   def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): PlayersInterface
   def getLength(): Int
-  def toPlayerVector: Vector[Player]
   def getPlayers(): Vector[Player]
 }

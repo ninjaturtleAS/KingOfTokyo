@@ -7,6 +7,8 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
+import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 
 import scala.xml.{NodeSeq, PrettyPrinter}
@@ -38,13 +40,13 @@ class FileIO  extends FileIoInterface {
     grid
   }
 
-  override def save(playGround: PlayGroundInterface): Unit = saveString(playGround)
+  def save(grid: GridInterface): Unit = saveString(grid)
 
-  def saveXML(playground: PlayGroundInterface): Unit = {
-    scala.xml.XML.save("grid.xml", playgroundToXml(playground))
+  def saveXML(grid: GridInterface): Unit = {
+    scala.xml.XML.save("grid.xml", gridToXml(grid))
   }
 
-  def saveString(playground: PlayGroundInterface): Unit = {
+  def saveString(grid: GridInterface): Unit = {
     import java.io._
     val pw = new PrintWriter(new File("grid.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
@@ -63,6 +65,10 @@ class FileIO  extends FileIoInterface {
     <player info={player.info}>
 
     </player>
+  }
+
+  def playerToXml(player: Player): Unit = {
+
   }
 
 }
