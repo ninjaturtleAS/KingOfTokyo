@@ -11,6 +11,9 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
 
   override def toStringVector: Vector[String] = for (p <- players) yield p.name
 
+
+
+
   override def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface = {
     val tmpPlayer = this.players(playerIndex)
       .gainEnergy(rollResult.evaluateEnergy())
