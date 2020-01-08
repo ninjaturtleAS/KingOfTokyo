@@ -14,4 +14,5 @@ trait RollResultInterface {
   def evaluateStars(): Int
   def length: Int
   def toIntVector: Vector[Int]
+  def rollResultXML: String
 }

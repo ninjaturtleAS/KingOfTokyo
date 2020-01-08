@@ -11,7 +11,7 @@ import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 
-import scala.xml.{NodeSeq, PrettyPrinter}
+import scala.xml.{Elem, NodeSeq, PrettyPrinter}
 
 
 class FileIO  extends FileIoInterface {
@@ -54,16 +54,13 @@ class FileIO  extends FileIoInterface {
     pw.write(xml)
     pw.close
   }
-  def playgroundToXml(playground: PlayGroundInterface) = {
-    <playground>
-      {for (p <- playground.getPlayers.getPlayers()).playerToXml(p)}
-
+  def playgroundToXml(playground: PlayGroundInterface): Elem = {
+    <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML} kot={playground.getKOT.toString}>
     </playground>
   }
 
-  def playersToXml(players: PlayersInterface) = {
+  def playersToXml(players: PlayersInterface): Elem = {
     <players info={players.playersXML()}>
-
     </players>
   }
 }

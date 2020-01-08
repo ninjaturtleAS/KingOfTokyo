@@ -61,4 +61,11 @@ case class RollResult (result: Vector[Int]) extends RollResultInterface {
     this.result
   }
 
+  override def rollResultXML: String = {
+    var ret = ""
+    for (r <- result) {
+      ret += r.toString.concat(",")
+    }
+    ret
+  }
 }
