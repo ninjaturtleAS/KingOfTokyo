@@ -40,17 +40,17 @@ class FileIO  extends FileIoInterface {
     grid
   }
 
-  def save(grid: GridInterface): Unit = saveString(grid)
+  def save(playground: PlayGroundInterface): Unit = saveString(playground)
 
-  def saveXML(grid: GridInterface): Unit = {
-    scala.xml.XML.save("grid.xml", gridToXml(grid))
+  def saveXML(playground: PlayGroundInterface): Unit = {
+    scala.xml.XML.save("grid.xml", playersToXml(playground))
   }
 
-  def saveString(grid: GridInterface): Unit = {
+  def saveString(playground: PlayGroundInterface): Unit = {
     import java.io._
-    val pw = new PrintWriter(new File("grid.xml"))
+    val pw = new PrintWriter(new File("playground.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
-    val xml = prettyPrinter.format(gridToXml(grid))
+    val xml = prettyPrinter.format(playersToXml(playground))
     pw.write(xml)
     pw.close
   }
