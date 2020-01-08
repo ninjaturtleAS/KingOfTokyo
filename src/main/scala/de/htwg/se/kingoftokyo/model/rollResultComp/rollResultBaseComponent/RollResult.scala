@@ -4,7 +4,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 import de.htwg.se.kingoftokyo.KingOfTokyoModule
 
-case class RollResult (result: Vector[Int]) extends RollResultInterface{
+case class RollResult (result: Vector[Int]) extends RollResultInterface {
 
   def this() = this(Vector.empty)
 
