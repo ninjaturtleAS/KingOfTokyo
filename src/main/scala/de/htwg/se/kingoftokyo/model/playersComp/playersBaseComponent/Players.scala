@@ -46,7 +46,7 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
 
   override def getPlayers(): Vector[Player] = this.players
 
-  def playersXML(): String = {
+  override def playersXML(): String = {
     var players = ""
     for (p <- getPlayers()) {
       players += f"$p.name%s,$p.energy%d,$p.heart%d,$p.stars%d\n"

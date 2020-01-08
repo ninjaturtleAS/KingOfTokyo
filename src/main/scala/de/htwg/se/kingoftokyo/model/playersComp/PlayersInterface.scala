@@ -11,4 +11,5 @@ trait PlayersInterface {
   def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): PlayersInterface
   def getLength(): Int
   def getPlayers(): Vector[Player]
+  def playersXML(): String
 }

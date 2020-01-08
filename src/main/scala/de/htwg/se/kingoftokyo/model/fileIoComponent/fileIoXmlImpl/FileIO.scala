@@ -56,19 +56,14 @@ class FileIO  extends FileIoInterface {
   }
   def playgroundToXml(playground: PlayGroundInterface) = {
     <playground>
-      {for (p <- playground.getPlayers.getPlayers()) playerToXml(p)}
+      {for (p <- playground.getPlayers.getPlayers()).playerToXml(p)}
 
     </playground>
   }
 
-  def playerToXml(player: Player) = {
-    <player info={player.info}>
+  def playersToXml(players: PlayersInterface) = {
+    <players info={players.playersXML()}>
 
-    </player>
+    </players>
   }
-
-  def playerToXml(player: Player): Unit = {
-
-  }
-
 }
