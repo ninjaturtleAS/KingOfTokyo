@@ -10,7 +10,9 @@ trait PlayersInterface {
   def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface
   def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): PlayersInterface
   def getLength(): Int
+  def toPlayerVector: Vector[Player]
   def getPlayers(): Vector[Player]
   def playersXML(): String
-  def playersStrToPlayers(playersStr: String): Vector[Player]
+  def playersStrToPlayers(playersStr: String, player: Player): Vector[Player]
+  def set(players: Vector[Player], str: String): PlayersInterface
 }

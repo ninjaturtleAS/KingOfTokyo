@@ -49,12 +49,17 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   override def playersXML(): String = {
     var players = ""
     for (p <- getPlayers()) {
-      players += f"$p.name%s,$p.energy%d,$p.heart%d,$p.stars%d\n"
+      players.concat(p.name).concat("," + p.energy).concat("," + p.heart).concat("," + p.stars) //f"$p.name%s ,$p.energy%d ,$p.heart%d ,$p.stars%d \n")
     }
     players
   }
+//
+//  override def playersStrToPlayers(playersStr: String): Vector[Player] = {
+//
+//  }
+  override def toPlayerVector: Vector[Player] = {players}
 
-  override def playersStrToPlayers(playersStr: String): Vector[Player] = {
+  override def playersStrToPlayers(playersStr: String, player: Player): Vector[Player] = ???
 
-  }
+  override def set(players: Vector[Player], str: String): PlayersInterface = ???
 }

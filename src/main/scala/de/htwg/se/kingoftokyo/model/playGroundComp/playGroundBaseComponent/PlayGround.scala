@@ -79,10 +79,10 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
 
 
   override def toString: String = {
-    val kotName = if (this.players.getPlayers().isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}
+    val kotName = if (this.players.toPlayerVector.isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}
     val retString = f"\n\n\n\n\n\n\n\n\nKing of Tokyo: $kotName%s\n\n"
-      .concat(players.getPlayers().map(x => x.info.concat("\n")).mkString)
-      .concat(if (this.players.getLength()>0) { "\nSpieler am Zug: ".concat(this.players.getPlayers(this.lapNr % this.players.getLength()).name)} else {""})
+      .concat(players.toPlayerVector.map(x => x.info.concat("\n")).mkString)
+      .concat(if (this.players.getLength()>0) { "\nSpieler am Zug: ".concat(this.players.toPlayerVector(this.lapNr % this.players.getLength()).name)} else {""})
       .concat("\n\nAktueller Wurf: ")
       .concat(this.rollResult.toString)
       .concat("\n\n")

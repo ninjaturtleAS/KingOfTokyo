@@ -41,7 +41,7 @@ class FileIO  extends FileIoInterface {
     playGround
   }
 
-  def save(playground: PlayGroundInterface): Unit = saveString(playground)
+  def save(playground: PlayGroundInterface): Unit = ??? //saveString(playground)
 
   def saveXML(playGround: PlayGroundInterface): Unit = {
     scala.xml.XML.save("grid.xml", playgroundToXml(playGround))
