@@ -19,8 +19,8 @@ class FileIO  extends FileIoInterface {
   override def load: PlayGroundInterface = {
     var playGround: PlayGroundInterface = null
     val file = scala.xml.XML.loadFile("playground.xml")
-    val sizeAttr = (file \\ "playground" \ "@size")
-    val size = sizeAttr.text.toInt
+    //val sizeAttr = (file \\ "playground" \ "@size")
+    //val size = sizeAttr.text.toInt
     val injector = Guice.createInjector(new KingOfTokyoModule)
     /*size match {
       case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
@@ -40,20 +40,20 @@ class FileIO  extends FileIoInterface {
     grid
   }
 
-  def save(grid: GridInterface): Unit = saveString(grid)
+  //def save(grid: GridInterface): Unit = saveString(grid)
 
-  def saveXML(grid: GridInterface): Unit = {
-    scala.xml.XML.save("grid.xml", gridToXml(grid))
+  def saveXML(playGround: PlayGroundInterface): Unit = {
+    scala.xml.XML.save("grid.xml", playgroundToXml(playGround))
   }
 
-  def saveString(grid: GridInterface): Unit = {
-    import java.io._
-    val pw = new PrintWriter(new File("grid.xml"))
+//  def saveString(pgStr: String): Unit = {
+    /*import java.io._
+    val pw = new PrintWriter(new File("playground.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
-    val xml = prettyPrinter.format(gridToXml(grid))
-    pw.write(xml)
+    val xml = prettyPrinter.format(playgroundToXml(playGround))
+    pw.write(pgStr)
     pw.close
-  }
+  }*/
   def playgroundToXml(playground: PlayGroundInterface): Elem = {
     <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML} kot={playground.getKOT.toString}>
     </playground>

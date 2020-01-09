@@ -8,6 +8,7 @@ import de.htwg.se.kingoftokyo.controller.controllerComponent._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
+import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
 import de.htwg.se.kingoftokyo.util._
 
 import scala.swing.Publisher
@@ -17,6 +18,19 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   var state: GameState = WaitForPlayerNames
   private val undoManager = new UndoManager
   val injector = Guice.createInjector(new KingOfTokyoModule)
+  val fileIo = injector.instance[FileIoInterface]
+
+  def save: Unit = {
+    fileIo.save(playGround)
+    //gameStatus = SAVED
+    publish(new PlaygroundChanged)
+  }
+
+  def load: Unit = {
+    playGround = fileIo.load
+    //gameStatus = LOADED
+    publish(new PlaygroundChanged)
+  }
 
 
   override def newGame: PlayGroundInterface = {

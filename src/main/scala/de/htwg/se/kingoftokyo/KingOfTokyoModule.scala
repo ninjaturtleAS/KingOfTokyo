@@ -11,6 +11,8 @@ import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayG
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Players
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import com.google.inject.name.Names
+import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
+import de.htwg.se.kingoftokyo.model.fileIoComponent.fileIoXmlImpl
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 
@@ -29,6 +31,8 @@ class KingOfTokyoModule extends AbstractModule with ScalaModule {
         bind[ControllerInterface].to[controllerComponent.Controller]
         bind[PlayGroundInterface].annotatedWith(Names.named("initPG")).toInstance(initPG)
         //bind[ControllerInterface].annotatedWith(Names.named("initCont")).toInstance(initCont)
+
+        bind[FileIoInterface].to[fileIoXmlImpl.FileIO]
     }
 }
 
