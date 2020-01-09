@@ -1,57 +1,46 @@
-import java.security.SecureRandom
-
-import de.htwg.se.kingoftokyo.KingOfTokyo
-import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent
-import de.htwg.se.kingoftokyo.model._
-import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
+import com.google.inject.Guice
+import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
-import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Players
-import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
-import javax.swing.text.DocumentFilter.FilterBypass
-import javax.swing.text.{AbstractDocument, AttributeSet, DocumentFilter}
+import net.codingwell.scalaguice.InjectorExtensions._
 
-import scala.collection.mutable.ListBuffer
+import scala.xml.Elem
+
+val lapNr = 1
+val kot = 1
+val alex = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Alex")
+val simon = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Simon")
+val marco = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Marco")
+val testString = "Alex, Simon, Marco"
+val players = Players(Vector(alex, simon, marco))
+val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
+
+var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
 
 
-
-
-
-def strHelper (i: Int): String = {
-  i match {
-    case 1 | 2 | 3 => return i.toString() + " "
-    case 4 => return "Energy "
-    case 5 => return "Heart "
-    case 6 => return "Attack "
-  }
+def playgroundToXml(playground: PlayGroundInterface): Elem = {
+  <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML} kot={playground.getKOT.toString}>
+  </playground>
 }
 
-//case class RollResult(result: Vector[Int]) {
-//
-//  def keepThrow(selection: Vector[Int]): RollResult = {
-//    RollResult( for {x <- selection} yield this.result(x))
-//  }
-//
-//  def keepThrow(selectionStr: String): RollResult = {
-//    val selection = selectionStr.split(" ").toVector
-//    RollResult( for {x <- selection} yield this.result(x.toInt))
-//  }
-//}
-
-val x = RollResult(Vector(1,2,3,4,5))
-//val y = x.keepThrow("2 4")
-val s = strHelper(1).concat(strHelper(5))
-
-
-case class PlayersCreator(stringOfNames: String) {
-  //val aNames: ArrayBuffer[String] = new ArrayBuffer[String]()
-  val vNames: List[String] = stringOfNames.split(",").toList
-  val numberOfPlayers: Integer = vNames.length
-
-  def toStringList: List[String] = {
-    vNames
-  }
+def playersToXml(players: PlayersInterface): Elem = {
+  <players info={players.playersXML()}>
+  </players>
 }
-val r = RollResult(Vector.empty)
-val initPG = PlayGround(new Players(),0 , RollResult(Vector.empty), 0)
-val initCont = new controllerComponent.Controller(initPG)
+
+def load: PlayGroundInterface = {
+  var playGround: PlayGroundInterface = null
+  val file = scala.xml.XML.loadFile("playground.xml")
+  val injector = Guice.createInjector(new KingOfTokyoModule)
+  playGround = injector.instance[PlayGroundInterface]
+  val playersStr = (file \\ "players").text
+  val lapNr = (file \\ "lapNr").text.toInt
+  val rollResultStr = (file \\ "rollResult").text
+  val kot = (file \\ "kot").text.toInt
+  val players = playGround.getPlayers.
+  playGround = playGround.set(players, lapNr, rollResult, kot)
+  playGround
+}

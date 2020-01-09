@@ -26,7 +26,8 @@ class FileIO  extends FileIoInterface {
       case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
     }*/
     playGround = injector.instance[PlayGroundInterface]
-    val cellNodes = (file \\ "cell")
+    val players = (file \\ "players").text
+    /*val cellNodes = (file \\ "cell")
     for (cell <- cellNodes) {
       val row: Int = (cell \ "@row").text.toInt
       val col: Int = (cell \ "@col").text.toInt
@@ -36,8 +37,8 @@ class FileIO  extends FileIoInterface {
       val showCandidates = (cell \ "@showCandidates").text.toBoolean
       if (given) grid = grid.setGiven(row, col, value)
       if (showCandidates) grid = grid.setShowCandidates(row, col)
-    }
-    grid
+    }*/
+    playGround
   }
 
   def save(playground: PlayGroundInterface): Unit = saveString(playground)

@@ -12,4 +12,5 @@ trait PlayersInterface {
   def getLength(): Int
   def getPlayers(): Vector[Player]
   def playersXML(): String
+  def playersStrToPlayers(playersStr: String): Vector[Player]
 }

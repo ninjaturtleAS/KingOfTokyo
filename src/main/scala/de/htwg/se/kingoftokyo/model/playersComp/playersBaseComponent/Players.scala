@@ -53,4 +53,8 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     }
     players
   }
+
+  override def playersStrToPlayers(playersStr: String): Vector[Player] = {
+
+  }
 }

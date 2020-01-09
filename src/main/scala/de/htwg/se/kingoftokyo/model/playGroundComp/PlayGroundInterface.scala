@@ -17,5 +17,6 @@ trait PlayGroundInterface {
   def getPlayers: PlayersInterface
   def getKOT: Int
   def getLapNr: Int
+  def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int): PlayGroundInterface
 }
 
