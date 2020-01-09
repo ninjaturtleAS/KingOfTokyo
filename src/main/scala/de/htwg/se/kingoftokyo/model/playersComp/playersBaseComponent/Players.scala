@@ -59,7 +59,13 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
 //  }
   override def toPlayerVector: Vector[Player] = {players}
 
-  override def playersStrToPlayers(playersStr: String, player: Player): Vector[Player] = ???
+  override def playersStrToPlayers(playersStr: String, player: Player): Vector[Player] = {
+    val playerStrVec: Vector[String] = playersStr.split("\n").toVector
+    val ret: Vector[Player] = for {p <- playerStrVec} yield player.strToPlayer(p)
+    ret
+  }
 
-  override def set(players: Vector[Player], str: String): PlayersInterface = ???
+  override def set(players: Vector[Player]): Players = {
+    copy(players)
+  }
 }
