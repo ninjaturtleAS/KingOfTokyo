@@ -20,6 +20,8 @@ trait ControllerInterface extends Publisher{
   def getPlayground(): PlayGroundInterface
   def undo: Unit
   def redo: Unit
+  def save: Unit
+  def load: Unit
 
 }
 class PlaygroundChanged extends Event

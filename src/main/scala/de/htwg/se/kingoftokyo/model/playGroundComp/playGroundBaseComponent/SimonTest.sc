@@ -11,6 +11,7 @@ import scala.xml.Elem
 
 val lapNr = 1
 val kot = 1
+val a = Player
 val alex = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Alex")
 val simon = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Simon")
 val marco = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Marco")

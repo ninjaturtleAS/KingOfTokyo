@@ -15,4 +15,5 @@ trait RollResultInterface {
   def toIntVector: Vector[Int]
   def rollResultXML: String
   def set(result: Vector[Int]): RollResultInterface
+  def stringToIntVector(str: String): Vector[Int]
 }

@@ -71,4 +71,9 @@ case class RollResult (result: Vector[Int]) extends RollResultInterface {
   }
 
   override def set(result: Vector[Int]): RollResultInterface = copy(result)
+
+  override def stringToIntVector(string: String): Vector[Int] = {
+    val ret = string.split(",").map(s => s.toInt).toVector
+    ret
+  }
 }

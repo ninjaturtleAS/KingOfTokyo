@@ -56,7 +56,7 @@ class GUI(controller: ControllerInterface) extends Frame {
   def playgroundPanel: FlowPanel =  new FlowPanel() {
     background = backColor
     contents += {
-      val text = new Label(controller.getPlayground().getRollResult.toString())
+      val text = new Label(controller.getPlayground().getRollResult.toString)
       text.foreground = resultTextColor
       text
     }
@@ -96,6 +96,12 @@ class GUI(controller: ControllerInterface) extends Frame {
       })
       contents += new MenuItem(Action("Quit") {
         System.exit(0)
+      })
+      contents += new MenuItem(Action("Save") {
+        controller.save
+      })
+      contents += new MenuItem(Action("Load") {
+        controller.load
       })
     }
     contents += new Menu("Edit") {
