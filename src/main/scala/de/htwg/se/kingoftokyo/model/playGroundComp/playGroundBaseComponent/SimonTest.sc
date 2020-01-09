@@ -11,16 +11,16 @@ import scala.xml.Elem
 
 val lapNr = 1
 val kot = 1
-val alex = Player("Alex")
-val simon = Player("Simon")
-val marco = Player("Marco")
+val alex = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Alex")
+val simon = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Simon")
+val marco = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Marco")
 val testString = "Alex, Simon, Marco"
 val players = Players(Vector(alex, simon, marco))
 val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
 var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
 
 
-val x = playGroundWaitPlayers.getRollResult.rollResultXML()
+val x: String = playGroundWaitPlayers.getRollResult.rollResultXML
 println(x)
 
 def playgroundToXml(playground: PlayGroundInterface): Elem = {

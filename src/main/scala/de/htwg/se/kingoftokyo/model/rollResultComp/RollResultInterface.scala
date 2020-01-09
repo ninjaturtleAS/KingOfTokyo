@@ -1,6 +1,5 @@
 package de.htwg.se.kingoftokyo.model.rollResultComp
 
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 
 trait RollResultInterface {
 
@@ -15,4 +14,5 @@ trait RollResultInterface {
   def length: Int
   def toIntVector: Vector[Int]
   def rollResultXML: String
+  def set(result: Vector[Int]): RollResultInterface
 }

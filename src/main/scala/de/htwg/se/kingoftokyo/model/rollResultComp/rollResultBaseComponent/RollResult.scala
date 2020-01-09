@@ -63,9 +63,12 @@ case class RollResult (result: Vector[Int]) extends RollResultInterface {
 
   override def rollResultXML: String = {
     var ret = ""
-    for (r <- result) {
-      ret += r.toString.concat(",")
+    for (i <- result.indices) {
+      ret += result(i).toString
+      if (i != result.length - 1) ret = ret.concat(",")
     }
     ret
   }
+
+  override def set(result: Vector[Int]): RollResultInterface = copy(result)
 }

@@ -19,32 +19,22 @@ class FileIO  extends FileIoInterface {
   override def load: PlayGroundInterface = {
     var playGround: PlayGroundInterface = null
     val file = scala.xml.XML.loadFile("playground.xml")
-    //val sizeAttr = (file \\ "playground" \ "@size")
-    //val size = sizeAttr.text.toInt
     val injector = Guice.createInjector(new KingOfTokyoModule)
-    /*size match {
-      case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
-    }*/
     playGround = injector.instance[PlayGroundInterface]
-    val players = (file \\ "players").text
-    /*val cellNodes = (file \\ "cell")
-    for (cell <- cellNodes) {
-      val row: Int = (cell \ "@row").text.toInt
-      val col: Int = (cell \ "@col").text.toInt
-      val value: Int = cell.text.trim.toInt
-      grid = grid.set(row, col, value)
-      val given = (cell \ "@given").text.toBoolean
-      val showCandidates = (cell \ "@showCandidates").text.toBoolean
-      if (given) grid = grid.setGiven(row, col, value)
-      if (showCandidates) grid = grid.setShowCandidates(row, col)
-    }*/
+    val playersStr = (file \\ "players").text
+    val lapNr = (file \\ "lapNr").text.toInt
+    val rollResultStr = (file \\ "rollResult").text
+    val kot = (file \\ "kot").text.toInt
+    val players = playGround.getPlayers.set(playGround.getPlayers.playersStrToPlayers(playersStr, de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("")))
+    val rollResult = playGround.getRollResult.set(playGround.getRollResult.toIntVector)
+    playGround = playGround.set(players, lapNr, rollResult, kot)
     playGround
   }
 
   def save(playground: PlayGroundInterface): Unit = ??? //saveString(playground)
 
   def saveXML(playGround: PlayGroundInterface): Unit = {
-    scala.xml.XML.save("grid.xml", playgroundToXml(playGround))
+    scala.xml.XML.save("playground.xml", playgroundToXml(playGround))
   }
 
 //  def saveString(pgStr: String): Unit = {
