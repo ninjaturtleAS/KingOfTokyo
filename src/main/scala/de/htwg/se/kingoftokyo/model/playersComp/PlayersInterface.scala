@@ -14,5 +14,5 @@ trait PlayersInterface {
   def getPlayers(): Vector[Player]
   def playersXML(): String
   def playersStrToPlayers(playersStr: String, player: Player): Vector[Player]
-  def set(players: Vector[Player], str: String): PlayersInterface
+  def set(players: Vector[Player]): PlayersInterface
 }

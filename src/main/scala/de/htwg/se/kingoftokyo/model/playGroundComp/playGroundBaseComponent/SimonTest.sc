@@ -11,15 +11,17 @@ import scala.xml.Elem
 
 val lapNr = 1
 val kot = 1
-val alex = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Alex")
-val simon = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Simon")
-val marco = de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("Marco")
+val alex = Player("Alex")
+val simon = Player("Simon")
+val marco = Player("Marco")
 val testString = "Alex, Simon, Marco"
 val players = Players(Vector(alex, simon, marco))
 val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
-
 var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
 
+
+val x = playGroundWaitPlayers.getRollResult.rollResultXML()
+println(x)
 
 def playgroundToXml(playground: PlayGroundInterface): Elem = {
   <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML} kot={playground.getKOT.toString}>
@@ -40,7 +42,13 @@ def load: PlayGroundInterface = {
   val lapNr = (file \\ "lapNr").text.toInt
   val rollResultStr = (file \\ "rollResult").text
   val kot = (file \\ "kot").text.toInt
-  val players = playGround.getPlayers.
+  val players = playGround.getPlayers.set(playGround.getPlayers.playersStrToPlayers(playersStr, de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("")))
+  val rollResult = playGround.getRollResult.set(playGround.getRollResult.toIntVector)
   playGround = playGround.set(players, lapNr, rollResult, kot)
   playGround
 }
+
+val safe = playgroundToXml(playGroundWaitPlayers)
+println(safe)
+val pg = load
+println(pg)
