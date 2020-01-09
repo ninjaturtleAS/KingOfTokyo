@@ -19,8 +19,8 @@ class FileIO  extends FileIoInterface {
   override def load: PlayGroundInterface = {
     var playGround: PlayGroundInterface = null
     val file = scala.xml.XML.loadFile("playground.xml")
-    //val sizeAttr = (file \\ "playground" \ "@size")
-    //val size = sizeAttr.text.toInt
+    val sizeAttr = (file \\ "playground" \ "@size")
+    val size = sizeAttr.text.toInt
     val injector = Guice.createInjector(new KingOfTokyoModule)
     /*size match {
       case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
@@ -40,7 +40,7 @@ class FileIO  extends FileIoInterface {
     grid
   }
 
-  //def save(grid: GridInterface): Unit = saveString(grid)
+  def save(playground: PlayGroundInterface): Unit = saveString(playground)
 
   def saveXML(playGround: PlayGroundInterface): Unit = {
     scala.xml.XML.save("grid.xml", playgroundToXml(playGround))
