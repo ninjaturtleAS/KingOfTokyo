@@ -49,5 +49,9 @@ case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var st
 
    def info : String = f"$name%s (Energy: $energy%d, Heart: $heart%d, Stars: $stars%d)"
 
+   def strToPlayer(str: String): Player = {
+      val playersStats = str.split(",")
+      Player(playersStats(0), playersStats(1).toInt, playersStats(2).toInt)
+   }
 
 }
