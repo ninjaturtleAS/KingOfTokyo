@@ -15,4 +15,12 @@ object State extends Enumeration {
   def message(state: GameState): String = {
     map(state)
   }
+
+  def mapStringtoState(string: String): GameState = string match {
+      case "WaitForPlayerNames" => WaitForPlayerNames
+      case "WaitFor1stThrow" => WaitFor1stThrow
+      case "WaitFor2ndThrow" => WaitFor2ndThrow
+      case "ThrowComplete" => ThrowComplete
+      case "WaitForKotDecision" => WaitForKotDecision
+    }
 }

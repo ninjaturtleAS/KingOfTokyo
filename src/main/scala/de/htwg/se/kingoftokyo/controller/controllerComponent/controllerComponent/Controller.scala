@@ -16,19 +16,20 @@ import scala.util.Try
 
 class Controller @Inject()(var playGround: PlayGroundInterface) extends ControllerInterface with Publisher {
   var state: GameState = WaitForPlayerNames
+  playGround.setState(state)
   private val undoManager = new UndoManager
   val injector = Guice.createInjector(new KingOfTokyoModule)
   val fileIo = injector.instance[FileIoInterface]
 
   def save: Unit = {
     fileIo.save(playGround)
-    //gameStatus = SAVED
+    //state = playGround.getState
     publish(new PlaygroundChanged)
   }
 
   def load: Unit = {
     playGround = fileIo.load
-    //gameStatus = LOADED
+    state = playGround.getState
     publish(new PlaygroundChanged)
   }
 
@@ -36,6 +37,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   override def newGame: PlayGroundInterface = {
     playGround = injector.instance[PlayGroundInterface]//(Names.named("initPG"))
     state = WaitForPlayerNames
+    playGround.setState(state)
     publish(new PlaygroundChanged)
     playGround
   }
@@ -50,6 +52,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
         playGround = playGround.createPlayerInRandomOrder (playerNames)
         .throwDies ()
         state = WaitFor1stThrow
+        playGround.setState(state)
         publish(new PlaygroundChanged)
         playGround
     }
@@ -67,6 +70,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   override def completeThrow(): PlayGroundInterface = {
     playGround = playGround.completeThrow()
     state = ThrowComplete
+    playGround.setState(state)
     publish(new PlaygroundChanged)
     playGround
   }
@@ -91,6 +95,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
         .throwDies()
       state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
       else  {ThrowComplete}
+      playGround.setState(state)
       publish(new PlaygroundChanged)
       playGround
     }
@@ -102,13 +107,14 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   }
 
   override def playGroundToString(): String = {
-    playGround.toString()
+    playGround.toString
   }
 
   override def nextTurn():PlayGroundInterface = {
       playGround = PlayGround(playGround.getPlayers, playGround.getLapNr + 1,
         RollResult(playGround.getRollResult.throwOne()), playGround.getKOT)
     state = WaitFor1stThrow
+    playGround.setState(state)
     playGround
   }
 

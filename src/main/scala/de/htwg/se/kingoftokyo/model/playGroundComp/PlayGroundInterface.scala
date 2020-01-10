@@ -1,5 +1,6 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp
 
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State.GameState
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 
@@ -17,6 +18,8 @@ trait PlayGroundInterface {
   def getPlayers: PlayersInterface
   def getKOT: Int
   def getLapNr: Int
-  def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int): PlayGroundInterface
+  def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface
+  def setState(gameState: GameState)
+  def getState: GameState
 }
 

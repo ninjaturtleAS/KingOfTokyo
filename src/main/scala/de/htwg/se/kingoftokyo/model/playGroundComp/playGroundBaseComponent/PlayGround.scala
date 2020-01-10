@@ -2,6 +2,7 @@ package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import com.google.inject.Inject
 import com.google.inject.name.Named
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State.{GameState, WaitForPlayerNames}
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Players, PlayersCreator}
@@ -12,9 +13,16 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.{Roll
 case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr: Int,
                       rollResult: RollResultInterface, @Named("Zero") kingOfTokyo: Int) extends PlayGroundInterface {
 
+  var state: GameState = WaitForPlayerNames
   val yes = true
   val no = false
 
+  override def setState(gameState: GameState): Unit = {
+    this.state = gameState
+  }
+  override def getState: GameState = {
+    this.state
+  }
   override def incLapNr(): PlayGroundInterface = {
     copy(this.players, this.lapNr + 1, this.rollResult, this.kingOfTokyo)
   }
@@ -73,8 +81,10 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   override def getLapNr: Int = this.lapNr
 
 
-  override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int): PlayGroundInterface = {
-    copy(players, lapNr, rollResult, kingOfTokyo)
+  override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface = {
+    val pg = PlayGround(playersInterface, lapNr, rollResultInterface, kot)
+    pg.setState(state)
+    pg
   }
 
 

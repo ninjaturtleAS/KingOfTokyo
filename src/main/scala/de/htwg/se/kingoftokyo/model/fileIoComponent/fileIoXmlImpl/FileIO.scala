@@ -6,6 +6,8 @@ import com.google.inject.name.Names
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
+import de.htwg.se.kingoftokyo.controller.controllerComponent.ControllerInterface
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
@@ -22,14 +24,16 @@ class FileIO  extends FileIoInterface {
     val injector = Guice.createInjector(new KingOfTokyoModule)
     playGround = injector.instance[PlayGroundInterface]
     val playersStr = (file \\ "playground" \ "@players").text
-    println("String" + playersStr)
     val lapNr = (file \\ "playground" \ "@lapNr").text.toInt
     val rollResultStr = (file \\ "playground" \ "@rollResult").text
     val kot = (file \\ "playground" \ "@kot").text.toInt
-    println(lapNr)
+    val stateStr = (file \\ "playground" \ "@state").text
+    val state = State.mapStringtoState(stateStr)
     val players = playGround.getPlayers.set(playGround.getPlayers.playersStrToPlayers(playersStr, de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("")))
+    println(players)
     val rollResult = playGround.getRollResult.set(playGround.getRollResult.stringToIntVector(rollResultStr))
-    playGround = playGround.set(players, lapNr, rollResult, kot)
+    playGround = playGround.set(players, lapNr, rollResult, kot, state)
+    //println("Test:\n" + playGround)
     playGround
   }
 
@@ -45,10 +49,11 @@ class FileIO  extends FileIoInterface {
     val prettyPrinter = new PrettyPrinter(120, 4)
     val xml = prettyPrinter.format(playgroundToXml(pg))
     pw.write(xml)
-    pw.close
+    pw.close()
   }
   def playgroundToXml(playground: PlayGroundInterface): Elem = {
-    <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML} kot={playground.getKOT.toString}>
+    <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML}
+                kot={playground.getKOT.toString} state={playground.getState.toString}>
     </playground>
   }
 
