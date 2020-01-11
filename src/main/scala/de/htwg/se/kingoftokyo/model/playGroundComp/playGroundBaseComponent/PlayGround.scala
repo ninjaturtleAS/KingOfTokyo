@@ -1,11 +1,8 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import com.google.inject.{Guice, Inject}
-import net.codingwell.scalaguice.InjectorExtensions._
 import com.google.inject.name.Named
-import de.htwg.se.kingoftokyo.KingOfTokyoModule
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
-import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Players, PlayersCreator}
