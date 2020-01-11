@@ -30,6 +30,7 @@ class KingOfTokyoModule extends AbstractModule with ScalaModule {
         bind[PlayGroundInterface].to[PlayGround]
         bind[ControllerInterface].to[controllerComponent.Controller]
         bind[PlayGroundInterface].annotatedWith(Names.named("initPG")).toInstance(initPG)
+        //bind[RollResultInterface].annotatedWith(Names.named("initRR")).toInstance(initRR)
         //bind[ControllerInterface].annotatedWith(Names.named("initCont")).toInstance(initCont)
 
         bind[FileIoInterface].to[fileIoXmlImpl.FileIO]

@@ -30,10 +30,8 @@ class FileIO  extends FileIoInterface {
     val stateStr = (file \\ "playground" \ "@state").text
     val state = State.mapStringtoState(stateStr)
     val players = playGround.getPlayers.set(playGround.getPlayers.playersStrToPlayers(playersStr, de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player("")))
-    println(players)
     val rollResult = playGround.getRollResult.set(playGround.getRollResult.stringToIntVector(rollResultStr))
     playGround = playGround.set(players, lapNr, rollResult, kot, state)
-    //println("Test:\n" + playGround)
     playGround
   }
 

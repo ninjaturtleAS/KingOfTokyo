@@ -1,8 +1,11 @@
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions._
 import com.google.inject.name.Named
-import de.htwg.se.kingoftokyo.controller.controllerComponent.State.{GameState, WaitForPlayerNames}
+import de.htwg.se.kingoftokyo.KingOfTokyoModule
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
+import de.htwg.se.kingoftokyo.model.fileIoComponent.FileIoInterface
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Players, PlayersCreator}
@@ -12,7 +15,6 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.{Roll
 
 case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr: Int,
                       rollResult: RollResultInterface, @Named("Zero") kingOfTokyo: Int) extends PlayGroundInterface {
-
   var state: GameState = WaitForPlayerNames
   val yes = true
   val no = false
@@ -79,6 +81,10 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   override def getRollResult: RollResultInterface = this.rollResult
 
   override def getLapNr: Int = this.lapNr
+
+  override def nextTurn: PlayGroundInterface = {
+    PlayGround(this.players, this.lapNr + 1, RollResult(getRollResult.throwOne()), this.kingOfTokyo)
+  }
 
 
   override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface = {

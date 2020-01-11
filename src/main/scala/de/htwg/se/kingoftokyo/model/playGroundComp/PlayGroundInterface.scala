@@ -21,5 +21,6 @@ trait PlayGroundInterface {
   def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface
   def setState(gameState: GameState)
   def getState: GameState
+  def nextTurn: PlayGroundInterface
 }
 
