@@ -15,8 +15,8 @@ import scala.io.Source
 class FileIO extends FileIoInterface {
   override def load: PlayGroundInterface = {
     val injector = Guice.createInjector(new KingOfTokyoModule)
-    var playground: PlayGroundInterface =null
-    playground  = injector.instance[PlayGroundInterface]
+    //var playground: PlayGroundInterface = null
+    var playground  = injector.instance[PlayGroundInterface]
     val source: String = Source.fromFile("playground.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     var players = injector.instance[PlayersInterface]
@@ -31,10 +31,11 @@ class FileIO extends FileIoInterface {
     }
     val lapNr = (json \ "playground" \ "lapNr").as[Int]
     val rollResultVector = (json \ "playground" \ "rollResult").as[Vector[Int]]
-    val rollResult = playground.getRollResult.set(rollResultVector)
+    val rollResult: RollResultInterface = playground.getRollResult.set(rollResultVector)
     val kot = (json \ "playground" \ "kot").as[Int]
-    val state = (json \ "playground" \ "state").as[String]
-    playground.set(players, lapNr, rollResult, kot, State.mapStringtoState(state))
+    val stateString: String = (json \ "playground" \ "state").as[String]
+    val state: State.GameState = State.mapStringtoState(stateString)
+    playground.set(players, lapNr, rollResult, kot, state)
     playground
   }
 
@@ -52,7 +53,7 @@ class FileIO extends FileIoInterface {
       "playground" -> Json.obj(
         "playersSize" -> JsNumber(players.size),
         "players" -> Json.toJson(
-          for {i <- 0 until players.size} yield {
+          for {i <- players.indices} yield {
             Json.obj(
               "player" -> Json.obj(
                 "name" -> Json.toJson(players(i).name),
@@ -66,7 +67,7 @@ class FileIO extends FileIoInterface {
         "lapNr" -> JsNumber(playground.getLapNr),
         "rollResult" -> Json.toJson(rr),
         "kot" -> JsNumber(playground.getKOT),
-        "state" -> Json.toJson(playground.getState)
+        "state" -> Json.toJson(playground.getState.toString)
       )
     )
   }
