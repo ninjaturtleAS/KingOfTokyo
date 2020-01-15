@@ -20,6 +20,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   val fileIo = injector.instance[FileIoInterface]
 
   def save: Unit = {
+    playGround.setState(state)
     fileIo.save(playGround)
     publish(new PlaygroundChanged)
   }

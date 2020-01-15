@@ -15,28 +15,30 @@ import scala.io.Source
 class FileIO extends FileIoInterface {
   override def load: PlayGroundInterface = {
     val injector = Guice.createInjector(new KingOfTokyoModule)
-    //var playground: PlayGroundInterface = null
     var playground  = injector.instance[PlayGroundInterface]
+    var players = injector.instance[PlayersInterface]
+
     val source: String = Source.fromFile("playground.json").getLines.mkString
     val json: JsValue = Json.parse(source)
-    var players = injector.instance[PlayersInterface]
+
     val playersSize = (json \ "playground" \ "playersSize").as[Int]
     for (index <- 0 until playersSize) {
       val playerJ = (json \\ "player")(index)
-      val name = (playerJ \ "name").as[String]
-      val energy = (playerJ \ "energy").as[Int]
-      val heart = (playerJ \ "heart").as[Int]
-      val stars = (playerJ \ "stars").as[Int]
-      players.addNewPlayer(name, energy, heart, stars)
+      val name: String = (playerJ \ "name").as[String]
+      val energy: Int = (playerJ \ "energy").as[Int]
+      val heart: Int = (playerJ \ "heart").as[Int]
+      val stars: Int = (playerJ \ "stars").as[Int]
+      players = players.addNewPlayer(name, energy, heart, stars)
     }
-    val lapNr = (json \ "playground" \ "lapNr").as[Int]
-    val rollResultVector = (json \ "playground" \ "rollResult").as[Vector[Int]]
+
+    val lapNr: Int = (json \ "playground" \ "lapNr").as[Int]
+    val rollResultVector: Vector[Int] = (json \ "playground" \ "rollResult").as[Vector[Int]]
     val rollResult: RollResultInterface = playground.getRollResult.set(rollResultVector)
-    val kot = (json \ "playground" \ "kot").as[Int]
+    val kot: Int = (json \ "playground" \ "kot").as[Int]
     val stateString: String = (json \ "playground" \ "state").as[String]
     val state: State.GameState = State.mapStringtoState(stateString)
+
     playground.set(players, lapNr, rollResult, kot, state)
-    playground
   }
 
   override def save(playground: PlayGroundInterface): Unit = {

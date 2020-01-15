@@ -84,7 +84,8 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
 
-  override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface = {
+  override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface,
+                   kot: Int, state: GameState): PlayGroundInterface = {
     val pg = PlayGround(playersInterface, lapNr, rollResultInterface, kot)
     pg.setState(state)
     pg
