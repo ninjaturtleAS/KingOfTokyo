@@ -10,8 +10,6 @@ import de.htwg.se.kingoftokyo.controller.controllerComponent.ControllerInterface
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
-import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
-import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.Player
 
 import scala.xml.{Elem, NodeSeq, PrettyPrinter}
 

@@ -9,6 +9,10 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   def this() = this(Vector.empty)
   def addPlayer(player: Player): Players = Players(players :+ player)
 
+  override def addNewPlayer(name:String, energy: Int, heart: Int,stars: Int): PlayersInterface = {
+    Players(players :+ Player(name, energy, heart, stars))
+  }
+
   override def toStringVector: Vector[String] = for (p <- players) yield p.name
 
 
