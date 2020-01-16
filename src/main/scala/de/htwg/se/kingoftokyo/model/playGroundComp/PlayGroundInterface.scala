@@ -8,7 +8,7 @@ trait PlayGroundInterface {
   def incLapNr(): PlayGroundInterface
   def getGood(rollResult: RollResultInterface): PlayGroundInterface
   def completeThrow(): PlayGroundInterface
-  def attack(rollResult: RollResultInterface): PlayGroundInterface
+  def attack(rollResult: RollResultInterface): (PlayGroundInterface, Boolean)
   def throwDies(): PlayGroundInterface
   def createPlayerInRandomOrder(playerNames: String): PlayGroundInterface
   def switchKingOfTokyo(newKotIndex: Int): PlayGroundInterface
@@ -21,5 +21,6 @@ trait PlayGroundInterface {
   def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface, kot: Int, state: GameState): PlayGroundInterface
   def setState(gameState: GameState)
   def getState: GameState
+  def setKOT(newKOT: Int): PlayGroundInterface
   def nextTurn: PlayGroundInterface
 }

@@ -9,7 +9,7 @@ object State extends Enumeration {
     WaitFor1stThrow -> "Ihre Auswahl",
     WaitFor2ndThrow -> "Ihre Auswahl",
     ThrowComplete -> "Wurf wird ausgewertet",
-    WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben (J/N)"
+    WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben (yes/no)"
   )
 
   def message(state: GameState): String = {

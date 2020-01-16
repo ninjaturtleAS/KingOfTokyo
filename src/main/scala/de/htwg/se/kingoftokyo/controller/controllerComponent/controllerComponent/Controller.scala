@@ -58,9 +58,14 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
 
   override def evaluateThrow(): PlayGroundInterface = {
     playGround = playGround.getGood(playGround.getRollResult)
-    playGround = playGround.attack(playGround.getRollResult)
-    publish(new PlaygroundChanged)
-    playGround = nextTurn()
+    val tuple = playGround.attack(playGround.getRollResult)
+    playGround = tuple._1
+    if (tuple._2) {
+      state = WaitForKotDecision
+    }
+    else {
+      playGround = nextTurn()
+    }
     publish(new PlaygroundChanged)
     playGround
   }
@@ -112,6 +117,19 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
     playGround = playGround.nextTurn
     state = WaitFor1stThrow
     playGround.setState(state)
+    playGround
+  }
+
+  override def kotStay(): PlayGroundInterface = {
+    playGround = nextTurn()
+    publish(new PlaygroundChanged)
+    playGround
+  }
+
+  override def kotLeave(): PlayGroundInterface = {
+    playGround.setKOT(playGround.getLapNr)
+    playGround = nextTurn()
+    publish(new PlaygroundChanged)
     playGround
   }
 

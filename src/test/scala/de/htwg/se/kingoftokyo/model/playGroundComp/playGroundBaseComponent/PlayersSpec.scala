@@ -1,3 +1,4 @@
+/*
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
@@ -52,3 +53,4 @@ class PlayersSpec extends WordSpec with Matchers {
     }
   }
 }
+*/

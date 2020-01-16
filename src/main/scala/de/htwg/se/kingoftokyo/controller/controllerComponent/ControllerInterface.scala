@@ -18,6 +18,8 @@ trait ControllerInterface extends Publisher{
   def nextTurn():PlayGroundInterface
   def getState(): GameState
   def getPlayground(): PlayGroundInterface
+  def kotStay(): PlayGroundInterface
+  def kotLeave(): PlayGroundInterface
   def undo: Unit
   def redo: Unit
   def save: Unit

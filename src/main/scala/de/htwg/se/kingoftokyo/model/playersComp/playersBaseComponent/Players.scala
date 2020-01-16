@@ -29,21 +29,27 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
-  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): PlayersInterface = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): (PlayersInterface, Boolean) = {
+    val attacks = rollResult.evaluateAttacks()
     inside match {
       case true => {
         var tmp = this.players
         for (p <- 0 to (players.length - 1) if p != kot) {
           val tmpPlayer = this.players(p)
-            .looseHeart(rollResult.evaluateAttacks())
+            .looseHeart(attacks)
           tmp = tmp.updated(p, tmpPlayer)
         }
-        Players(tmp)
+        (Players(tmp), false)
       }
       case false => {
         val tmpPlayer = this.players(kot)
-          .looseHeart(rollResult.evaluateAttacks())
-        copy(this.players.updated(kot, tmpPlayer))
+          .looseHeart(attacks)
+        if (attacks != 0) {
+          (copy(this.players.updated(kot, tmpPlayer)), true)
+        }
+        else {
+          (copy(this.players.updated(kot, tmpPlayer)), false)
+        }
       }
     }
   }

@@ -1,6 +1,5 @@
 package de.htwg.se.kingoftokyo.aview
 
-import de.htwg.se.kingoftokyo.util.Observer
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.controller.controllerComponent.{ControllerInterface, PlaygroundChanged, State}
 
@@ -44,6 +43,12 @@ class Tui (controller: ControllerInterface) extends Publisher {
           case _ => controller.evaluateThrow()
         }
 
+      case WaitForKotDecision =>
+        input match {
+          case "q" =>
+          case "yes" => controller.kotStay()
+          case "no" => controller.kotLeave()
+        }
     }
   }
 
