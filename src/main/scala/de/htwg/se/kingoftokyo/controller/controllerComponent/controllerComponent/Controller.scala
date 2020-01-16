@@ -19,6 +19,10 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   val injector = Guice.createInjector(new KingOfTokyoModule)
   val fileIo = injector.instance[FileIoInterface]
 
+  var winnerString: String = ""
+
+  override def getWinnerString(): String = this.winnerString
+
   def save: Unit = {
     playGround.setState(state)
     fileIo.save(playGround)
@@ -60,8 +64,15 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
     playGround = playGround.getGood(playGround.getRollResult)
     val tuple = playGround.attack(playGround.getRollResult)
     playGround = tuple._1
-    if (tuple._2) {
+    val finished = playGround.checkFinish
+    if (finished._1) {
+      winnerString = finished._2
+      state = End
+      playGround.setState(state)
+    }
+    else if (tuple._2) {
       state = WaitForKotDecision
+      playGround.setState(state)
     }
     else {
       playGround = nextTurn()
@@ -93,7 +104,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   override def filterThrowResult(filter: String):PlayGroundInterface = {
     val selection = filter.split(",").toVector
     val list = Try(selection.map(x => x.toInt))
-    if (list.isSuccess) {
+    if (list.isSuccess || filter == "") {
       playGround = playGround.filterThrowResult(filter)
         .throwDies()
       state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
@@ -127,10 +138,15 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   }
 
   override def kotLeave(): PlayGroundInterface = {
-    playGround.setKOT(playGround.getLapNr)
+    playGround = playGround.setKOT(playGround.getLapNr % playGround.getPlayers.getLength())
     playGround = nextTurn()
     publish(new PlaygroundChanged)
     playGround
+  }
+
+  override def contStay(): ControllerInterface = {
+    publish(new PlaygroundChanged)
+    this
   }
 
   override def undo: Unit = {

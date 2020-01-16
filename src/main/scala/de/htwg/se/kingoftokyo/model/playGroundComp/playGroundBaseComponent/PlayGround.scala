@@ -97,6 +97,24 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     copy(this.players,this.lapNr, this.rollResult, newKOT)
   }
 
+  override def checkFinish: (Boolean, String) = {
+    var finish: Boolean = false
+    var wstring: String = ""
+    val playersTmp = players.getPlayers()
+    if (playersTmp.length == 1) {
+      finish = true
+      wstring = "Player: " + playersTmp(0).name + " won by killing everybody"
+    }
+    else {
+      for (p <- playersTmp) {
+        if (p.stars == 20) {
+          finish = true
+          wstring = "Player: " + p.name + " won by reaching 20 Stars"
+        }
+      }
+    }
+    (finish, wstring)
+  }
 
   override def toString: String = {
     val kotName = if (this.players.toPlayerVector.isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}

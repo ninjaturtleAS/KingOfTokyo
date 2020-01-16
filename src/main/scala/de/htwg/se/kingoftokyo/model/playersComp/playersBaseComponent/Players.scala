@@ -37,6 +37,9 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
         for (p <- 0 to (players.length - 1) if p != kot) {
           val tmpPlayer = this.players(p)
             .looseHeart(attacks)
+          if (tmpPlayer.heart == 0) {
+
+          }
           tmp = tmp.updated(p, tmpPlayer)
         }
         (Players(tmp), false)

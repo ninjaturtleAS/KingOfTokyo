@@ -48,6 +48,13 @@ class Tui (controller: ControllerInterface) extends Publisher {
           case "q" =>
           case "yes" => controller.kotStay()
           case "no" => controller.kotLeave()
+          case _ => controller.contStay()
+        }
+
+      case End =>
+        input match {
+          case "q" =>
+          case _ => controller.contStay()
         }
     }
   }
@@ -57,9 +64,14 @@ class Tui (controller: ControllerInterface) extends Publisher {
   }
 
   def printTui(): Unit = {
-    println(controller.playGroundToString())
-    println(State.message(controller.getState()) + "\n")
-    println(controller.getState())
+    if (controller.getState() == End) {
+      println(controller.getWinnerString())
+    }
+    else {
+      println(controller.playGroundToString())
+      println(State.message(controller.getState()) + "\n")
+      println(controller.getState())
+    }
   }
   /*
   override def update: Boolean = {
