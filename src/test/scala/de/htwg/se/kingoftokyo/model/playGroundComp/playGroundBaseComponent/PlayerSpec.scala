@@ -93,7 +93,7 @@ class PlayerSpec extends WordSpec with Matchers {
         player.gainStar(testStar) should be(Player("Alex", testInit, testInit, testStar))
       }
       "loose Star to 4" in {
-        player.looseStar(one) should be(Player("Alex", testInit, testInit , testInit - 1))
+        player.looseStar(one) should be(Player("Alex", testInit, testInit, testInit - 1))
       }
       "gain Energy to 6" in {
         player.gainEnergy(one) should be(Player("Alex", testInit + 1, testInit, testInit))
@@ -103,6 +103,9 @@ class PlayerSpec extends WordSpec with Matchers {
       }
       "have a nice Info String" in {
         player.info should be("Alex (Energy: 5, Heart: 5, Stars: 5)")
+      }
+      "be able to be created out of a String" in {
+        player.strToPlayer("Alex,5,5,5") should be(player)
       }
     }
   }

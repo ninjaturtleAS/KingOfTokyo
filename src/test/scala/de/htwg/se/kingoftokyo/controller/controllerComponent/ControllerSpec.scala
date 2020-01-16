@@ -2,6 +2,7 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent.Controller
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
@@ -98,6 +99,12 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       "undo redo" in {
         controllerUndoRedu.undo should be(controllerUndoRedu.redo)
+      }
+      "return a state" in {
+        controller.getState() should be (WaitFor1stThrow)
+      }
+      "return a pg" in {
+        controller.getPlayground() should be (controller.playGround)
       }
     }
   }

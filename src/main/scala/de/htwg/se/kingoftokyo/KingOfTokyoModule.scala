@@ -33,8 +33,8 @@ class KingOfTokyoModule extends AbstractModule with ScalaModule {
         //bind[RollResultInterface].annotatedWith(Names.named("initRR")).toInstance(initRR)
         //bind[ControllerInterface].annotatedWith(Names.named("initCont")).toInstance(initCont)
 
-        //bind[FileIoInterface].to[fileIoXmlImpl.FileIO]
-        bind[FileIoInterface].to[fileIoJsonImpl.FileIO]
+        bind[FileIoInterface].to[fileIoXmlImpl.FileIO]
+        //bind[FileIoInterface].to[fileIoJsonImpl.FileIO]
     }
 }
 

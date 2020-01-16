@@ -51,7 +51,7 @@ case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var st
 
    def strToPlayer(str: String): Player = {
       val playersStats = str.split(",")
-      Player(playersStats(0), playersStats(1).toInt, playersStats(2).toInt)
+      Player(playersStats(0), playersStats(1).toInt, playersStats(2).toInt, playersStats(3).toInt)
 
    }
 

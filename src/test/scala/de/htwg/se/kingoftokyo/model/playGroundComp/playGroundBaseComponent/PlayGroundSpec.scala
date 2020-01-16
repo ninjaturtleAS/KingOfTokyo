@@ -2,6 +2,7 @@ package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
 import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -73,6 +74,12 @@ class PlayGroundSpec extends WordSpec with Matchers {
 
       "increase LapNr" in {
         playGroundComplete.incLapNr().getLapNr should be(lapNr + 1)
+      }
+      "return a state" in {
+        playGroundComplete.getState should be (WaitForPlayerNames)
+      }
+      "have a factory method, to create a pg with a given state" in {
+        playGroundWaitAttack.set(players, lapNr, testResult, kot, WaitForPlayerNames) should be (playGroundComplete)
       }
     }
   }
