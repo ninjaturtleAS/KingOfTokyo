@@ -30,13 +30,17 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
-  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex : Int): (PlayersInterface, Boolean) = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex : Int):
+  (PlayersInterface, Boolean) = {
+
     val attacks = rollResult.evaluateAttacks()
     var tmp = this.players
+    var tmpKOT = kotIndex
     inside match {
       case true => {
-        for (index <- 0 to (tmp.length - 1) if index != kotIndex) {
+        for (index <- 0 to (tmp.length - 1) if index != tmpKOT) {
           tmp = cutPlayers(tmp, index, attacks)
+          tmpKOT -= 1
         }
         (Players(tmp), false)
       }
