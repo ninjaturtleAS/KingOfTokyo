@@ -8,9 +8,18 @@ case class RollResult (result: Vector[Int]) extends RollResultInterface {
 
   def this() = this(Vector.empty)
 
-  override def throwOne(): Vector[Int] = {
+  override def throwAll(): Vector[Int] = {
     Throw(6).throwDies()
   }
+
+  override def throwAllGetRR(): RollResultInterface = {
+    RollResult(Throw(6).throwDies())
+  }
+
+  override def throwAgain(rollResult: RollResultInterface): RollResultInterface = {
+    RollResult(List.concat(rollResult.toIntVector,Throw(6-rollResult.length).throwDies()).toVector)
+  }
+
 
   override def filterThrowResult(selectionStr: String): RollResultInterface = {
     val selection = selectionStr.split(",").toVector
@@ -76,4 +85,6 @@ case class RollResult (result: Vector[Int]) extends RollResultInterface {
     val ret = string.split(",").map(s => s.toInt).toVector
     ret
   }
+
+  override def getEmptyResult: RollResultInterface = RollResult(Vector.empty)
 }

@@ -3,7 +3,9 @@ package de.htwg.se.kingoftokyo.model.rollResultComp
 
 trait RollResultInterface {
 
-  def throwOne(): Vector[Int]
+  def throwAll(): Vector[Int]
+  def throwAllGetRR(): RollResultInterface
+  def throwAgain(rollResultInterface: RollResultInterface): RollResultInterface
   def filterThrowResult(selectionStr: String): RollResultInterface
   def mapFacesToString(i: Int): String
   def toString(): String
@@ -16,4 +18,5 @@ trait RollResultInterface {
   def rollResultXML: String
   def set(result: Vector[Int]): RollResultInterface
   def stringToIntVector(str: String): Vector[Int]
+  def getEmptyResult: RollResultInterface
 }

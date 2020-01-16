@@ -5,9 +5,7 @@ import com.google.inject.name.Named
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
-import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Players, PlayersCreator}
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
-import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.{RollResult, Throw}
 
 
 case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr: Int,
@@ -47,13 +45,13 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def throwDies():PlayGroundInterface = {
-    val tmpRollResult = RollResult(List.concat(this.rollResult.toIntVector,Throw(6-this.rollResult.length).throwDies()).toVector)
+    val tmpRollResult = this.rollResult.throwAgain(this.rollResult)
     copy(this.players,this.lapNr, tmpRollResult, this.kingOfTokyo)
   }
 
   override def createPlayerInRandomOrder(playerNames: String): PlayGroundInterface = {
-    val tmpPlayersCreator = PlayersCreator(playerNames)
-    val tmpPlayers = tmpPlayersCreator.getRandomPlayers(tmpPlayersCreator.toStringList, new Players())
+    val tmpPlayersCreator = this.players.getPlayersCreator(playerNames)
+    val tmpPlayers = tmpPlayersCreator.getRandomPlayers(tmpPlayersCreator.toStringList, this.players.getEmptyPlayers)
     copy(tmpPlayers,this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
@@ -62,9 +60,9 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def filterThrowResult(filter: String): PlayGroundInterface = {
+    // if unnötig, hier kommt man nie hin
     if (filter == "") {
-      val empty = Vector[Int]()
-      copy(this.players,this.lapNr, RollResult(empty), this.kingOfTokyo)
+      copy(this.players,this.lapNr, this.rollResult.getEmptyResult, this.kingOfTokyo)
     } else {
       val filteredThrowResult = this.rollResult.filterThrowResult(filter)
       copy(this.players,this.lapNr, filteredThrowResult, this.kingOfTokyo)
@@ -80,9 +78,8 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   override def getLapNr: Int = this.lapNr
 
   override def nextTurn: PlayGroundInterface = {
-    PlayGround(this.players, this.lapNr + 1, RollResult(getRollResult.throwOne()), this.kingOfTokyo)
+    PlayGround(this.players, this.lapNr + 1, this.rollResult.throwAllGetRR(), this.kingOfTokyo)
   }
-
 
   override def set(playersInterface: PlayersInterface, lapNr: Int, rollResultInterface: RollResultInterface,
                    kot: Int, state: GameState): PlayGroundInterface = {

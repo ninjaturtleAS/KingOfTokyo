@@ -7,6 +7,8 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 case class Players (players: Vector[Player]) extends PlayersInterface {
 
   def this() = this(Vector.empty)
+
+  override def getEmptyPlayers: Players = Players(Vector.empty)
   def addPlayer(player: Player): Players = Players(players :+ player)
 
   override def addNewPlayer(name:String, energy: Int, heart: Int,stars: Int): PlayersInterface = {
@@ -68,4 +70,6 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   override def set(players: Vector[Player]): Players = {
     copy(players)
   }
+
+  override def getPlayersCreator(playerNames: String): PlayersCreator = PlayersCreator(playerNames)
 }

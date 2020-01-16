@@ -23,4 +23,3 @@ trait PlayGroundInterface {
   def getState: GameState
   def nextTurn: PlayGroundInterface
 }
-

@@ -20,7 +20,7 @@ class RollResultSpec extends WordSpec with Matchers {
       val testStars = RollResult(testStar)
       //firstThrow
       "throw six dices" in {
-        testThrow.throwOne().length should be(6)
+        testThrow.throwAll().length should be(6)
       }
 
       "give 3 stars when" in {
