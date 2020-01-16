@@ -2,6 +2,7 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent.Controller
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
@@ -105,6 +106,16 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       "return a pg" in {
         controller.getPlayground() should be (controller.playGround)
+      }
+      "a String should get maped to a state" in {
+        State.mapStringtoState("WaitForPlayerNames") should be (WaitForPlayerNames)
+        State.mapStringtoState("WaitFor1stThrow") should be (WaitFor1stThrow)
+        State.mapStringtoState("WaitFor2ndThrow") should be (WaitFor2ndThrow)
+        State.mapStringtoState("ThrowComplete") should be (ThrowComplete)
+        State.mapStringtoState("WaitForKotDecision") should be (WaitForKotDecision)
+      }
+      "a State should have a corresponding message" in {
+        State.message(WaitFor1stThrow) should be ("Ihre Auswahl")
       }
     }
   }
