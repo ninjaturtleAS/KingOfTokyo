@@ -3,6 +3,7 @@ package de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent
 import com.google.inject.Inject
 import de.htwg.se.kingoftokyo.model.playersComp.PlayersInterface
 import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
+import org.graalvm.compiler.lir.alloc.trace.TraceGlobalMoveResolutionPhase
 
 case class Players (players: Vector[Player]) extends PlayersInterface {
 
@@ -29,27 +30,18 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
-  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kot : Int): (PlayersInterface, Boolean) = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex : Int): (PlayersInterface, Boolean) = {
     val attacks = rollResult.evaluateAttacks()
     var tmp = this.players
     inside match {
       case true => {
-        for (p <- 0 to (players.length - 1) if p != kot) {
-          val tmpPlayer = this.players(p)
-            .looseHeart(attacks)
-          if (tmpPlayer.heart == 0) {
-            tmp = tmp.filter(_ != tmpPlayer)
-          }
-          tmp = tmp.updated(p, tmpPlayer)
+        for (index <- 0 to (tmp.length - 1) if index != kotIndex) {
+          tmp = cutPlayers(tmp, index, attacks)
         }
         (Players(tmp), false)
       }
       case false => {
-        val tmpKOT = this.players(kot)
-          .looseHeart(attacks)
-        if (tmpKOT.heart == 0) {
-          tmp = tmp.filter(_ != tmpKOT)
-        }
+        tmp = cutPlayers(tmp, kotIndex, attacks)
         if (attacks != 0) {
           (Players(tmp), true)
         }
@@ -60,6 +52,15 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     }
   }
 
+  def cutPlayers(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
+    var tmp = playerVector
+    val tmpPlayer = tmp(index).looseHeart(attacks)
+    tmp = tmp.updated(index, tmpPlayer)
+    if (tmp(index).heart == 0) {
+      tmp = tmp.filter(_ != tmpPlayer)
+    }
+    tmp
+  }
 
   override def getLength(): Int = {players.length}
 
