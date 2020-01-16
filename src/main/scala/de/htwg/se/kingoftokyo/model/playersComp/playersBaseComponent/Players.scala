@@ -9,6 +9,7 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   def this() = this(Vector.empty)
 
   override def getEmptyPlayers: Players = Players(Vector.empty)
+
   def addPlayer(player: Player): Players = Players(players :+ player)
 
   override def addNewPlayer(name:String, energy: Int, heart: Int,stars: Int): PlayersInterface = {
