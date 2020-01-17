@@ -47,6 +47,7 @@ class FileIO  extends FileIoInterface {
     pw.write(xml)
     pw.close()
   }
+
   def playgroundToXml(playground: PlayGroundInterface): Elem = {
     <playground players={playground.getPlayers.playersXML()} lapNr={playground.getLapNr.toString} rollResult={playground.getRollResult.rollResultXML}
                 kot={playground.getKOT.toString} state={playground.getState.toString}>

@@ -30,39 +30,115 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
-  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex : Int):
-  (PlayersInterface, Boolean) = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex: Int, lapNr: Int):
+  (PlayersInterface, Int, Int, Boolean) = {
 
     val attacks = rollResult.evaluateAttacks()
-    var tmp = this.players
-    var tmpKOT = kotIndex
-    inside match {
-      case true => {
-        for (index <- 0 to (tmp.length - 1) if index != tmpKOT) {
-          tmp = cutPlayers(tmp, index, attacks)
-          tmpKOT -= 1
+    if (attacks == 0) {
+      (this, kotIndex, lapNr, false)
+    }
+    else {
+      var tmp = this.players
+      var tmpKOT = kotIndex
+      var tmpLapNr = lapNr
+      var tmpCut: (Vector[Player], Int, Boolean) = (tmp, tmpKOT, false)
+      var tmpCutKOT: (Vector[Player], Int, Int, Boolean) = (tmp, tmpKOT, tmpLapNr, false)
+
+      inside match {
+        case true => {
+          for (index <- 0 until tmp.length if index != tmpKOT) {
+            tmp = looseHeart(tmp, index, attacks)
+          }
+          tmpCut = cutPlayerR(tmp, 0, tmpKOT, tmp.length, false)
+          tmp = tmpCut._1
+          tmpKOT = tmpCut._2
+          tmpLapNr = tmpKOT
+          (Players(tmp), tmpKOT, tmpLapNr, false)
         }
-        (Players(tmp), false)
-      }
-      case false => {
-        tmp = cutPlayers(tmp, kotIndex, attacks)
-        if (attacks != 0) {
-          (Players(tmp), true)
-        }
-        else {
-          (Players(tmp), false)
+        case false => {
+          tmp = looseHeart(tmp, tmpKOT, attacks)
+          tmpCutKOT = cutKOT(tmp, tmpKOT, tmpLapNr)
+          if (tmpCutKOT._4) {
+            tmp = tmpCutKOT._1
+            tmpKOT = tmpCutKOT._2
+            tmpLapNr = tmpCutKOT._3
+          }
+          (Players(tmp), tmpKOT, tmpLapNr, true)
         }
       }
     }
   }
 
-  def cutPlayers(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
+  def cutPlayerR(players: Vector[Player], currentIndex: Int, kotIndex: Int, lengthPlayers: Int, prevChange: Boolean)
+  : (Vector[Player], Int, Boolean) = {
+    var tmp = players
+    var tmpCurrent = currentIndex
+    var tmpKOT = kotIndex
+    var tmpLength = lengthPlayers - 1
+    var changed = prevChange
+    var zero = false
+    var returnTuple = (players, kotIndex, prevChange)
+
+    if (tmpCurrent == tmpKOT) {
+      if (tmpCurrent < tmpLength) {
+        tmpCurrent += 1
+        returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+      } else {
+        returnTuple  = (tmp, tmpKOT, changed)
+      }
+    } else {
+      if (tmp(tmpCurrent).heart ==  0) {
+        tmp = tmp.filter(_ != tmp(tmpCurrent))
+        changed = true
+        zero = true
+      }
+      if (zero) {
+        tmpLength -= 1
+        if (tmpCurrent < tmpKOT) {
+          tmpKOT -= 1
+          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+        } else {
+          if (tmpCurrent < tmpLength) {
+            tmpCurrent += 1
+            returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+          } else {
+            returnTuple = (tmp, tmpKOT, changed)
+          }
+        }
+      } else {
+        if (tmpCurrent < tmpLength) {
+          tmpCurrent += 1
+          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+        } else {
+          returnTuple = (tmp, tmpKOT, changed)
+        }
+      }
+    }
+    returnTuple
+  }
+
+  def cutKOT(playerVector: Vector[Player], kotIndex: Int, lapNr: Int): (Vector[Player], Int, Int, Boolean) = {
+    var tmp = playerVector
+    var kotTmp = kotIndex
+    var lapTmp = lapNr
+    var tmpPlayer = tmp(kotTmp)
+    var changed = false
+
+    if (tmpPlayer.heart == 0) {
+      tmp = tmp.filter(_ != tmpPlayer)
+      if (lapTmp > kotTmp) {
+        lapTmp -= 1
+      }
+      kotTmp = lapTmp
+      changed = true
+    }
+    (tmp, kotTmp, lapTmp, changed)
+  }
+
+  def looseHeart(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
     var tmp = playerVector
     val tmpPlayer = tmp(index).looseHeart(attacks)
     tmp = tmp.updated(index, tmpPlayer)
-    if (tmp(index).heart == 0) {
-      tmp = tmp.filter(_ != tmpPlayer)
-    }
     tmp
   }
 
@@ -77,7 +153,7 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     }
     playersStr
   }
-  override def toPlayerVector: Vector[Player] = {players}
+  override def toPlayerVector: Vector[Player] = players
 
   override def playersStrToPlayers(playersStr: String, player: Player): Vector[Player] = {
     val playerStrVec: Vector[String] = playersStr.split(";").toVector

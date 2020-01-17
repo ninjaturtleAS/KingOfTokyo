@@ -21,7 +21,6 @@ class KingOfTokyoModule extends AbstractModule with ScalaModule {
     val initRR = RollResult(Vector.empty)
     val zero = 0
     val initPG = PlayGround(new Players(),zero , initRR, zero)
-    //val initCont = new controllerComponent.Controller(initPG)
 
     override def configure(): Unit = {
         bindConstant().annotatedWith(Names.named("Zero")).to(zero)
@@ -30,8 +29,6 @@ class KingOfTokyoModule extends AbstractModule with ScalaModule {
         bind[PlayGroundInterface].to[PlayGround]
         bind[ControllerInterface].to[controllerComponent.Controller]
         bind[PlayGroundInterface].annotatedWith(Names.named("initPG")).toInstance(initPG)
-        //bind[RollResultInterface].annotatedWith(Names.named("initRR")).toInstance(initRR)
-        //bind[ControllerInterface].annotatedWith(Names.named("initCont")).toInstance(initCont)
 
         bind[FileIoInterface].to[fileIoXmlImpl.FileIO]
         //bind[FileIoInterface].to[fileIoJsonImpl.FileIO]
