@@ -65,7 +65,6 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def filterThrowResult(filter: String): PlayGroundInterface = {
-    // if unnötig, hier kommt man nie hin
     if (filter == "") {
       copy(this.players,this.lapNr, this.rollResult.getEmptyResult, this.kingOfTokyo)
     } else {

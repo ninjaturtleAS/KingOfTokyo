@@ -35,8 +35,10 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     var tmp = this.players
     inside match {
       case true => {
-        for (index <- 0 to (tmp.length - 1) if index != kotIndex) {
-          tmp = cutPlayers(tmp, index, attacks)
+        for (index <- 0 to (tmp.length - 1)) {
+          if (index != kotIndex) {
+            tmp = cutPlayers(tmp, index, attacks)
+          }
         }
         (Players(tmp), false)
       }
