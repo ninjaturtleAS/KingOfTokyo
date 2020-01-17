@@ -29,32 +29,41 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
       .gainStar(rollResult.evaluateStars())
     copy(this.players.updated(playerIndex, tmpPlayer))
   }
-
-  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex : Int): (PlayersInterface, Boolean) = {
+  override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex: Int, lapNr: Int): (PlayersInterface, Boolean) = {
     val attacks = rollResult.evaluateAttacks()
+    if (attacks == 0) {
+      (this, false)
+    }
+    val resetKOTIndex: Boolean = lapNr <= kotIndex
     var tmp = this.players
     inside match {
       case true => {
         for (index <- 0 to (tmp.length - 1)) {
           if (index != kotIndex) {
-            tmp = cutPlayers(tmp, index, attacks)
+            tmp = cutPlayers(tmp, index, attacks, resetKOTIndex)
           }
         }
         (Players(tmp), false)
       }
       case false => {
-        tmp = cutPlayers(tmp, kotIndex, attacks)
-        if (attacks != 0) {
-          (Players(tmp), true)
-        }
-        else {
-          (Players(tmp), false)
+        tmp = cutKot(tmp, kotIndex, attacks)
+        (Players(tmp), true)
         }
       }
     }
   }
 
-  def cutPlayers(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
+  def cutPlayers(playerVector: Vector[Player], index: Int, attacks: Int, resetKotIndex: Boolean): Vector[Player] = {
+    var tmp = playerVector
+    val tmpPlayer = tmp(index).looseHeart(attacks)
+    tmp = tmp.updated(index, tmpPlayer)
+    if (tmp(index).heart == 0) {
+      tmp = tmp.filter(_ != tmpPlayer)
+    }
+    tmp
+  }
+
+  def cutKot(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
     var tmp = playerVector
     val tmpPlayer = tmp(index).looseHeart(attacks)
     tmp = tmp.updated(index, tmpPlayer)
