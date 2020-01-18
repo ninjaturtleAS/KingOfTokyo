@@ -63,7 +63,11 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
             tmpKOT = tmpCutKOT._2
             tmpLapNr = tmpCutKOT._3
           }
-          (Players(tmp), tmpKOT, tmpLapNr, true)
+          if (tmpCutKOT._4) {
+            (Players(tmp), tmpKOT, tmpLapNr, false)
+          } else {
+            (Players(tmp), tmpKOT, tmpLapNr, true)
+          }
         }
       }
     }
