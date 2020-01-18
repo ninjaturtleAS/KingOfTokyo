@@ -24,4 +24,6 @@ trait PlayGroundInterface {
   def setKOT(newKOT: Int): PlayGroundInterface
   def nextTurn: PlayGroundInterface
   def checkFinish: (Boolean, String)
+  def buyHeart: PlayGroundInterface
+  def buyAttack: (PlayGroundInterface, Boolean)
 }

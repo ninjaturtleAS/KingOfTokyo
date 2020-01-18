@@ -97,6 +97,8 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     copy(this.players,this.lapNr, this.rollResult, newKOT)
   }
 
+
+
   override def checkFinish: (Boolean, String) = {
     var finish: Boolean = false
     var wstring: String = ""
