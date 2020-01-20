@@ -40,7 +40,7 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     else {
       var tmp = this.players
       var tmpKOT = kotIndex
-      var tmpLapNr = lapNr
+      var tmpLapNr = lapNr % tmp.length
       var tmpCut: (Vector[Player], Int, Boolean) = (tmp, tmpKOT, false)
       var tmpCutKOT: (Vector[Player], Int, Int, Boolean) = (tmp, tmpKOT, tmpLapNr, false)
 
@@ -49,7 +49,7 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
           for (index <- 0 until tmp.length if index != tmpKOT) {
             tmp = looseHeart(tmp, index, attacks)
           }
-          tmpCut = cutPlayerR(tmp, 0, tmpKOT, tmp.length, false)
+          tmpCut = cutPlayerR(tmp, 0, tmpKOT, tmp.length - 1, false)
           tmp = tmpCut._1
           tmpKOT = tmpCut._2
           tmpLapNr = tmpKOT
@@ -62,8 +62,10 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
             tmp = tmpCutKOT._1
             tmpKOT = tmpCutKOT._2
             tmpLapNr = tmpCutKOT._3
+            (Players(tmp), tmpKOT, tmpLapNr, false)
+          } else {
+            (Players(tmp), tmpKOT, tmpLapNr, true)
           }
-          (Players(tmp), tmpKOT, tmpLapNr, true)
         }
       }
     }
@@ -74,43 +76,42 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     var tmp = players
     var tmpCurrent = currentIndex
     var tmpKOT = kotIndex
-    var tmpLength = lengthPlayers - 1
-    var changed = prevChange
+    var tmpLength = lengthPlayers
+    var tmpChanged = prevChange
     var zero = false
     var returnTuple = (players, kotIndex, prevChange)
 
     if (tmpCurrent == tmpKOT) {
       if (tmpCurrent < tmpLength) {
         tmpCurrent += 1
-        returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+        returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, tmpChanged)
       } else {
-        returnTuple  = (tmp, tmpKOT, changed)
+        returnTuple  = (tmp, tmpKOT, tmpChanged)
       }
     } else {
       if (tmp(tmpCurrent).heart ==  0) {
         tmp = tmp.filter(_ != tmp(tmpCurrent))
-        changed = true
+        tmpChanged = true
         zero = true
+        tmpLength -= 1
       }
       if (zero) {
-        tmpLength -= 1
         if (tmpCurrent < tmpKOT) {
           tmpKOT -= 1
-          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, tmpChanged)
         } else {
-          if (tmpCurrent < tmpLength) {
-            tmpCurrent += 1
-            returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+          if (tmpCurrent <= tmpLength) {
+            returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, tmpChanged)
           } else {
-            returnTuple = (tmp, tmpKOT, changed)
+            returnTuple = (tmp, tmpKOT, tmpChanged)
           }
         }
       } else {
         if (tmpCurrent < tmpLength) {
           tmpCurrent += 1
-          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, changed)
+          returnTuple = cutPlayerR(tmp, tmpCurrent, tmpKOT, tmpLength, tmpChanged)
         } else {
-          returnTuple = (tmp, tmpKOT, changed)
+          returnTuple = (tmp, tmpKOT, tmpChanged)
         }
       }
     }

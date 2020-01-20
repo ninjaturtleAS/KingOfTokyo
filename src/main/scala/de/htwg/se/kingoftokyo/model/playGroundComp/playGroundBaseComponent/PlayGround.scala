@@ -37,14 +37,14 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   override def attack(rollResult: RollResultInterface):(PlayGroundInterface, Boolean) = {
     if (this.lapNr % this.players.getLength() == this.kingOfTokyo) {
       val tmpPlayers = this.players.getAttacks(rollResult, yes, this.kingOfTokyo, this.lapNr)
-      (copy(tmpPlayers._1, this.lapNr, this.rollResult, this.kingOfTokyo), false)
+      (copy(tmpPlayers._1, tmpPlayers._3, this.rollResult, tmpPlayers._2), false)
     } else {
       val tmpPlayers = this.players.getAttacks(rollResult, no, this.kingOfTokyo, this.lapNr)
       if (tmpPlayers._4) {
         (copy(tmpPlayers._1, this.lapNr, this.rollResult, this.kingOfTokyo), true)
       }
       else {
-        (copy(tmpPlayers._1, this.lapNr, this.rollResult, this.kingOfTokyo), false)
+        (copy(tmpPlayers._1, tmpPlayers._3, this.rollResult, tmpPlayers._2), false)
       }
     }
   }
