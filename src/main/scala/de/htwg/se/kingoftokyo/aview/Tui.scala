@@ -37,11 +37,21 @@ class Tui (controller: ControllerInterface) extends Publisher {
           case _ => controller.filterThrowResult(input)
         }
 
+
       case ThrowComplete =>
         input match {
           case "q" =>
           case _ => controller.evaluateThrow()
         }
+
+      case WaitForBuy =>
+        input match {
+          case "q" =>
+          case "heart" => controller.buy(0)
+          case "star" => controller.buy(1)
+          case _  => controller.buy(2)
+        }
+
 
       case WaitForKotDecision =>
         input match {

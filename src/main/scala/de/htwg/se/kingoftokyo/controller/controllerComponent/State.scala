@@ -2,14 +2,16 @@ package de.htwg.se.kingoftokyo.controller.controllerComponent
 
 object State extends Enumeration {
   type GameState = Value
-  val WaitForPlayerNames, WaitFor1stThrow, WaitFor2ndThrow, ThrowComplete, WaitForKotDecision, End = Value
+  val WaitForPlayerNames, WaitFor1stThrow, WaitFor2ndThrow, ThrowComplete, WaitForKotDecision, End,
+  WaitForBuy = Value
 
   val map = Map[GameState, String] (
     WaitForPlayerNames -> "Bitte Spielernamen kommagetrennt eingeben",
     WaitFor1stThrow -> "Ihre Auswahl",
     WaitFor2ndThrow -> "Ihre Auswahl",
     ThrowComplete -> "Wurf wird ausgewertet",
-    WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben (yes/no)",
+    WaitForBuy -> "Möchten sie 5 Energy für 1 Heart oder Star ausgeben? (heart/star)",
+    WaitForKotDecision -> "Wollen Sie King of Tokyo bleiben ?(yes/no)",
     End -> "Spiel beendet"
   )
 

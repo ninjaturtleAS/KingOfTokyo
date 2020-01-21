@@ -7,6 +7,8 @@ import org.graalvm.compiler.lir.alloc.trace.TraceGlobalMoveResolutionPhase
 
 case class Players (players: Vector[Player]) extends PlayersInterface {
 
+  val five = 5
+
   def this() = this(Vector.empty)
 
   override def getEmptyPlayers: Players = Players(Vector.empty)
@@ -20,6 +22,19 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   override def toStringVector: Vector[String] = for (p <- players) yield p.name
 
 
+  override def buyHeart(index: Int): PlayersInterface = {
+    val tmpPlayer = this.players(index)
+      .gainHeart(1)
+        .spendEnergy(five)
+    copy(this.players.updated(index, tmpPlayer))
+  }
+
+  override def buyStar(index: Int): PlayersInterface = {
+    val tmpPlayer = this.players(index)
+      .gainStar(1)
+        .spendEnergy(five)
+    copy(this.players.updated(index, tmpPlayer))
+  }
 
 
   override def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface = {

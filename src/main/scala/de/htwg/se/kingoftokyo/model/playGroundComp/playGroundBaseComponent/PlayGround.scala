@@ -96,6 +96,26 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     copy(this.players,this.lapNr, this.rollResult, newKOT)
   }
 
+  override def checkEnergy: Boolean = {
+    var ret = false
+    if (players.getPlayers()(lapNr % players.getLength()).energy >= 5) {
+      ret = true
+    } else {
+      ret = false
+    }
+    ret
+  }
+
+  override def buyHeart: PlayGroundInterface = {
+    val tmpPlayers = players.buyHeart(lapNr % players.getLength())
+    copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
+  }
+
+  override def buyStar: PlayGroundInterface = {
+    val tmpPlayers = players.buyStar(lapNr % players.getLength())
+    copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
+  }
+
   override def checkFinish: (Boolean, String) = {
     var finish: Boolean = false
     var wstring: String = ""

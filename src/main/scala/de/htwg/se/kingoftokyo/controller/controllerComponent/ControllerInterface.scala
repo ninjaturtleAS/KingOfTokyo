@@ -21,6 +21,7 @@ trait ControllerInterface extends Publisher{
   def kotStay(): PlayGroundInterface
   def kotLeave(): PlayGroundInterface
   def contStay(): ControllerInterface
+  def buy(x: Int): PlayGroundInterface
   def getWinnerString(): String
   def undo: Unit
   def redo: Unit
