@@ -21,6 +21,9 @@ val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
 var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
 
 
+val tmpPlayer = players.players(0).gainHeart(1).gainStar(1)
+
+/*
 val x: String = playGroundWaitPlayers.getRollResult.rollResultXML
 println(x)
 
@@ -53,3 +56,4 @@ val safe = playgroundToXml(playGroundWaitPlayers)
 println(safe)
 val pg = load
 println(pg)
+*/

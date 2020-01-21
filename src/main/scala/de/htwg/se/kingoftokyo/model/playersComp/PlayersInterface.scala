@@ -19,4 +19,6 @@ trait PlayersInterface {
   def set(players: Vector[Player]): PlayersInterface
   def getPlayersCreator(playerNames: String): PlayersCreator
   def getEmptyPlayers: Players
+  def buyHeart(index: Int): PlayersInterface
+  def buyStar(index: Int): PlayersInterface
 }

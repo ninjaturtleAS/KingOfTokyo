@@ -89,6 +89,18 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
     playGround
   }
 
+  //0 = Heart, 1 = Star, 2 = None
+  override def buy(x: Int): PlayGroundInterface = {
+    x match {
+      case 0 => playGround = playGround.buyHeart
+      case 1 => playGround = playGround.buyStar
+      case _ =>
+    }
+    playGround = nextTurn()
+    publish(new PlaygroundChanged)
+    playGround
+  }
+
   override def incLapNr: PlayGroundInterface = {
     playGround = playGround.incLapNr()
     publish(new PlaygroundChanged)
@@ -125,9 +137,14 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   }
 
   override def nextTurn():PlayGroundInterface = {
-    playGround = playGround.nextTurn
-    state = WaitFor1stThrow
-    playGround.setState(state)
+    if (playGround.checkEnergy) {
+      state = WaitForBuy
+      playGround.setState(state)
+    } else {
+      playGround = playGround.nextTurn
+      state = WaitFor1stThrow
+      playGround.setState(state)
+    }
     playGround
   }
 
