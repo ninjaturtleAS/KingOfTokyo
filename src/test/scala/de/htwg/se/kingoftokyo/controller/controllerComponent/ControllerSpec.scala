@@ -24,6 +24,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val marco = Player("Marco")
   val testString = "Alex, Simon, Marco"
   val players = Players(Vector())
+  val newPlayers = Players(Vector(alex, simon, marco))
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
   val badResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
 
@@ -32,6 +33,7 @@ class ControllerSpec extends WordSpec with Matchers {
   var playGroundWaitSecond = PlayGround(players, lapNr, testResult, kot)
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
+  var playGroundNextTurn= PlayGround(newPlayers, lapNr, testResult, kot)
 
 
   "Controller " when {
@@ -42,6 +44,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val controller2 = new Controller(playGroundWaitSecond)
       val controller3 = new Controller(playGroundWaitSecond)
       val controllerComp = new Controller(playGroundComplete)
+      val controllerNextTurn = new Controller(playGroundNextTurn)
       val controllerKOT =  new Controller(playGroundKOTDecision)
       val controllerUndoRedu =  new Controller(playGroundWaitFirst)
 
@@ -95,7 +98,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "increase LapNr for next turn" in {
         val lapNr = controllerComp.playGround.getLapNr
-        controllerComp.nextTurn().getLapNr should be(lapNr + 1)
+        controllerNextTurn.nextTurn().getLapNr should be(lapNr + 1)
 
       }
       "undo redo" in {
