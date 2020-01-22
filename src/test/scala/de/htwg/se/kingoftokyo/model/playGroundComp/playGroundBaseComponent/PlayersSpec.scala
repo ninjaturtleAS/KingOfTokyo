@@ -22,6 +22,9 @@ class PlayersSpec extends WordSpec with Matchers {
       val testPlayer2 = Vector(Player("Alex", 5, 0, 10), Player("Simon", 5, 0, 10), Player("Klaus", 5, 5, 10), Player("Marco", 5, 10, 10))
       val plTest2 = Players(testPlayer2)
 
+      val testPlayer3 = Vector(Player("Alex", 5, 0, 10), Player("Simon", 5, 5, 10), Player("Klaus", 5, 0, 10), Player("Marco", 5, 10, 10))
+      val plTest3 = Players(testPlayer3)
+
       "buy one Star" in {
         val testPlayer = plTest.buyStar(0).getPlayers()(0)
         testPlayer.stars should be(11)
@@ -73,8 +76,8 @@ class PlayersSpec extends WordSpec with Matchers {
         tupel3._2 should be (0)
         tupel3._3 should be (true)
 
-        val tupel4 = plTest.cutPlayerR(testPlayer, 0, 2, 2, false)
-        tupel4._1.length should be(2)
+        val tupel4 = plTest3.cutPlayerR(testPlayer, 0, 1, 2, false)
+        tupel4._1.length should be(3)
         tupel4._2 should be (0)
         tupel4._3 should be (true)
       }
