@@ -19,7 +19,9 @@ class PlayGroundSpec extends WordSpec with Matchers {
   val marco = Player("Marco")
   val testString = "Alex, Simon, Marco"
   val players = Players(Vector(alex, simon, marco))
+  val playersFinished = Players(Vector(Player("Alex", 0, 10, 20), simon, marco))
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
+  val noAttackResult =  RollResult(Vector(1, 2, 3, 4, 5, 5))
 
   var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
   var playGroundWaitFirst = PlayGround(players, lapNr, testResult, kot)
@@ -27,6 +29,7 @@ class PlayGroundSpec extends WordSpec with Matchers {
   var playGroundWaitAttack = PlayGround(players, lapNr, testResult, kot)
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
+  var playGroundFinishedStars = PlayGround(playersFinished, lapNr, testResult, kot)
 
   "Playground" when {
     "tested" should {
@@ -37,6 +40,7 @@ class PlayGroundSpec extends WordSpec with Matchers {
       "attack player out of tokyo" in {
         playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(0).heart should be (9)
         playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(2).heart should be (9)
+        playGroundComplete.attack(noAttackResult)._2 should be (false)
       }
 
       "get Good" in {
@@ -81,6 +85,9 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
       "have a factory method, to create a pg with a given state" in {
         playGroundWaitAttack.set(players, lapNr, testResult, kot, WaitForPlayerNames) should be (playGroundComplete)
+      }
+      "be able to check if game is finished" in {
+        playGroundFinishedStars.checkFinish._1 should be (true)
       }
     }
   }
