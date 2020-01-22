@@ -15,10 +15,30 @@ class PlayersSpec extends WordSpec with Matchers {
       val plAdded = Players(Vector(Player("Simon"), Player("Alex"), Player("Marco")))
       val vecPlayers = pl.toStringVector
       val testResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
+      val noAttack = RollResult(Vector(1,2,3,1,2,3))
+      val cutPlayer = Vector(Player("Alex", 5, 0, 10), Player("Simon", 5, 0, 10), Player("Klaus", 5, 5, 10), Player("Marco", 5, 0, 10))
+      val plCut = Players(cutPlayer)
 
       "get Attacks" in {
         pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(1).heart should be(4)
+        pl.getAttacks(noAttack, true, 0, 0)._1.getPlayers()(1).heart should be(10)
         pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(0).heart should be(10)
+        pl.getAttacks(testResult, false, 0, 1)._1.getPlayers()(0).heart should be(4)
+      }
+
+      "cut KoT" in {
+        val tupel = plCut.cutKOT(cutPlayer, 1, 3)
+        tupel._1.length should be(3)
+        tupel._2 should be(2)
+        tupel._3 should be(2)
+        tupel._4 should be(true)
+      }
+
+      "cutPlayerR" in {
+        val tupel = pl.cutPlayerR(cutPlayer, 0, 1, 3, false)
+        tupel._1.length should be(2)
+        tupel._2 should be (0)
+        tupel._3 should be (true)
       }
 
       "have a String Vector representation" in {
