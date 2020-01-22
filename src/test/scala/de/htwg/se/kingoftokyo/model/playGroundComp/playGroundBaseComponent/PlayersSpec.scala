@@ -76,8 +76,8 @@ class PlayersSpec extends WordSpec with Matchers {
         tupel3._2 should be (0)
         tupel3._3 should be (true)
 
-        val tupel4 = plTest3.cutPlayerR(testPlayer, 0, 1, 2, false)
-        tupel4._1.length should be(3)
+        val tupel4 = plTest3.cutPlayerR(testPlayer, 0, 0, 3, false)
+        tupel4._1.length should be(2)
         tupel4._2 should be (0)
         tupel4._3 should be (true)
       }
