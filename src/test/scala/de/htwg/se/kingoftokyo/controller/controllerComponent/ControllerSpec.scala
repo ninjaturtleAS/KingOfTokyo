@@ -22,6 +22,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val alex = Player("Alex")
   val simon = Player("Simon")
   val marco = Player("Marco")
+  val energyPlayers = Players(Vector(Player("Alex", 6, 10, 0), Player("Simon", 6, 10, 0)))
   val testString = "Alex, Simon, Marco"
   val players = Players(Vector())
   val newPlayers = Players(Vector(alex, simon, marco))
@@ -35,7 +36,10 @@ class ControllerSpec extends WordSpec with Matchers {
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
   var playGroundNextTurn= PlayGround(newPlayers, lapNr, testResult, kot)
+  var playGroundNextTurn2= PlayGround(energyPlayers, lapNr, energyResult, kot)
   var playGroundBuy= PlayGround(newPlayers, lapNr, testResult, kot)
+  var pgFinished = PlayGround(Players(Vector(Player("Alex", 6, 10, 0))), 0, testResult, 0)
+  var pgKotAttack = PlayGround(Players(Vector(Player("Alex", 6, 10, 0), Player("Simon", 6, 10, 0))), 0, testResult, 0)
 
 
     "Controller " when {
@@ -47,9 +51,12 @@ class ControllerSpec extends WordSpec with Matchers {
       val controller3 = new Controller(playGroundWaitSecond)
       val controllerComp = new Controller(playGroundComplete)
       val controllerNextTurn = new Controller(playGroundNextTurn)
+      val controllerNextTurn2 = new Controller(playGroundNextTurn2)
       val controllerKOT =  new Controller(playGroundKOTDecision)
       val controllerUndoRedu =  new Controller(playGroundWaitFirst)
       val controllerBuy = new Controller(playGroundNextTurn)
+      val controllerFinished = new Controller(pgFinished)
+      val controllerKotAttack = new Controller(pgKotAttack)
 
 
       "new Game" in {
@@ -95,6 +102,11 @@ class ControllerSpec extends WordSpec with Matchers {
         val controllerBad = new Controller(playGroundBad)
         controllerGood.evaluateThrow().getPlayers.getPlayers()(lapNr).energy should be(1)
         controllerBad.evaluateThrow().getPlayers.getPlayers()(kot).heart should be(initHeart - 6)
+        controllerFinished.evaluateThrow()
+        controllerFinished.getState() should be (End)
+        controllerKotAttack.evaluateThrow().getLapNr should be (0)
+
+
       }
 
       "Have an nice String representaion" in {
@@ -104,8 +116,7 @@ class ControllerSpec extends WordSpec with Matchers {
       "increase LapNr for next turn" in {
         val lapNr = controllerComp.playGround.getLapNr
         controllerNextTurn.nextTurn().getLapNr should be(lapNr + 1)
-        controllerNextTurn.playGround.getGood(energyResult)
-        controllerNextTurn.nextTurn().getLapNr should be (lapNr + 2)
+        controllerNextTurn2.nextTurn().getState should be (WaitForBuy)
 
 
       }
@@ -145,7 +156,7 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       "be able to let the KOT stay or leave and increase lapNr afterwards" in {
         controllerNextTurn.kotStay().getLapNr should be (controllerNextTurn.getPlayground().getLapNr)
-        controllerNextTurn.kotStay().getLapNr should be (controllerNextTurn.getPlayground().getLapNr)
+        controllerNextTurn.kotLeave().getLapNr should be (controllerNextTurn.getPlayground().getLapNr)
       }
       "be able to chance nothing" in {
         controller.contStay() should be (controller)
