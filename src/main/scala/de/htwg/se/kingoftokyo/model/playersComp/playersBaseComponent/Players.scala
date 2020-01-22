@@ -37,12 +37,18 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   }
 
 
-  override def getGood(rollResult: RollResultInterface, playerIndex: Int): PlayersInterface = {
-    val tmpPlayer = this.players(playerIndex)
-      .gainEnergy(rollResult.evaluateEnergy())
-      .gainHeart(rollResult.evaluateHeart())
-      .gainStar(rollResult.evaluateStars())
-    copy(this.players.updated(playerIndex, tmpPlayer))
+  override def getGood(rollResult: RollResultInterface, playerIndex: Int, kot: Int): PlayersInterface = {
+    val tmpPlayer = if (playerIndex != kot) {
+      this.players(playerIndex)
+        .gainEnergy(rollResult.evaluateEnergy())
+        .gainHeart(rollResult.evaluateHeart())
+        .gainStar(rollResult.evaluateStars())
+    } else {
+      this.players(playerIndex)
+        .gainEnergy(rollResult.evaluateEnergy())
+        .gainStar(rollResult.evaluateStars())
+    }
+      copy(this.players.updated(playerIndex, tmpPlayer))
   }
 
   override def getAttacks(rollResult: RollResultInterface, inside: Boolean, kotIndex: Int, lapNr: Int):

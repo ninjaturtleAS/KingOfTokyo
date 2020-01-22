@@ -26,7 +26,7 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
 
   override def getGood(rollResult: RollResultInterface): PlayGroundInterface = {
     val playerIndex = this.lapNr % this.players.getLength()
-    val tmpPlayers = this.players.getGood(rollResult, playerIndex)
+    val tmpPlayers = this.players.getGood(rollResult, playerIndex, kingOfTokyo)
     copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
@@ -97,9 +97,7 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def checkEnergy: Boolean = {
-
-    val ret = players.getPlayers()(lapNr % players.getLength()).energy >= 5
-    ret
+    players.getPlayers()(lapNr % players.getLength()).energy >= 5
   }
 
   override def buyHeart: PlayGroundInterface = {
