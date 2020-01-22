@@ -16,26 +16,46 @@ class PlayersSpec extends WordSpec with Matchers {
       val vecPlayers = pl.toStringVector
       val testResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
       val noAttack = RollResult(Vector(1,2,3,1,2,3))
-      val cutPlayer = Vector(Player("Alex", 5, 0, 10), Player("Simon", 5, 0, 10), Player("Klaus", 5, 5, 10), Player("Marco", 5, 0, 10))
-      val plCut = Players(cutPlayer)
+      val testPlayer = Vector(Player("Alex", 5, 0, 10), Player("Simon", 5, 0, 10), Player("Klaus", 5, 5, 10), Player("Marco", 5, 0, 10))
+      val plTest = Players(testPlayer)
+
+      "buy one Star" in {
+        val testPlayer = plTest.buyStar(0).getPlayers()(0)
+        testPlayer.stars should be(11)
+        testPlayer.energy should be(0)
+      }
+
+      "buy one Heart" in {
+        val testPlayer = plTest.buyHeart(0).getPlayers()(0)
+        testPlayer.heart should be(1)
+        testPlayer.energy should be(0)
+      }
 
       "get Attacks" in {
         pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(1).heart should be(4)
         pl.getAttacks(noAttack, true, 0, 0)._1.getPlayers()(1).heart should be(10)
         pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(0).heart should be(10)
         pl.getAttacks(testResult, false, 0, 1)._1.getPlayers()(0).heart should be(4)
+
+        plTest.getAttacks(testResult, false, 0, 1)._4 should be (false)
       }
 
       "cut KoT" in {
-        val tupel = plCut.cutKOT(cutPlayer, 1, 3)
+        val tupel = plTest.cutKOT(testPlayer, 1, 3)
         tupel._1.length should be(3)
         tupel._2 should be(2)
         tupel._3 should be(2)
         tupel._4 should be(true)
+
+        val tupel2 = plTest.cutKOT(testPlayer, 1, 0)
+        tupel2._1.length should be(3)
+        tupel2._2 should be(0)
+        tupel2._3 should be(0)
+        tupel2._4 should be(true)
       }
 
       "cutPlayerR" in {
-        val tupel = pl.cutPlayerR(cutPlayer, 0, 1, 3, false)
+        val tupel = pl.cutPlayerR(testPlayer, 0, 1, 3, false)
         tupel._1.length should be(2)
         tupel._2 should be (0)
         tupel._3 should be (true)
