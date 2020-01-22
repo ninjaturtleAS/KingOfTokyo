@@ -97,12 +97,8 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def checkEnergy: Boolean = {
-    var ret = false
-    if (players.getPlayers()(lapNr % players.getLength()).energy >= 5) {
-      ret = true
-    } else {
-      ret = false
-    }
+
+    val ret = players.getPlayers()(lapNr % players.getLength()).energy >= 5
     ret
   }
 

@@ -49,7 +49,7 @@ class Tui (controller: ControllerInterface) extends Publisher {
           case "q" =>
           case "heart" => controller.buy(0)
           case "star" => controller.buy(1)
-          case _  => controller.buy(2)
+          case _  =>
         }
 
 
