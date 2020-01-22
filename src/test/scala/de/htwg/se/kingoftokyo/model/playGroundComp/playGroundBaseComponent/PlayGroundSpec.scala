@@ -29,6 +29,7 @@ class PlayGroundSpec extends WordSpec with Matchers {
   var playGroundWaitAttack = PlayGround(players, lapNr, testResult, kot)
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
+  var pgNoAttacks = PlayGround(players, lapNr, noAttackResult, 2)
   var playGroundFinishedStars = PlayGround(playersFinished, lapNr, testResult, kot)
 
   "Playground" when {
@@ -40,7 +41,7 @@ class PlayGroundSpec extends WordSpec with Matchers {
       "attack player out of tokyo" in {
         playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(0).heart should be (9)
         playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(2).heart should be (9)
-        playGroundComplete.attack(noAttackResult)._2 should be (false)
+        pgNoAttacks.attack(noAttackResult)._2 should be (false)
       }
 
       "get Good" in {
