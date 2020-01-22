@@ -27,6 +27,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val newPlayers = Players(Vector(alex, simon, marco))
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
   val badResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
+  val energyResult = RollResult(Vector(4,4,4,4,4,4))
 
   var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
   var playGroundWaitFirst = PlayGround(players, lapNr, testResult, kot)
@@ -34,9 +35,10 @@ class ControllerSpec extends WordSpec with Matchers {
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
   var playGroundNextTurn= PlayGround(newPlayers, lapNr, testResult, kot)
+  var playGroundBuy= PlayGround(newPlayers, lapNr, testResult, kot)
 
 
-  "Controller " when {
+    "Controller " when {
     "new" should {
       val controller = new Controller(playGroundWaitPlayers)
       val controllerStr = new Controller(playGroundWaitPlayers)
@@ -47,6 +49,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val controllerNextTurn = new Controller(playGroundNextTurn)
       val controllerKOT =  new Controller(playGroundKOTDecision)
       val controllerUndoRedu =  new Controller(playGroundWaitFirst)
+      val controllerBuy = new Controller(playGroundNextTurn)
 
 
       "new Game" in {
@@ -81,6 +84,8 @@ class ControllerSpec extends WordSpec with Matchers {
         controller1.filterThrowResult("1,2,3,4,5,a") should be (controller1.playGround)
         controller1.state = State.WaitFor1stThrow
         controller1.filterThrowResult("1,2,3,4,5,6").getRollResult.toString() should be ("1 2 3 Energy Heart Attack ")
+        controller1.state = State.ThrowComplete
+        controller1.filterThrowResult("1,2,3,4,5,6").getRollResult.toString should be ("1 2 3 Energy Heart Attack ")
       }
 
       "evaluate Results" in {
@@ -99,6 +104,9 @@ class ControllerSpec extends WordSpec with Matchers {
       "increase LapNr for next turn" in {
         val lapNr = controllerComp.playGround.getLapNr
         controllerNextTurn.nextTurn().getLapNr should be(lapNr + 1)
+        controllerNextTurn.playGround.getGood(energyResult)
+        controllerNextTurn.nextTurn().getLapNr should be (lapNr + 2)
+
 
       }
       "undo redo" in {
@@ -116,9 +124,31 @@ class ControllerSpec extends WordSpec with Matchers {
         State.mapStringtoState("WaitFor2ndThrow") should be (WaitFor2ndThrow)
         State.mapStringtoState("ThrowComplete") should be (ThrowComplete)
         State.mapStringtoState("WaitForKotDecision") should be (WaitForKotDecision)
+        State.mapStringtoState("End") should be (End)
       }
       "a State should have a corresponding message" in {
         State.message(WaitFor1stThrow) should be ("Ihre Auswahl")
+      }
+      "return a winner String" in {
+        controller.getWinnerString() should be ("")
+      }
+      "be able to be saved" in {
+        controller.save should be (controller.save)
+      }
+      "be able to be loaded" in {
+        controller.load should be (controller.load)
+      }
+      "be able to buy hearts or stars and increase lapNr while doing so" in {
+        controllerBuy.buy(0).getLapNr should be (playGroundBuy.getLapNr + 1)
+        controllerBuy.buy(1).getLapNr should be (playGroundBuy.getLapNr + 2)
+        controllerBuy.buy(2).getLapNr should be (playGroundBuy.getLapNr + 3)
+      }
+      "be able to let the KOT stay or leave and increase lapNr afterwards" in {
+        controllerNextTurn.kotStay().getLapNr should be (controllerNextTurn.getPlayground().getLapNr)
+        controllerNextTurn.kotStay().getLapNr should be (controllerNextTurn.getPlayground().getLapNr)
+      }
+      "be able to chance nothing" in {
+        controller.contStay() should be (controller)
       }
     }
   }
