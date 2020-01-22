@@ -1,4 +1,4 @@
-/*
+
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
@@ -35,8 +35,8 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
 
       "attack player out of tokyo" in {
-        playGroundComplete.attack(testResult).getPlayers.getPlayers()(0).heart should be (9)
-        playGroundComplete.attack(testResult).getPlayers.getPlayers()(2).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(0).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(2).heart should be (9)
       }
 
       "get Good" in {
@@ -85,5 +85,3 @@ class PlayGroundSpec extends WordSpec with Matchers {
     }
   }
 }
-
- */

@@ -1,4 +1,4 @@
-/*
+
 package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
@@ -17,8 +17,8 @@ class PlayersSpec extends WordSpec with Matchers {
       val testResult = RollResult(Vector(6, 6, 6, 6, 6, 6))
 
       "get Attacks" in {
-        pl.getAttacks(testResult, true, 0).getPlayers()(1).heart should be(4)
-        pl.getAttacks(testResult, true, 0).getPlayers()(0).heart should be(10)
+        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(1).heart should be(4)
+        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(0).heart should be(10)
       }
 
       "have a String Vector representation" in {
@@ -35,7 +35,7 @@ class PlayersSpec extends WordSpec with Matchers {
       }
       "be able to getGood" in {
         val pl2 = Players(Vector(Player("Simon", 0,10,1), Player("Alex")))
-        pl.getGood(RollResult(Vector(1,1,1,5,5,5)), 0) should be (pl2)
+        pl.getGood(RollResult(Vector(1,1,1,5,5,5)), 0, 0) should be (pl2)
       }
       "be able to add a new Player" in {
         val pl2 = pl
@@ -53,4 +53,3 @@ class PlayersSpec extends WordSpec with Matchers {
     }
   }
 }
-*/
