@@ -19,6 +19,7 @@ class GUI(controller: ControllerInterface) extends Frame {
   val playerTextColor: Color = Color.MAGENTA.brighter()
   val resultTextColor: Color = Color.YELLOW.brighter()
 
+
   val width = 450
   val height = 300
   preferredSize = new Dimension(width, height)
@@ -66,6 +67,33 @@ class GUI(controller: ControllerInterface) extends Frame {
     contents += button
   }
 
+  def kotChoicePanel: BorderPanel = new BorderPanel() {
+    val playground = controller.getPlayground()
+    val players = playground.getPlayers.getPlayers()
+
+    background = Color.ORANGE.brighter()
+    val text = new Label("Möchte " + players(playground.getKOT).name + " King of Tokyo bleiben?")
+    text.foreground = Color.BLACK
+    val yesButton: Button = Button("Ja") { controller.kotStay() }
+    val noButton: Button = Button("Nein") { controller.kotLeave() }
+    add(text, BorderPanel.Position.Center)
+    add(yesButton, BorderPanel.Position.West)
+    add(noButton, BorderPanel.Position.East)
+  }
+
+  def buyPanel: BorderPanel = new BorderPanel() {
+    background = Color.BLUE.brighter()
+    val text = new Label("Möchten Sie für 5 Energy 1 Heart oder Star kaufen?")
+    text.foreground = Color.ORANGE
+    val heartButton: Button = Button("Heart") { controller.buy(0) }
+    val starButton: Button = Button("Star") { controller.buy(1) }
+    val noButton: Button = Button("Nein") { controller.buy(2) }
+    add(text, BorderPanel.Position.Center)
+    add(heartButton, BorderPanel.Position.West)
+    add(starButton, BorderPanel.Position.East)
+    add(noButton, BorderPanel.Position.South)
+  }
+
   def choice(): Unit = {
     val init = ""
     val choice = Dialog.showInput(contents.head, "Choice, All or None?", initial = init)
@@ -77,14 +105,31 @@ class GUI(controller: ControllerInterface) extends Frame {
     }
   }
 
-  def nextPanel: FlowPanel = new FlowPanel() {
+  def resultPanel: FlowPanel = new FlowPanel() {
     background = Color.MAGENTA
-    val button: Button = Button("Next Turn?") { nextTurn() }
-    contents += button
+    contents += {
+      val text = new Label(controller.getPlayground().getRollResult.toString)
+      text.foreground = Color.BLACK
+      text
+    }
   }
 
-  def nextTurn(): Unit = {
+  def evaluatePanel: BorderPanel = new BorderPanel() {
+    background = Color.MAGENTA
+    val button: Button = Button("Evaluate!") { evaluate() }
+    add(button, BorderPanel.Position.Center)
+    add(resultPanel, BorderPanel.Position.North)
+  }
+
+  def evaluate(): Unit = {
     controller.evaluateThrow()
+  }
+
+  def endPanel: BorderPanel = new BorderPanel() {
+    background = Color.RED.darker().darker().darker()
+    val text = new Label(controller.getWinnerString())
+    text.foreground = Color.WHITE
+    add(text, BorderPanel.Position.Center)
   }
 
 
@@ -146,7 +191,27 @@ class GUI(controller: ControllerInterface) extends Frame {
         new BorderPanel() {
           background = backColor
           minimumSize = preferredSize
-          add(nextPanel,BorderPanel.Position.Center)
+          add(evaluatePanel,BorderPanel.Position.Center)
+        }
+
+      case WaitForKotDecision =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(kotChoicePanel, BorderPanel.Position.Center)
+      }
+
+      case WaitForBuy =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(buyPanel, BorderPanel.Position.Center)
+        }
+      case End =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(endPanel, BorderPanel.Position.Center)
         }
     }
   }

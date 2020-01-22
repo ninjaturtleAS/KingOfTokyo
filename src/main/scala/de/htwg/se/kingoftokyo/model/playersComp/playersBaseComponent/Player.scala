@@ -1,6 +1,6 @@
 package de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent
 
-case class Player(name:String, var energy: Int = 0, var heart: Int = 2*5, var stars: Int = 0) {
+case class Player(name:String, var energy: Int = 0, var heart: Int = 2, var stars: Int = 0) {
 
    val maxHeart = 10
    val zero = 0

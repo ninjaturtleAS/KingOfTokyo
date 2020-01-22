@@ -96,7 +96,13 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
       case 1 => playGround = playGround.buyStar
       case _ =>
     }
-    playGround = nextTurn()
+    if (x == 0 || x == 1) {
+      playGround = nextTurn()
+    } else {
+      playGround = playGround.nextTurn
+      state = WaitFor1stThrow
+      playGround.setState(state)
+    }
     publish(new PlaygroundChanged)
     playGround
   }
