@@ -4,12 +4,12 @@ import java.awt.Color
 
 import scala.swing._
 import scala.swing.event._
-import de.htwg.se.kingoftokyo.controller._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{ControllerInterface, PlaygroundChanged}
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 
 
-class GUI(controller: Controller) extends Frame {
+
+class GUI(controller: ControllerInterface) extends Frame {
 
   listenTo(controller)
 
@@ -18,6 +18,7 @@ class GUI(controller: Controller) extends Frame {
   val backColor: Color = Color.DARK_GRAY
   val playerTextColor: Color = Color.MAGENTA.brighter()
   val resultTextColor: Color = Color.YELLOW.brighter()
+
 
   val width = 450
   val height = 300
@@ -38,13 +39,13 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def playersPanel: BoxPanel = new BoxPanel(Orientation.Vertical){
-    for (i <- controller.playGround.players.players.indices) {
+    for (i <- controller.getPlayground().getPlayers.getPlayers().indices) {
       val player: FlowPanel = new FlowPanel() {
         background = backColor
-        val kot: String = if (i == controller.playGround.kingOfTokyo) {"KoT, "} else {""}
-        val turn: String = if (i == controller.playGround.lapNr % controller.playGround.players.getLength()) {"turn, "} else {""}
+        val kot: String = if (i == controller.getPlayground().getKOT) {"KoT, "} else {""}
+        val turn: String = if (i == controller.getPlayground().getLapNr % controller.getPlayground().getPlayers.getLength()) {"turn, "} else {""}
         contents += {
-          val label: Label = new Label(turn + kot + controller.playGround.players.players(i).info)
+          val label: Label = new Label(turn + kot + controller.getPlayground().getPlayers.getPlayers()(i).info)
           label.foreground = playerTextColor
           label
         }
@@ -56,7 +57,7 @@ class GUI(controller: Controller) extends Frame {
   def playgroundPanel: FlowPanel =  new FlowPanel() {
     background = backColor
     contents += {
-      val text = new Label(controller.playGround.rollResult.toString())
+      val text = new Label(controller.getPlayground().getRollResult.toString)
       text.foreground = resultTextColor
       text
     }
@@ -64,6 +65,33 @@ class GUI(controller: Controller) extends Frame {
     button.foreground = Color.BLACK
     button.background = resultTextColor
     contents += button
+  }
+
+  def kotChoicePanel: BorderPanel = new BorderPanel() {
+    val playground = controller.getPlayground()
+    val players = playground.getPlayers.getPlayers()
+
+    background = Color.ORANGE.brighter()
+    val text = new Label("Möchte " + players(playground.getKOT).name + " King of Tokyo bleiben?")
+    text.foreground = Color.BLACK
+    val yesButton: Button = Button("Ja") { controller.kotStay() }
+    val noButton: Button = Button("Nein") { controller.kotLeave() }
+    add(text, BorderPanel.Position.Center)
+    add(yesButton, BorderPanel.Position.West)
+    add(noButton, BorderPanel.Position.East)
+  }
+
+  def buyPanel: BorderPanel = new BorderPanel() {
+    background = Color.BLUE.brighter()
+    val text = new Label("Möchten Sie für 5 Energy 1 Heart oder Star kaufen?")
+    text.foreground = Color.ORANGE
+    val heartButton: Button = Button("Heart") { controller.buy(0) }
+    val starButton: Button = Button("Star") { controller.buy(1) }
+    val noButton: Button = Button("Nein") { controller.buy(2) }
+    add(text, BorderPanel.Position.Center)
+    add(heartButton, BorderPanel.Position.West)
+    add(starButton, BorderPanel.Position.East)
+    add(noButton, BorderPanel.Position.South)
   }
 
   def choice(): Unit = {
@@ -77,14 +105,31 @@ class GUI(controller: Controller) extends Frame {
     }
   }
 
-  def nextPanel: FlowPanel = new FlowPanel() {
+  def resultPanel: FlowPanel = new FlowPanel() {
     background = Color.MAGENTA
-    val button: Button = Button("Next Turn?") { nextTurn() }
-    contents += button
+    contents += {
+      val text = new Label(controller.getPlayground().getRollResult.toString)
+      text.foreground = Color.BLACK
+      text
+    }
   }
 
-  def nextTurn(): Unit = {
+  def evaluatePanel: BorderPanel = new BorderPanel() {
+    background = Color.MAGENTA
+    val button: Button = Button("Evaluate!") { evaluate() }
+    add(button, BorderPanel.Position.Center)
+    add(resultPanel, BorderPanel.Position.North)
+  }
+
+  def evaluate(): Unit = {
     controller.evaluateThrow()
+  }
+
+  def endPanel: BorderPanel = new BorderPanel() {
+    background = Color.RED.darker().darker().darker()
+    val text = new Label(controller.getWinnerString())
+    text.foreground = Color.WHITE
+    add(text, BorderPanel.Position.Center)
   }
 
 
@@ -97,16 +142,22 @@ class GUI(controller: Controller) extends Frame {
       contents += new MenuItem(Action("Quit") {
         System.exit(0)
       })
+      contents += new MenuItem(Action("Save") {
+        controller.save
+      })
+      contents += new MenuItem(Action("Load") {
+        controller.load
+      })
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E
       contents += new MenuItem(Action("Undo") {
-        if (controller.state == WaitFor1stThrow) {
+        if (controller.getState() == WaitFor1stThrow) {
           controller.undo
         }
       })
       contents += new MenuItem(Action("Redo") {
-        if (controller.state == WaitForPlayerNames) {
+        if (controller.getState() == WaitForPlayerNames) {
           controller.redo
         }
       })
@@ -122,7 +173,7 @@ class GUI(controller: Controller) extends Frame {
   }
 
   def redraw(): Unit = {
-    contents = controller.state match {
+    contents = controller.getState() match {
       case WaitForPlayerNames =>
         new BorderPanel() {
           background = backColor
@@ -140,7 +191,27 @@ class GUI(controller: Controller) extends Frame {
         new BorderPanel() {
           background = backColor
           minimumSize = preferredSize
-          add(nextPanel,BorderPanel.Position.Center)
+          add(evaluatePanel,BorderPanel.Position.Center)
+        }
+
+      case WaitForKotDecision =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(kotChoicePanel, BorderPanel.Position.Center)
+      }
+
+      case WaitForBuy =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(buyPanel, BorderPanel.Position.Center)
+        }
+      case End =>
+        new BorderPanel() {
+          background = backColor
+          minimumSize_=(preferredSize)
+          add(endPanel, BorderPanel.Position.Center)
         }
     }
   }

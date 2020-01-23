@@ -1,6 +1,10 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
+import de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent.{Controller, CreatePlayersCommand}
 import de.htwg.se.kingoftokyo.model._
+import de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent.PlayGround
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import org.scalatest._
 
 class CreatePlayersCommandSpec extends WordSpec with Matchers {

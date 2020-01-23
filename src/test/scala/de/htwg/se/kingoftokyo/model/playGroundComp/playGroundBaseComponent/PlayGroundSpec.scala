@@ -1,5 +1,9 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
 
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
+
+import de.htwg.se.kingoftokyo.model.playersComp.playersBaseComponent.{Player, Players}
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -15,7 +19,9 @@ class PlayGroundSpec extends WordSpec with Matchers {
   val marco = Player("Marco")
   val testString = "Alex, Simon, Marco"
   val players = Players(Vector(alex, simon, marco))
+  val playersFinished = Players(Vector(Player("Alex", 0, 10, 20), simon, marco))
   val testResult =  RollResult(Vector(1, 2, 3, 4, 5, 6))
+  val noAttackResult =  RollResult(Vector(1, 2, 3, 4, 5, 5))
 
   var playGroundWaitPlayers = PlayGround(players, lapNr, testResult, kot)
   var playGroundWaitFirst = PlayGround(players, lapNr, testResult, kot)
@@ -23,27 +29,30 @@ class PlayGroundSpec extends WordSpec with Matchers {
   var playGroundWaitAttack = PlayGround(players, lapNr, testResult, kot)
   var playGroundKOTDecision = PlayGround(players, lapNr, testResult, kot)
   var playGroundComplete = PlayGround(players, lapNr, testResult, kot)
+  var pgNoAttacks = PlayGround(players, lapNr, noAttackResult, 2)
+  var playGroundFinishedStars = PlayGround(playersFinished, lapNr, testResult, kot)
 
   "Playground" when {
     "tested" should {
       "have a KoT Index of 2" in {
-        playGroundComplete.switchKingOfTokyo(2).kingOfTokyo should be (2)
+        playGroundComplete.switchKingOfTokyo(2).getKOT should be (2)
       }
 
       "attack player out of tokyo" in {
-        playGroundComplete.attack(testResult).players.players(0).heart should be (9)
-        playGroundComplete.attack(testResult).players.players(2).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(0).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(2).heart should be (9)
+        pgNoAttacks.attack(noAttackResult)._2 should be (false)
       }
 
       "get Good" in {
-        playGroundComplete.getGood(testResult).rollResult should be(testResult)
+        playGroundComplete.getGood(testResult).getRollResult should be(testResult)
       }
 
       "filter empy choice" in {
-         playGroundComplete.filterThrowResult("").players should be(players)
+         playGroundComplete.filterThrowResult("").getPlayers should be(players)
       }
       "filter non empty choice" in {
-        playGroundComplete.filterThrowResult("1").players should be(players)
+        playGroundComplete.filterThrowResult("1").getPlayers should be(players)
       }
 
       "Have a nice String" in {
@@ -70,7 +79,16 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
 
       "increase LapNr" in {
-        playGroundComplete.incLapNr().lapNr should be(lapNr + 1)
+        playGroundComplete.incLapNr().getLapNr should be(lapNr + 1)
+      }
+      "return a state" in {
+        playGroundComplete.getState should be (WaitForPlayerNames)
+      }
+      "have a factory method, to create a pg with a given state" in {
+        playGroundWaitAttack.set(players, lapNr, testResult, kot, WaitForPlayerNames) should be (playGroundComplete)
+      }
+      "be able to check if game is finished" in {
+        playGroundFinishedStars.checkFinish._1 should be (true)
       }
     }
   }

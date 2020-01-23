@@ -1,5 +1,6 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.RollResult
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -19,7 +20,7 @@ class RollResultSpec extends WordSpec with Matchers {
       val testStars = RollResult(testStar)
       //firstThrow
       "throw six dices" in {
-        testThrow.throwOne().length should be(6)
+        testThrow.throwAll().length should be(6)
       }
 
       "give 3 stars when" in {
@@ -88,6 +89,15 @@ class RollResultSpec extends WordSpec with Matchers {
       }
       "should be 0" in  {
         testThrow.evaluateStars() should be(0)
+      }
+      "have a String representation for XML" in {
+        testThrow.rollResultXML should be ("1,2,3,4,5,6")
+      }
+      "be able to get copied" in {
+        testThrow.set(Vector(1, 2, 3, 4, 5, 6)) should be (testThrow)
+      }
+      "be able to create an Vector[Int] out of an String representation" in {
+        testThrow.stringToIntVector("1,2,3,4,5,6") should be (Vector(1, 2, 3, 4, 5, 6))
       }
     }
   }

@@ -1,24 +1,32 @@
 package de.htwg.se.kingoftokyo.controller.controllerComponent
 
-import de.htwg.se.kingoftokyo.model.PlayGround
-
 import scala.swing.Publisher
 import scala.swing.event.Event
+import de.htwg.se.kingoftokyo.model.playGroundComp.PlayGroundInterface
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State.GameState
 
 trait ControllerInterface extends Publisher{
 
-  def newGame: PlayGround
-  def createPlayers(playerNames: Option[String]): PlayGround
-  def evaluateThrow(): PlayGround
-  def completeThrow(): PlayGround
-  def incLapNr: PlayGround
-  def throwDies():PlayGround
-  def filterThrowResult(filter: String):PlayGround
+  def newGame: PlayGroundInterface
+  def createPlayers(playerNames: Option[String]): PlayGroundInterface
+  def evaluateThrow(): PlayGroundInterface
+  def completeThrow(): PlayGroundInterface
+  def incLapNr: PlayGroundInterface
+  def throwDies():PlayGroundInterface
+  def filterThrowResult(filter: String):PlayGroundInterface
   def playGroundToString(): String
-  def nextTurn():PlayGround
+  def nextTurn():PlayGroundInterface
+  def getState(): GameState
+  def getPlayground(): PlayGroundInterface
+  def kotStay(): PlayGroundInterface
+  def kotLeave(): PlayGroundInterface
+  def contStay(): ControllerInterface
+  def buy(x: Int): PlayGroundInterface
+  def getWinnerString(): String
   def undo: Unit
   def redo: Unit
+  def save: Unit
+  def load: Unit
 
-
-  class PlaygroundChanged extends Event
 }
+class PlaygroundChanged extends Event

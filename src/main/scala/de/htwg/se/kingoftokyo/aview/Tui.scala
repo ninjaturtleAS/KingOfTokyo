@@ -1,17 +1,15 @@
 package de.htwg.se.kingoftokyo.aview
 
-import de.htwg.se.kingoftokyo.util.Observer
 import de.htwg.se.kingoftokyo.controller.controllerComponent.State._
-import de.htwg.se.kingoftokyo.controller._
-import de.htwg.se.kingoftokyo.controller.controllerComponent.{Controller, PlaygroundChanged, State}
+import de.htwg.se.kingoftokyo.controller.controllerComponent.{ControllerInterface, PlaygroundChanged, State}
 
 import scala.swing.Publisher
 
-class Tui (controller: Controller) extends Publisher {
+class Tui (controller: ControllerInterface) extends Publisher {
 
   listenTo(controller)
   def processInputLine(input: String): Unit = {
-    controller.state match {
+    controller.getState() match {
 
       //case Starting => controller.startGame
       case WaitForPlayerNames =>
@@ -39,12 +37,35 @@ class Tui (controller: Controller) extends Publisher {
           case _ => controller.filterThrowResult(input)
         }
 
+
       case ThrowComplete =>
         input match {
           case "q" =>
           case _ => controller.evaluateThrow()
         }
 
+      case WaitForBuy =>
+        input match {
+          case "q" =>
+          case "heart" => controller.buy(0)
+          case "star" => controller.buy(1)
+          case _  =>
+        }
+
+
+      case WaitForKotDecision =>
+        input match {
+          case "q" =>
+          case "yes" => controller.kotStay()
+          case "no" => controller.kotLeave()
+          case _ => controller.contStay()
+        }
+
+      case End =>
+        input match {
+          case "q" =>
+          case _ => controller.contStay()
+        }
     }
   }
 
@@ -53,9 +74,14 @@ class Tui (controller: Controller) extends Publisher {
   }
 
   def printTui(): Unit = {
-    println(controller.playGroundToString())
-    println(State.message(controller.state) + "\n")
-    println(controller.state)
+    if (controller.getState() == End) {
+      println(controller.getWinnerString())
+    }
+    else {
+      println(controller.playGroundToString())
+      println(State.message(controller.getState()) + "\n")
+      println(controller.getState())
+    }
   }
   /*
   override def update: Boolean = {

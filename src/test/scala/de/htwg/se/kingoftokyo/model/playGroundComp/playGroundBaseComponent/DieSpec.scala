@@ -1,7 +1,8 @@
-package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundComp1
+package de.htwg.se.kingoftokyo.model.playGroundComp.playGroundBaseComponent
 
 import java.security.SecureRandom
 
+import de.htwg.se.kingoftokyo.model.rollResultComp.rollResultBaseComponent.Die
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}

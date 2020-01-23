@@ -1,6 +1,7 @@
-package de.htwg.se.kingoftokyo.controller.controllerComponent
+package de.htwg.se.kingoftokyo.controller.controllerComponent.controllerComponent
 
 import de.htwg.se.kingoftokyio.util.Command
+import de.htwg.se.kingoftokyo.controller.controllerComponent.State
 
 class CreatePlayersCommand(names: String, controller: Controller) extends Command {
   override def doStep: Unit =   {
