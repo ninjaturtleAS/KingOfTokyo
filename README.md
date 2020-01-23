@@ -6,6 +6,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/ninjaturtleAS/KingOfTokyo/badge.svg)](https://coveralls.io/github/ninjaturtleAS/KingOfTokyo)
 
+
 A simple boardgames.
 
 
