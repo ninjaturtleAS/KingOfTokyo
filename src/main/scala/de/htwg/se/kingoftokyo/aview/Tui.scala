@@ -11,7 +11,6 @@ class Tui (controller: ControllerInterface) extends Publisher {
   def processInputLine(input: String): Unit = {
     controller.getState() match {
 
-      //case Starting => controller.startGame
       case WaitForPlayerNames =>
         input match {
           case "q" =>
