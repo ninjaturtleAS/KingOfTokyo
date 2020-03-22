@@ -16,10 +16,7 @@ class Tui (controller: ControllerInterface) extends Publisher {
         input match {
           case "q" =>
           case "y" => controller.redo
-          case _ => {
-            controller.createPlayers(if(input.isEmpty){None} else {Some(input)})
-          }
-
+          case _ => controller.createPlayers(if(input.isEmpty){None} else {Some(input)})
         }
 
       case WaitFor1stThrow =>
