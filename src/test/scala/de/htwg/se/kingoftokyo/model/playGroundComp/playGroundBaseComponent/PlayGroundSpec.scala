@@ -39,8 +39,8 @@ class PlayGroundSpec extends WordSpec with Matchers {
       }
 
       "attack player out of tokyo" in {
-        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(0).heart should be (9)
-        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers()(2).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers(0).heart should be (9)
+        playGroundComplete.attack(testResult)._1.getPlayers.getPlayers(2).heart should be (9)
         pgNoAttacks.attack(noAttackResult)._2 should be (false)
       }
 

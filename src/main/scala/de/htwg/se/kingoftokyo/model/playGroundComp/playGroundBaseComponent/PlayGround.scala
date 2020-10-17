@@ -23,7 +23,7 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def getGood(rollResult: RollResultInterface): PlayGroundInterface = {
-    val playerIndex = this.lapNr % this.players.getLength()
+    val playerIndex = this.lapNr % this.players.getLength
     val tmpPlayers = this.players.getGood(rollResult, playerIndex, kingOfTokyo)
     copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
@@ -106,23 +106,23 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
   }
 
   override def checkEnergy: Boolean = {
-    players.getPlayers()(lapNr % players.getLength()).energy >= 5
+    players.getPlayers(lapNr % players.getLength).energy >= 5
   }
 
   override def buyHeart: PlayGroundInterface = {
-    val tmpPlayers = players.buyHeart(lapNr % players.getLength())
+    val tmpPlayers = players.buyHeart(lapNr % players.getLength)
     copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
   override def buyStar: PlayGroundInterface = {
-    val tmpPlayers = players.buyStar(lapNr % players.getLength())
+    val tmpPlayers = players.buyStar(lapNr % players.getLength)
     copy(tmpPlayers, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
   override def checkFinish: (Boolean, String) = {
     var finish: Boolean = false
     var wstring: String = ""
-    val playersTmp = players.getPlayers()
+    val playersTmp = players.getPlayers
     if (playersTmp.length == 1) {
       finish = true
       wstring = "Player: " + playersTmp(0).name + " won by killing everybody"
@@ -142,7 +142,7 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     val kotName = if (this.players.toPlayerVector.isEmpty) {""} else { this.players.toStringVector(this.kingOfTokyo)}
     val retString = f"\n\n\n\n\n\n\n\n\nKing of Tokyo: $kotName%s\n\n"
       .concat(players.toPlayerVector.map(x => x.info.concat("\n")).mkString)
-      .concat(if (this.players.getLength()>0) { "\nSpieler am Zug: ".concat(this.players.toPlayerVector(this.lapNr % this.players.getLength()).name)} else {""})
+      .concat(if (this.players.getLength > 0) { "\nSpieler am Zug: ".concat(this.players.toPlayerVector(this.lapNr % this.players.getLength).name)} else {""})
       .concat("\n\nAktueller Wurf: ")
       .concat(this.rollResult.toString)
       .concat("\n\n")

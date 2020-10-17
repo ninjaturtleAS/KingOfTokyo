@@ -156,13 +156,13 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     tmp
   }
 
-  override def getLength(): Int = {players.length}
+  override def getLength: Int = {players.length}
 
-  override def getPlayers(): Vector[Player] = this.players
+  override def getPlayers: Vector[Player] = this.players
 
   override def playersXML(): String = {
     var playersStr = ""
-    for (p <- getPlayers()) {
+    for (p <- getPlayers) {
       playersStr = playersStr.concat(p.name).concat("," + p.energy).concat("," + p.heart).concat("," + p.stars).concat(";")
     }
     playersStr

@@ -13,7 +13,7 @@ trait PlayersInterface {
         : (PlayersInterface, Int, Int, Boolean)
   def getLength: Int
   def toPlayerVector: Vector[Player]
-  def getPlayers(): Vector[Player]
+  def getPlayers: Vector[Player]
   def playersXML(): String
   def playersStrToPlayers(playersStr: String, player: Player): Vector[Player]
   def set(players: Vector[Player]): PlayersInterface

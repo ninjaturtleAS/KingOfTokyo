@@ -126,8 +126,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
     if (list.isSuccess || filter == "") {
       playGround = playGround.filterThrowResult(filter)
         .throwDies()
-      state = if (state==WaitFor1stThrow) {WaitFor2ndThrow}
-      else  {ThrowComplete}
+      state = if (state==WaitFor1stThrow) WaitFor2ndThrow else  ThrowComplete
       playGround.setState(state)
       publish(new PlaygroundChanged)
       playGround
@@ -162,7 +161,7 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
   }
 
   override def kotLeave(): PlayGroundInterface = {
-    playGround = playGround.setKOT(playGround.getLapNr % playGround.getPlayers.getLength())
+    playGround = playGround.setKOT(playGround.getLapNr % playGround.getPlayers.getLength)
     playGround = nextTurn()
     publish(new PlaygroundChanged)
     playGround

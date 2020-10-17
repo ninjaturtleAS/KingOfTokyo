@@ -49,7 +49,7 @@ class FileIO extends FileIoInterface {
   }
 
   def playgroundToJson(playground: PlayGroundInterface): JsObject = {
-    val players = playground.getPlayers.getPlayers()
+    val players = playground.getPlayers.getPlayers
     val rr = playground.getRollResult.toIntVector
     Json.obj(
       "playground" -> Json.obj(

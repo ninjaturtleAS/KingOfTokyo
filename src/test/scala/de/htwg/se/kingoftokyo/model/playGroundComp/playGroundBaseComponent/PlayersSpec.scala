@@ -26,22 +26,22 @@ class PlayersSpec extends WordSpec with Matchers {
       val plTest3 = Players(testPlayer3)
 
       "buy one Star" in {
-        val testPlayer = plTest.buyStar(0).getPlayers()(0)
+        val testPlayer = plTest.buyStar(0).getPlayers(0)
         testPlayer.stars should be(11)
         testPlayer.energy should be(0)
       }
 
       "buy one Heart" in {
-        val testPlayer = plTest.buyHeart(0).getPlayers()(0)
+        val testPlayer = plTest.buyHeart(0).getPlayers(0)
         testPlayer.heart should be(1)
         testPlayer.energy should be(0)
       }
 
       "get Attacks" in {
-        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(1).heart should be(4)
-        pl.getAttacks(noAttack, true, 0, 0)._1.getPlayers()(1).heart should be(10)
-        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers()(0).heart should be(10)
-        pl.getAttacks(testResult, false, 0, 1)._1.getPlayers()(0).heart should be(4)
+        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers(1).heart should be(4)
+        pl.getAttacks(noAttack, true, 0, 0)._1.getPlayers(1).heart should be(10)
+        pl.getAttacks(testResult, true, 0, 0)._1.getPlayers(0).heart should be(10)
+        pl.getAttacks(testResult, false, 0, 1)._1.getPlayers(0).heart should be(4)
 
         plTest.getAttacks(testResult, false, 0, 1)._4 should be (false)
       }
@@ -89,7 +89,7 @@ class PlayersSpec extends WordSpec with Matchers {
         pl.addPlayer(Player("Paul")) should be (Players(Vector(Player("Simon"), Player("Alex"), Player("Paul"))))
       }
       "have a length" in {
-        pl.getLength() should be(2)
+        pl.getLength should be(2)
       }
       "be a Vector of Player" in {
         pl.toPlayerVector should be (Vector(Player("Simon"), Player("Alex")))

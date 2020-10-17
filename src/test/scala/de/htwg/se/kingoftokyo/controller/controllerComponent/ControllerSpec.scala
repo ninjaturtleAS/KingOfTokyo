@@ -60,11 +60,11 @@ class ControllerSpec extends WordSpec with Matchers {
 
 
       "new Game" in {
-        controllerComp.newGame.getPlayers.getPlayers().length should be (0)
+        controllerComp.newGame.getPlayers.getPlayers.length should be (0)
       }
 
       "with given 3 names" in {
-        controller.createPlayers((Some(testString))).getPlayers.getPlayers().length should be (3)
+        controller.createPlayers((Some(testString))).getPlayers.getPlayers.length should be (3)
       }
 
 
@@ -100,8 +100,8 @@ class ControllerSpec extends WordSpec with Matchers {
         var playGroundBad = playGroundGood.copy(Players(Vector(alex, simon)),  0, badResult , 1)
         val controllerGood = new Controller(playGroundGood)
         val controllerBad = new Controller(playGroundBad)
-        controllerGood.evaluateThrow().getPlayers.getPlayers()(lapNr).energy should be(1)
-        controllerBad.evaluateThrow().getPlayers.getPlayers()(kot).heart should be(initHeart - 6)
+        controllerGood.evaluateThrow().getPlayers.getPlayers(lapNr).energy should be(1)
+        controllerBad.evaluateThrow().getPlayers.getPlayers(kot).heart should be(initHeart - 6)
         controllerFinished.evaluateThrow()
         controllerFinished.getState() should be (End)
         controllerKotAttack.evaluateThrow().getLapNr should be (0)
