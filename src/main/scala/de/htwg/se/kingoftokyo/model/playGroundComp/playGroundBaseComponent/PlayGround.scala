@@ -44,16 +44,16 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     val no = false
     if (this.lapNr % this.players.getLength == this.kingOfTokyo) {
       val (players, lapNr, kotIndex, kotWasAttackedAndCanDecide) = this.players.getAttacks(rollResult, yes, this.kingOfTokyo, this.lapNr)
-      (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
+      (copy(players, lapNr, this.rollResult, kotIndex), kotWasAttackedAndCanDecide)
     } else {
       val (players, lapNr, kotIndex, kotWasAttackedAndCanDecide) = this.players.getAttacks(rollResult, no, this.kingOfTokyo, this.lapNr)
       // kot was attacked
       if (kotWasAttackedAndCanDecide) {
-        (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
+        (copy(players, lapNr, this.rollResult, kotIndex), kotWasAttackedAndCanDecide)
       }
       // nobody was attacked
       else {
-        (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
+        (copy(players, lapNr, this.rollResult, kotIndex), kotWasAttackedAndCanDecide)
       }
     }
   }
