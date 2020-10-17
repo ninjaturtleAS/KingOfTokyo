@@ -11,8 +11,6 @@ import de.htwg.se.kingoftokyo.model.rollResultComp.RollResultInterface
 case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr: Int,
                       rollResult: RollResultInterface, @Named("Zero") kingOfTokyo: Int) extends PlayGroundInterface {
   var state: GameState = WaitForPlayerNames
-  val yes = true
-  val no = false
 
   override def setState(gameState: GameState): Unit = {
     this.state = gameState
@@ -34,17 +32,28 @@ case class PlayGround @Inject() (players: PlayersInterface, @Named("Zero") lapNr
     copy(this.players, this.lapNr, this.rollResult, this.kingOfTokyo)
   }
 
+
   override def attack(rollResult: RollResultInterface):(PlayGroundInterface, Boolean) = {
-    if (this.lapNr % this.players.getLength() == this.kingOfTokyo) {
-      val tmpPlayers = this.players.getAttacks(rollResult, yes, this.kingOfTokyo, this.lapNr)
-      (copy(tmpPlayers._1, tmpPlayers._3, this.rollResult, tmpPlayers._2), false)
+    /** Player in turn is attacking all other Players, if he's KOT or he's attacking the KOT
+     * if he's not the KOT.
+     * @ param rollResult is the RollResult of the attacking Player
+     * @return The new Playground after the attack and if the attacked Player was KOT
+     */
+    // kot is attacking
+    val yes = true
+    val no = false
+    if (this.lapNr % this.players.getLength == this.kingOfTokyo) {
+      val (players, lapNr, kotIndex, kotWasAttackedAndCanDecide) = this.players.getAttacks(rollResult, yes, this.kingOfTokyo, this.lapNr)
+      (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
     } else {
-      val tmpPlayers = this.players.getAttacks(rollResult, no, this.kingOfTokyo, this.lapNr)
-      if (tmpPlayers._4) {
-        (copy(tmpPlayers._1, this.lapNr, this.rollResult, this.kingOfTokyo), true)
+      val (players, lapNr, kotIndex, kotWasAttackedAndCanDecide) = this.players.getAttacks(rollResult, no, this.kingOfTokyo, this.lapNr)
+      // kot was attacked
+      if (kotWasAttackedAndCanDecide) {
+        (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
       }
+      // nobody was attacked
       else {
-        (copy(tmpPlayers._1, tmpPlayers._3, this.rollResult, tmpPlayers._2), false)
+        (copy(players, kotIndex, this.rollResult, lapNr), kotWasAttackedAndCanDecide)
       }
     }
   }

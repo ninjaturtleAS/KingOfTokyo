@@ -62,15 +62,16 @@ class Controller @Inject()(var playGround: PlayGroundInterface) extends Controll
 
   override def evaluateThrow(): PlayGroundInterface = {
     playGround = playGround.getGood(playGround.getRollResult)
-    val tuple = playGround.attack(playGround.getRollResult)
-    playGround = tuple._1
+    val tuplePg1kotWasAttacked2 = playGround.attack(playGround.getRollResult)
+    playGround = tuplePg1kotWasAttacked2._1
+    val kotWasAttacked = tuplePg1kotWasAttacked2._2
     val finished = playGround.checkFinish
     if (finished._1) {
       winnerString = finished._2
       state = End
       playGround.setState(state)
     }
-    else if (tuple._2) {
+    else if (kotWasAttacked) {
       state = WaitForKotDecision
       playGround.setState(state)
     }
