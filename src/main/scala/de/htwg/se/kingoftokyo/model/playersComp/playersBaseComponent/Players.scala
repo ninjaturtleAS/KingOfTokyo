@@ -125,10 +125,9 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
   override def getPlayers: Vector[Player] = this.players
 
   override def playersXML(): String = {
-    var playersStr = ""
-    for (p <- getPlayers) {
-      playersStr = playersStr.concat(p.name).concat("," + p.energy).concat("," + p.heart).concat("," + p.stars).concat(";")
-    }
+    val players = getPlayers
+    val playersStr = players.map(
+      p => "".concat(p.name).concat("," + p.energy).concat("," + p.heart).concat("," + p.stars).concat(";")).mkString
     playersStr
   }
   override def toPlayerVector: Vector[Player] = players
