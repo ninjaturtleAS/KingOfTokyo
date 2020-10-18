@@ -69,14 +69,16 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
         // zipWithIndex: [Player0, Player1] => [(Player0, 0), (Player1, 1), ...]
         // case for pattern matching (player, index)
         val newPlayers = this.players.zipWithIndex.map { case (player, index) =>
-          if (index != kotIndex) player.looseHeart(attacks) else player
-        }
+          if (index != kotIndex) player.looseHeart(attacks) else player}
+
         val (cutPlayersVector, newKotIndexAndLapNr) = cutPlayers(newPlayers, kotIndex)
         // kot attacked, so the newLapNr is the newKotIndex because it was KOTs turn
         val kotWasAttackedAndCanDecide = false
         (Players(cutPlayersVector), newKotIndexAndLapNr, newKotIndexAndLapNr, kotWasAttackedAndCanDecide)
       } else {
-        val newPlayers = looseHeart(this.players, kotIndex, attacks)
+        val newPlayers = this.players.zipWithIndex.map { case (player, index) =>
+          if (index == kotIndex) player.looseHeart(attacks) else player}
+
         val (cutPlayers, cutLapNr, cutKotIndex, kotChanged) = cutKOT(newPlayers, kotIndex, tmpLapNr)
         // kot changes if he has 0 hearts after the attack
         if (kotChanged) {
@@ -116,13 +118,6 @@ case class Players (players: Vector[Player]) extends PlayersInterface {
     val newKotIndex = if (kot.heart == 0) newLapNr else kotIndex
     val changed = if (kot.heart == 0) true else false
     (newPlayerVector, newLapNr, newKotIndex, changed)
-  }
-
-  def looseHeart(playerVector: Vector[Player], index: Int, attacks: Int): Vector[Player] = {
-    var tmp = playerVector
-    val tmpPlayer = tmp(index).looseHeart(attacks)
-    tmp = tmp.updated(index, tmpPlayer)
-    tmp
   }
 
   override def getLength: Int = {players.length}
